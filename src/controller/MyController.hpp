@@ -29,6 +29,14 @@ public:
     dto->message = "Hello World!";
     return createDtoResponse(Status::CODE_200, dto);
   }
+
+  ENDPOINT("GET", "*", GetStaticFiles, REQUEST(std::shared_ptr<IncomingRequest>, request)) {
+      // Get the target file
+      auto tail = request->getPathTail();
+      auto file = oatpp::String::loadFromFile(("C:/dev/websiteR2R/resources/"+tail)->c_str());
+      OATPP_ASSERT_HTTP(file.get() != nullptr, Status::CODE_404, "File not found");
+      return createResponse(Status::CODE_200, file);
+  }
   
   // TODO Insert Your endpoints here !!!
   

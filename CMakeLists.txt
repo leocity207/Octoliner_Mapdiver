@@ -29,7 +29,7 @@ add_library(${project_name}-lib
         src/controller/MyController.cpp
         src/controller/MyController.hpp
         src/dto/DTOs.hpp
-)
+ "src/controller/StaticFileHandler.cpp")
 
 ## link libs
 
@@ -47,7 +47,7 @@ target_include_directories(${project_name}-lib PUBLIC src)
 
 add_executable(${project_name}-exe
         src/App.cpp
-        test/app/MyApiTestClient.hpp)
+        test/app/MyApiTestClient.hpp "src/controller/StaticFileHandler.cpp")
 target_link_libraries(${project_name}-exe ${project_name}-lib)
 add_dependencies(${project_name}-exe ${project_name}-lib)
 
@@ -57,13 +57,13 @@ add_executable(${project_name}-test
         test/app/MyApiTestClient.hpp
         test/MyControllerTest.cpp
         test/MyControllerTest.hpp
-)
+ "src/controller/StaticFileHandler.cpp")
 
 target_link_libraries(${project_name}-test ${project_name}-lib)
 add_dependencies(${project_name}-test ${project_name}-lib)
 
 set_target_properties(${project_name}-lib ${project_name}-exe ${project_name}-test PROPERTIES
-        CXX_STANDARD 17
+        CXX_STANDARD 20
         CXX_EXTENSIONS OFF
         CXX_STANDARD_REQUIRED ON
 )

@@ -22,7 +22,8 @@ configure_file(${PROJECT_SOURCE_DIR}/src/config.h.in ${PROJECT_SOURCE_DIR}/src/c
 
 
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+include_directories(${PROJECT_SOURCE_DIR})
 
 add_library(${project_name}-lib
         src/AppComponent.hpp

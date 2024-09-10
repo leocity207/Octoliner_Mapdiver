@@ -10,26 +10,23 @@
 #include OATPP_CODEGEN_BEGIN(ApiController) //<-- Begin Codegen
 
 class StaticFilesManager : public oatpp::web::server::api::ApiController {
-private:
-    oatpp::String m_basePath;
-    oatpp::concurrency::SpinLock m_lock;
-    std::unordered_map<oatpp::String, oatpp::String> m_cache;
+    public:
 
-public:
-    StaticFilesManager(const oatpp::String& basePath) : m_basePath(basePath) {}
-    oatpp::String getFile(const oatpp::String& path) {
-        if (!path) {
-            return nullptr;
+        /////////
+        /// CTOR
+        StaticFilesManager(OATPP_COMPONENT(std::shared_ptr<oatpp::web::mime::ContentMappers>, apiContentMappers));
+
+        ///////////////////
+        /// STATIC MEMEBER
+        static oatpp::String getFile(oatpp::String& fileName);
+
+        ENDPOINT("GET", "*", GetStaticFiles, REQUEST(std::shared_ptr<IncomingRequest>, request)) 
+        {
+            oatpp::String tail = request->getPathTail();
+            oatpp::String file = getFile(tail);
+            OATPP_ASSERT_HTTP(file.get() != nullptr, Status::CODE_404, "File not found");
+            return createResponse(Status::CODE_200, file);
         }
-        std::lock_guard<oatpp::concurrency::SpinLock> lock(m_lock);
-        auto& file = m_cache[path];
-        if (file) {
-            return file;
-        }
-        oatpp::String filename = m_basePath + "/" + path;
-        file = oatpp::String::loadFromFile(filename->c_str());
-        return file;
-    }
 };
 
 #endif

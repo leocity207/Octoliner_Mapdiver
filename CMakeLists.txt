@@ -1,8 +1,26 @@
 cmake_minimum_required(VERSION 3.20)
 
-set(project_name my-project) ## rename your project here
 
-project(${project_name})
+#-----------------
+# Creating Project
+set(project_name WebsiteR2R)
+project(${project_name} VERSION 1.0)
+
+#---------------------------------------
+#get the current commit hash for version
+execute_process(
+	COMMAND git rev-parse HEAD
+	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+	OUTPUT_VARIABLE GIT_COMMIT_HASH
+	OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+#-----------------------
+#setting the config file
+get_filename_component(STATIC_CURRENT_DIR ./ ABSOLUTE)
+configure_file(${PROJECT_SOURCE_DIR}/src/config.h.in ${PROJECT_SOURCE_DIR}/src/config.h)
+
+
 
 set(CMAKE_CXX_STANDARD 17)
 

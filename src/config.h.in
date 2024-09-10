@@ -1,0 +1,10 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+
+inline const char* GET_COMMIT_HASH() {return "${GIT_COMMIT_HASH}"; };
+inline const char* GET_VERSION() {return "${${project_name}_VERSION_MAJOR}.${${project_name}_VERSION_MINOR}"; };
+inline const char* RESOURCE_PATH() {return "${STATIC_CURRENT_DIR}/resources/"; };
+
+
+#endif

@@ -25,12 +25,18 @@ configure_file(${PROJECT_SOURCE_DIR}/src/config.h.in ${PROJECT_SOURCE_DIR}/src/c
 set(CMAKE_CXX_STANDARD 20)
 include_directories(${PROJECT_SOURCE_DIR})
 
+FILE(GLOB CONTROLER_SRC src/controller/*.cpp)
+FILE(GLOB CONTROLER_H src/controller/*.h*)
+FILE(GLOB DTO_H src/dto/*.h*)
+FILE(GLOB APP_SRC src/*.cpp)
+FILE(GLOB APP_H src/*.h*)
+
 add_library(${project_name}-lib
-        src/AppComponent.hpp
-        src/controller/MyController.cpp
-        src/controller/MyController.hpp
-        src/dto/DTOs.hpp
- "src/controller/StaticFileHandler.cpp")
+    ${DTO_H}
+    ${APP_H}
+    ${CONTROLER_H}
+    ${CONTROLER_SRC}
+)
 
 ## link libs
 
@@ -47,18 +53,21 @@ target_include_directories(${project_name}-lib PUBLIC src)
 ## add executables
 
 add_executable(${project_name}-exe
-        src/App.cpp
-        test/app/MyApiTestClient.hpp "src/controller/StaticFileHandler.cpp")
+       ${APP_SRC}
+       ${CONTROLER_SRC}
+)
 target_link_libraries(${project_name}-exe ${project_name}-lib)
 add_dependencies(${project_name}-exe ${project_name}-lib)
 
+FILE(GLOB TEST_APP_H test/app/*.h*)
+FILE(GLOB TEST_H test/*.h*)
+FILE(GLOB TEST_SRC test/*.cpp)
+
 add_executable(${project_name}-test
-        test/tests.cpp
-        test/app/TestComponent.hpp
-        test/app/MyApiTestClient.hpp
-        test/MyControllerTest.cpp
-        test/MyControllerTest.hpp
- "src/controller/StaticFileHandler.cpp")
+        ${TEST_APP_H}
+        ${TEST_APP_H}
+        ${TEST_SRC}
+)
 
 target_link_libraries(${project_name}-test ${project_name}-lib)
 add_dependencies(${project_name}-test ${project_name}-lib)

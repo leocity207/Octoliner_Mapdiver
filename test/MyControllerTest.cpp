@@ -1,6 +1,6 @@
 #include "MyControllerTest.hpp"
 
-#include "controller/MyController.hpp"
+#include "controller/StaticFileHandler.h"
 
 #include "app/MyApiTestClient.hpp"
 #include "app/TestComponent.hpp"
@@ -18,7 +18,7 @@ void MyControllerTest::onRun() {
   oatpp::test::web::ClientServerTestRunner runner;
 
   /* Add MyController endpoints to the router of the test server */
-  runner.addController(std::make_shared<MyController>());
+  runner.addController(std::make_shared<StaticFilesManager>());
 
   /* Run test */
   runner.run([this, &runner] {

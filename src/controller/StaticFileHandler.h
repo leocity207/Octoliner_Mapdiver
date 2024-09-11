@@ -1,7 +1,7 @@
 #ifndef STATIC_FILE_HANDLER_hpp
 #define STATIC_FILE_HANDLER_hpp
 
-#include "dto/DTOs.hpp"
+#include "dto/DTOs.h"
 
 #include "oatpp/web/server/api/ApiController.hpp"
 #include "oatpp/macro/codegen.hpp"

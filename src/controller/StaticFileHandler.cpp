@@ -1,4 +1,4 @@
-#include "StaticFileHandler.hpp"
+#include "StaticFileHandler.h"
 #include "src/config.h"
 
 

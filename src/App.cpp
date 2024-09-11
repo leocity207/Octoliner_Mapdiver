@@ -1,5 +1,5 @@
-#include "./controller/StaticFileHandler.hpp"
-#include "./AppComponent.hpp"
+#include "src/controller/StaticFileHandler.h"
+#include "src/AppComponent.h"
 
 #include "oatpp/network/Server.hpp"
 

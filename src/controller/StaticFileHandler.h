@@ -19,13 +19,16 @@ class StaticFilesManager : public oatpp::web::server::api::ApiController {
         ///////////////////
         /// STATIC MEMEBER
         static oatpp::String getFile(oatpp::String& fileName);
+        static const char* getContentType(const std::string& path);
 
         ENDPOINT("GET", "*", GetStaticFiles, REQUEST(std::shared_ptr<IncomingRequest>, request)) 
         {
             oatpp::String tail = request->getPathTail();
             oatpp::String file = getFile(tail);
             OATPP_ASSERT_HTTP(file.get() != nullptr, Status::CODE_404, "File not found");
-            return createResponse(Status::CODE_200, file);
+            auto response = createResponse(Status::CODE_200, file);
+            response->putHeader("Content-Type", getContentType(tail));
+            return response;
         }
 };
 

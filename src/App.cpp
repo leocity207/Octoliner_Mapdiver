@@ -20,7 +20,7 @@ void run() {
   oatpp::network::Server server(connectionProvider, connectionHandler);
 
   /* Print info about server port */
-  OATPP_LOGi("MyApp", "Server running on port {}", connectionProvider->getProperty("port").toString());
+  OATPP_LOGi("[Info]", "Server running on port {}", connectionProvider->getProperty("port").toString());
 
   server.run();
   

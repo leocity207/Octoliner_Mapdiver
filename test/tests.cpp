@@ -1,10 +1,11 @@
 
 #include "MyControllerTest.hpp"
+#include "StationDTOTest.h"
 
 #include <iostream>
 
 void runTests() {
-  OATPP_RUN_TEST(MyControllerTest);
+  OATPP_RUN_TEST(StationDTOTest);
 }
 
 int main() {

@@ -10,6 +10,7 @@
 #include "oatpp-test/web/ClientServerTestRunner.hpp"
 
 void MyControllerTest::onRun() {
+  
 
   /* Register test components */
   TestComponent component;

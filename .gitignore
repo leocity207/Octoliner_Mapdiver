@@ -44,3 +44,6 @@ cmake-build-debug/
 
 **/.DS_Store
 .vs/*
+
+#configure file
+src/config.h

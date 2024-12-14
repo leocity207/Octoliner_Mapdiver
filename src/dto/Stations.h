@@ -23,7 +23,7 @@ public:
   
   DTO_INIT(StationsDTO, DTO)
  
-  DTO_FIELD(Fields<Object<StationDTO>>, stations,"Stations");
+  DTO_FIELD(Fields<Object<StationDTO>>, stations, "Stations");
   
 };
 

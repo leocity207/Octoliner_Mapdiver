@@ -1,5 +1,5 @@
-#ifndef LINE_DTO_H
-#define LINE_DTO_H
+#ifndef NETWORK_DTO_H
+#define NETWORK_DTO_H
 
 #include "stations.h"
 #include "lines.h"
@@ -10,10 +10,10 @@
 class NetworkDTO : public oatpp::DTO {
 
 public:
-	DTO_INIT(LineDTO, DTO)
+	DTO_INIT(NetworkDTO, DTO)
 
-	DTO_FIELD(Object<LinesDTO>, lines);
-	DTO_FIELD(Object<StationsDTO>, stations);
+	DTO_FIELD(Fields<Object<LineDTO>>, lines, "Lines");
+	DTO_FIELD(Fields<Object<StationDTO>>, stations, "Stations");
 
 };
 

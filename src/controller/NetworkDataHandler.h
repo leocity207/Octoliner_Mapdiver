@@ -1,7 +1,6 @@
 #ifndef NETWORK_DATA_HANDLER_H
 #define NETWORK_DATA_HANDLER_H
 
-#include "dto/DTOs.h"
 
 #include "oatpp/web/server/api/ApiController.hpp"
 #include "oatpp/macro/codegen.hpp"

@@ -28,7 +28,8 @@ include_directories(${PROJECT_SOURCE_DIR})
 FILE(GLOB CONTROLER_SRC src/controller/*.cpp)
 FILE(GLOB CONTROLER_H src/controller/*.h*)
 FILE(GLOB DTO_H src/dto/*.h*)
-FILE(GLOB APP_SRC src/*.cpp)
+FILE(GLOB DTO_SRC src/dto/*.cpp*)
+FILE(GLOB APP_SRC src/*.cpp*)
 FILE(GLOB APP_H src/*.h*)
 
 add_library(${project_name}-lib
@@ -36,6 +37,7 @@ add_library(${project_name}-lib
     ${APP_H}
     ${CONTROLER_H}
     ${CONTROLER_SRC}
+    ${DTO_SRC}
 )
 
 ## link libs
@@ -54,7 +56,6 @@ target_include_directories(${project_name}-lib PUBLIC src)
 
 add_executable(${project_name}-exe
        ${APP_SRC}
-       ${CONTROLER_SRC}
 )
 target_link_libraries(${project_name}-exe ${project_name}-lib)
 add_dependencies(${project_name}-exe ${project_name}-lib)

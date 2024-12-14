@@ -13,9 +13,13 @@ public:
 	DTO_INIT(LineDTO, DTO)
 
 	DTO_FIELD(String, label, "label");
-	DTO_FIELD(Fields<String>, colors, "colors");
+	DTO_FIELD(Fields<String>, colors, "color");
 	DTO_FIELD(Fields<String>, urls, "urls");
 	DTO_FIELD(Fields<Any>, stations, "stations");
+
+	static const oatpp::Type* GetStationType(const Fields<Any>& stations, const std::string& key);
+	static Vector<String> GetStationList(const Fields<Any>& stations, const std::string& key);
+	static String GetStationString(const Fields<Any>& stations, const std::string& key);
 };
 
 

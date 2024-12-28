@@ -1,4 +1,5 @@
 #include "src/controller/StaticFileHandler.h"
+#include "src/controller/NetworkDataHandler.h"
 #include "src/AppComponent.h"
 
 #include "oatpp/network/Server.hpp"
@@ -12,6 +13,7 @@ void run() {
 
   //Create Rooter and add componant
   OATPP_COMPONENT(std::shared_ptr<oatpp::web::server::HttpRouter>, router);
+  router->addController(std::make_shared<NetworkDataHandler>());
   router->addController(std::make_shared<StaticFilesManager>());
 
   // Create the server

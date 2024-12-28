@@ -13,7 +13,7 @@ public:
   DTO_INIT(StationDTO, DTO)
   
   DTO_FIELD(String, label, "label");
-  DTO_FIELD(List<String>, linked_lignes,"lignes");
+  DTO_FIELD(List<String>, linked_lines,"lines");
 };
 
 

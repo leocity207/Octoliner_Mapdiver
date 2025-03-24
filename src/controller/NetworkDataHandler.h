@@ -31,8 +31,8 @@ class NetworkDataHandler : public oatpp::web::server::api::ApiController {
 
         ENDPOINT("GET", "dyn/network_data", GetNetworkData) 
         {
-            oatpp::String json_data_lines = oatpp::String::loadFromFile((RESOURCE_PATH() + oatpp::String("data/line.json"))->c_str());
-            oatpp::String json_data_station = oatpp::String::loadFromFile((RESOURCE_PATH() + oatpp::String("data/station.json"))->c_str());
+            oatpp::String json_data_lines = oatpp::String::loadFromFile((RESOURCE_PATH() + oatpp::String("resources-config/data/line.json"))->c_str());
+            oatpp::String json_data_station = oatpp::String::loadFromFile((RESOURCE_PATH() + oatpp::String("resources-config/data/station.json"))->c_str());
 
             auto jsonObjectMapper = oatpp::json::ObjectMapper();
             auto lines_data_dto = jsonObjectMapper.readFromString<oatpp::Object<LinesDTO>>(json_data_lines);

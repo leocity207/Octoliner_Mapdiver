@@ -13,7 +13,7 @@ function loadHammer() {
       }
 
       const script = document.createElement('script');
-      script.src = './libraries/hammer.js'; // Adjust the path as necessary
+      script.src = 'libraries/hammer.js'; // Adjust the path as necessary
       script.async = false; // Ensure synchronous loading
 
       script.onload = () => {

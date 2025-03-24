@@ -6,7 +6,6 @@
 	transition: left 0.3s ease;
 	position: fixed;
 	z-index: 900;
-	font-family: 'Avenir';
 }
 
 .left-panel > * {

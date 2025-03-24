@@ -18,7 +18,7 @@ class Train_Animation extends Loader {
 	*/
 	Init() {
 		let iframe = document.createElement("iframe");
-		iframe.src = 'image/train-animation.svg';
+		iframe.src = 'resources-config/image/train-animation.svg';
 		iframe.width = '100%';
 		iframe.height = '100%';
 		let shadow = this.attachShadow({ mode: "open" });

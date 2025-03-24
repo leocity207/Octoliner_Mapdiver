@@ -1,6 +1,6 @@
 import Page from "./page.js";
 import SVG_Map from "../map/svg_map.js";
-import {Config} from "../config/config.js"
+import {Config} from "../../resources-config/config.js"
 import Sticky_Header from "../components/sticky_header.js"
 import LeftPanel from "../components/left_panel.js"
 

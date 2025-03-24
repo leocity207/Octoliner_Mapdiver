@@ -1,7 +1,7 @@
 import Network_Map from "../map/network_map.js";
 import Map_Page from "./svg-map-page.js";
 import Utils from "../utils/utils.js";
-import { Config, Network_Config} from "../config/config.js"
+import { Config, Network_Config} from "../../resources-config/config.js"
 import Switch_Event from "../components/switch.js";
 /**
  * Network_Map_Station define a node that contain a Network_Map object
@@ -105,7 +105,7 @@ class Network_Map_Page extends Map_Page {
 		document.addEventListener("station-click", this.On_Station_CLicked);
 		document.addEventListener("line-click", this.On_Line_CLicked);
 		// Initialize map
-		this.map = new Network_Map("Desktop", "image/map.svg", Config, Network_Config);
+		this.map = new Network_Map("Desktop", "resources-config/image/map.svg", Config, Network_Config);
 		await this.map.Setup("Fr", this.map_canvas);
 		this.network_data = await Utils.Fetch_Resource("dyn/network_data")
 		this.map.Setup_Mouse_Handlers(this.network_data.Lines, this.network_data.Stations);

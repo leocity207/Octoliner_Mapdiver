@@ -16,6 +16,8 @@ oatpp::String StaticFilesManager::getFile(oatpp::String& fileName)
     OATPP_LOGi("[Info]", "getFile '{}'", fileName);
     if (!fileName || fileName == "" || fileName->find_last_of(".") == std::string::npos)
         return oatpp::String::loadFromFile((RESOURCE_PATH() + oatpp::String("index.html"))->c_str());
+    if(fileName == "favicon.ico")
+        return oatpp::String::loadFromFile((RESOURCE_PATH() + oatpp::String("resources-config/image/favicon.ico"))->c_str());
     return oatpp::String::loadFromFile((RESOURCE_PATH() + fileName)->c_str());
 }
 

@@ -88,5 +88,8 @@ Documentation Index
    :maxdepth: 2
    :caption: Customization
 
+   src/customization/customisation_base
+   src/customization/customize_image
+   src/customization/customize_style
    src/config/config_base
    src/data/data_base

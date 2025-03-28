@@ -1,3 +1,5 @@
+.. _customizing_config:
+
 Config
 ======
 

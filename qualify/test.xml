@@ -91,3 +91,11 @@
 		</Dimension>
 	</Test>
 </Campaign>
+
+<Campaign date=29-03-25 commit="7dbe7e080cfddd1c299a65252d7e63e6a7c876e7" tester="leo">
+	<Test id="T1">
+		<Dimension type="result">
+			<Choice name="success"/>
+		</Dimension>
+	</Test>
+</Campaign>

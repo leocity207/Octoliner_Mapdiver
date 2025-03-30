@@ -6,6 +6,6 @@ App are classes that handle an application inside the page.
 
 .. toctree::
 
-    app-container.rst
-    app.rst
+	app-container.rst
+	app.rst
 

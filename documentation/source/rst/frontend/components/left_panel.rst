@@ -7,23 +7,23 @@ Left Panel
 
 Public Members
 --------------
-   .. js:autofunction:: Left_Panel#Toggle_Panel
+	.. js:autofunction:: Left_Panel#Toggle_Panel
 
 ====================
 
 Public Static Methods
 ---------------------
-   .. js:autofunction:: Left_Panel.Create
+	.. js:autofunction:: Left_Panel.Create
 
 ====================
 
 Protected Members
 -----------------
-   .. js:autofunction:: Left_Panel#Init
+	.. js:autofunction:: Left_Panel#Init
 
 ====================
 
 Attributes
 ----------
-   .. js:autoattribute:: Left_Panel#panel_visible
-   .. js:autoattribute:: Left_Panel#left_panel
+	.. js:autoattribute:: Left_Panel#panel_visible
+	.. js:autoattribute:: Left_Panel#left_panel

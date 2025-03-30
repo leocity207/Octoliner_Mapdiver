@@ -38,15 +38,15 @@ Octoliner Maptiva is organized into several key components:
 
 .. graphviz::
 
-   digraph ProjectStructure {
-      rankdir=LR;
-      App -> Page [label="Contains"];
-      Page -> Map [label="Displays"];
-      Page -> Component [label="Includes"];
-      App -> Loader [label="Uses"];
-      App -> Config [label="Configured by"];
-      Page -> Utils [label="Utilizes"];
-   }
+	digraph ProjectStructure {
+		rankdir=LR;
+		App -> Page [label="Contains"];
+		Page -> Map [label="Displays"];
+		Page -> Component [label="Includes"];
+		App -> Loader [label="Uses"];
+		App -> Config [label="Configured by"];
+		Page -> Utils [label="Utilizes"];
+	}
 
 Component Overview
 ------------------
@@ -72,24 +72,41 @@ For more details, visit the official repository or contribute to the project!
 
 Documentation Index
 -------------------
+.. toctree::
+	:maxdepth: 2
+	:caption: Backend 
+
+	rst/backend/oatpp
+	rst/backend/endpoint
+	rst/backend/dto
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Technical documentation
+	:maxdepth: 2
+	:caption: Frontend
 
-   src/app/app_base
-   src/page/page_base
-   src/map/map_base
-   src/components/component_base
-   src/loader/loader_base
-   src/utils/utils
+	rst/frontend/app/app_base
+	rst/frontend/page/page_base
+	rst/frontend/map/map_base
+	rst/frontend/components/component_base
+	rst/frontend/loader/loader_base
+	rst/frontend/utils/utils
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Customization
+	:maxdepth: 2
+	:caption: Customization
 
-   src/customization/customisation_base
-   src/customization/customize_image
-   src/customization/customize_style
-   src/config/config_base
-   src/data/data_base
+	rst/customization/customisation_base
+	rst/customization/customize_image
+	rst/customization/customize_style
+	rst/customization/config/config_base
+	rst/customization/data/data_base
+
+.. toctree::
+	:maxdepth: 2
+	:caption: Contributing
+
+	rst/contribution/cpp
+	rst/contribution/javascript
+	rst/contribution/testing
+	rst/contribution/bug_and_feature
+

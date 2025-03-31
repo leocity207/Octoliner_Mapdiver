@@ -1,3 +1,5 @@
+![image](./logo.svg)
+
 ![Windows](https://img.shields.io/badge/Tested-Windows-blue?logo=windows)
 ![Firefox](https://img.shields.io/badge/Tested-Firefox-orange?logo=firefox)
 
@@ -8,12 +10,20 @@ Octoliner Maptiva is an open-source software that enables easy visualization of 
 ![image](./example.png)
 
 ## Table of Contents
-- [Features](#features)
-- [Installation & Compilation](#installation--compilation)
-- [Documentation](#documentation)
-- [Testing & Quality Assurance](#testing--quality-assurance)
-- [Contributing](#contributing-reporting-issues--suggestions)
-- [Future Enhancements](#future-enhancements)
+- [Octoliner Maptiva](#octoliner-maptiva)
+	- [Table of Contents](#table-of-contents)
+	- [Features](#features)
+	- [Installation \& Compilation](#installation--compilation)
+		- [Dependencies](#dependencies)
+		- [Server Compilation](#server-compilation)
+		- [Resources Configuration](#resources-configuration)
+		- [Customizing Resources](#customizing-resources)
+	- [Documentation](#documentation)
+		- [Content](#content)
+		- [Generation](#generation)
+	- [Testing \& Quality Assurance](#testing--quality-assurance)
+	- [Contributing, Reporting Issues \& Suggestions](#contributing-reporting-issues--suggestions)
+	- [Future Enhancements](#future-enhancements)
 
 ## Features
 - **Interactive Network Map** – Navigate and zoom across the public transport map effortlessly.

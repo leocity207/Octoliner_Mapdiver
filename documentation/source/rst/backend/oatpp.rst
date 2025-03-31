@@ -4,7 +4,7 @@ OAT++ Server
 Oat++ (OATPP) is an open-source framework designed to simplify the development of C++ web applications. It provides a lightweight and efficient server-side solution for handling requests and serving resources to the frontend.
 
 Why OATPP?
--------------
+----------
 OATPP is chosen for its:
 
  * **Lightweight design** - Minimal overhead, making it suitable for high-performance applications.
@@ -13,7 +13,7 @@ OATPP is chosen for its:
  * **Flexibility** - Supports various serialization formats and integration with different databases.
 
 Server Structure
--------------
+----------------
 The OATPP server in this project consists of the following main components:
 
  * **AppComponent** - Configures dependencies such as the router, connection handler, and request processors.
@@ -28,12 +28,12 @@ Currently, there is no dedicated configuration file for OATPP. All settings are 
  * The resource path is determined via CMake configuration files, as specified in `src/config.h.in`.
 
 Deployment
--------------
+----------
 To deploy the OATPP server Is curretly done throught binary compilation and direct distribution
 For further customization, modifications should be made directly in the source files or through CMake configuration adjustments.
 
 Related Documentation
--------------
+---------------------
 For more details, refer to the following sections:
 
  * **Endpoints** - Defines the available API endpoints and their usage.

@@ -1,30 +1,25 @@
-Endpoint
-========
+Endpoint Documentation
+=======================
 
-this section present all the endpoints implemented by our Oat++ controller
+This section presents all the endpoints implemented by our OATPP controller.
 
-Static file
------------
+Static File Endpoint
+--------------------
+This endpoint serves all static files. It is defined as a general `*` endpoint.
 
-this endpoint serve all the static files. it is defined as a general `*` endpoint
-
-General case
+General Case
 ^^^^^^^^^^^^
+Static files are served as-is, and the server returns the file with its associated content type based on the file extension.
 
-the file is served as is with it will return the file with it's associated cotent type according to its extension
+Exceptions
+^^^^^^^^^^
+There are two exceptions when serving static files:
 
-Exception
-^^^^^^^^^
+- **Root Request:** If no specific file is requested, the server serves `index.html` as the default root file.
+- **Favicon Handling:** Requests for `favicon.ico` are redirected to `resources-config/image/favicon.ico`.
 
-two exception exist for serving files
+Network Data Endpoint
+---------------------
+The network data endpoint provides information about the network and can be accessed via the `dyn/network_data` endpoint.
 
- * for no file. the endpoint handle the case where the user just want the root of the website to point to the file index.html
- * favicon.ico. the endpoint handle this file to be `resources-config/image/favicon.ico`
-
-
-Network Data
-------------
-Network data is used to get information about the network
-it can be accessed using `dyn/network_data` endpoint
-this endpoint return javascript information from the `resources-config/data` folder
-in the futur these informatin could be collected from a databases
+- It returns JavaScript-based network information from the `resources-config/data` folder (lines and stations).

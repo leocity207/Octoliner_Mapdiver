@@ -1,27 +1,32 @@
-Data Transfer Objects
-=====================
+Data Transfer Objects (DTOs)
+===============================
 
-Data Transfer Objects are structured data used to transfer information betwen the server and the client.
-Right now only the edpoint `dyn/network_data` use such Objects
+Data Transfer Objects (DTOs) are structured data models used to facilitate communication between the server and the client.
 
-line
-----
+Currently, only the `dyn/network_data` endpoint utilizes DTOs.
 
-more information can be found in the data section. we simply read and translate the `resources-config/data/line.json` file
+Line DTO
+-----------
+The **Line DTO** represents transit lines and is derived from the `resources-config/data/line.json` file.
 
-station
---------
+More details can be found in the **Data** section.
 
-more information can be found in the data section. we simply read and translate the `resources-config/data/station.json` file
+Station DTO
+--------------
+The **Station DTO** represents transit stations and is derived from the `resources-config/data/station.json` file.
 
-network
--------
+More details can be found in the **Data** section.
 
-The network DTO combine all the information of station and lines to send it to the frontend
-It send back a json object structured as
+Network DTO
+-------------
+The **Network DTO** aggregates all station and line data into a single object for the frontend. The returned JSON structure is as follows:
 
 .. code-block:: json
-    {
-        "Lines" : ...,
-        "Station" : ...,
-    }
+	{
+		"Lines": [...],
+		"Stations": [...]
+	}
+
+This DTO ensures efficient data transfer and integration between the backend and frontend.
+
+

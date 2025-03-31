@@ -1,4 +1,4 @@
-<Project name="Maptiva">
+<Project name="Mapdiver">
 	<Folder name="Functional Requirements">
 		<Requirement id="R1" name="Map-Display">
 			The application must display a map on the main webpage after a loading time. There should also be a top sticky header.

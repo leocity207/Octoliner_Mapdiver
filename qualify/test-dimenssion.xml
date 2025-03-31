@@ -1,4 +1,4 @@
-<Project name="Maptiva">
+<Project name="Mapdiver">
  	<Dimension type="ressource">
 		<Choice name="Bretagne"/>
 	</Dimension>

@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Octoliner-Maptiva'
+project = 'Octoliner-Mapdiver'
 copyright = '2024, Léo Cluzel'
 author = 'Léo Cluzel'
 

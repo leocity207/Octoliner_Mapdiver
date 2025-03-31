@@ -1,17 +1,17 @@
 .. _index:
 
-Octoliner Maptiva Documentation
+Octoliner Mapdiver Documentation
 ================================
 
 Introduction
 ------------
 
-**Octoliner Maptiva** is an open-source web application designed to display public transport network maps interactively. It simplifies the presentation of network and transport information, making it user-friendly and intuitive.
+**Octoliner Mapdiver** is an open-source web application designed to display public transport network maps interactively. It simplifies the presentation of network and transport information, making it user-friendly and intuitive.
 
 Key Features
 ------------
 
-Octoliner Maptiva offers several interactive functionalities:
+Octoliner Mapdiver offers several interactive functionalities:
 
 - **Interactive Map** – Select a station and view all the lines that pass through it.
 - **Line Information Display** – View details about specific transport lines.
@@ -34,7 +34,7 @@ Future improvements will include:
 Project Structure
 -----------------
 
-Octoliner Maptiva is organized into several key components:
+Octoliner Mapdiver is organized into several key components:
 
 .. graphviz::
 
@@ -62,7 +62,7 @@ Component Overview
 License
 -------
 
-Octoliner Maptiva is licensed under the **MIT License**, ensuring openness and flexibility for developers and contributors.
+Octoliner Mapdiver is licensed under the **MIT License**, ensuring openness and flexibility for developers and contributors.
 
 For more details, visit the official repository or contribute to the project!
 

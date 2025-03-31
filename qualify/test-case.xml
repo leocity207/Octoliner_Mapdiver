@@ -1,4 +1,4 @@
-<Project name="Maptiva">
+<Project name="Mapdiver">
 	<Folder name="Functional-Tests">
 		<Test id="T1" name="verify-map-display" req="R1">
 			Verify that the map is correctly displayed on the main webpage. After loading the page

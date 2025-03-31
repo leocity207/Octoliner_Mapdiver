@@ -3,14 +3,14 @@
 ![Windows](https://img.shields.io/badge/Tested-Windows-blue?logo=windows)
 ![Firefox](https://img.shields.io/badge/Tested-Firefox-orange?logo=firefox)
 
-# Octoliner Maptiva
+# Octoliner Mapdiver
 
-Octoliner Maptiva is an open-source software that enables easy visualization of public transport networks. It provides an intuitive interface for users to explore the network map and retrieve relevant information about lines and stations displayed.
+Octoliner Mapdiver is an open-source software that enables easy visualization of public transport networks. It provides an intuitive interface for users to explore the network map and retrieve relevant information about lines and stations displayed.
 
 ![image](./example.png)
 
 ## Table of Contents
-- [Octoliner Maptiva](#octoliner-maptiva)
+- [Octoliner Mapdiver](#octoliner-mapdiver)
 	- [Table of Contents](#table-of-contents)
 	- [Features](#features)
 	- [Installation \& Compilation](#installation--compilation)
@@ -62,7 +62,7 @@ This process generates a local executable that can be run. it will automaticaly 
 - Customization of resources is explained inside the documentation.
 
 ### Customizing Resources
-Octoliner Maptiva is designed for easy customization. 
+Octoliner Mapdiver is designed for easy customization. 
 - All personalized elements are stored inside `resources/resources-config`.
 - Refer to the documentation for details on modifying the experience to suit your needs.
 
@@ -116,4 +116,4 @@ reporting bugs can be done this way:
 A roadmap is planned. In the meantime, upcoming features are tracked via GitHub Issues
 
 ---
-We appreciate your interest in Octoliner Maptiva!
+We appreciate your interest in Octoliner Mapdiver!

@@ -24,7 +24,7 @@
 		</Test>
 
 		<Test id="T4" name="select-on-map" req="R6 R9 R2 R11 R7">
-			<Dimension type="object-type"/>
+			<Dimension type="object-type">
 				<Choice name="station-label"/>
 				<Choice name="station"/>
 				<Choice name="track-line"/>
@@ -42,7 +42,7 @@
 		</Test>
 
 		<Test id="T6" name="changing-color-map" req="R4 R21">
-			<Dimension type="color-mode"/>
+			<Dimension type="color-mode">
 				<Choice name="default"/>
 				<Choice name="easy"/>
 			</Dimension>
@@ -58,7 +58,7 @@
 			<Choice name="1000x1000"/>
 		</Dimension>
 		The screen should adapt with the screen not get out of bound or display weirdly
-	<Folder>
+	</Folder>
 
 	<Folder name="Performance-Tests">
 		<Test id="T8" name="measure-map-load-time" req="R10">

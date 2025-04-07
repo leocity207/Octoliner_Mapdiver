@@ -27,26 +27,26 @@ Example:
 
 .. code-block:: json
 
-    {
-        "Lines": {
-            "LER_BRE0": {
-                "label": "LER BRE0",
-                "urls": {},
-                "color": {
-                    "default": "#25158B",
-                    "easy": "#DD2F1D"
-                },
-                "stations": {
-                    "default-a": [
-                        "FR_29019_0",
-                        "FR_29103_0",
-                        "FR_29105_0"
-                    ],
-                    "default-r": "~default-a"
-                }
-            }
-        }
-    }
+	{
+		"Lines": {
+			"LER_BRE0": {
+				"label": "LER BRE0",
+				"urls": {},
+				"color": {
+					"default": "#25158B",
+					"easy": "#DD2F1D"
+				},
+				"stations": {
+					"default-a": [
+						"FR_29019_0",
+						"FR_29103_0",
+						"FR_29105_0"
+					],
+					"default-r": "~default-a"
+				}
+			}
+		}
+	}
 
 ``label``
 +++++++++
@@ -67,10 +67,10 @@ Example:
 
 .. code-block:: json
 
-    "color": {
-        "default": "#25158B",
-        "easy": "#DD2F1D"
-    }
+	"color": {
+		"default": "#25158B",
+		"easy": "#DD2F1D"
+	}
 
 ``stations``
 ++++++++++++
@@ -80,10 +80,10 @@ Example:
 
 .. code-block:: json
 
-    "stations": {
-        "default-a": ["FR_29019_0", "FR_29103_0"],
-        "default-r": "~default-a"
-    }
+	"stations": {
+		"default-a": ["FR_29019_0", "FR_29103_0"],
+		"default-r": "~default-a"
+	}
 
 The ``default-a`` key contains a list of station IDs, while ``default-r`` uses the ``~`` notation to indicate that it mirrors ``default-a`` in reverse order.
 
@@ -105,22 +105,22 @@ Example:
 
 .. code-block:: json
 
-    {
-        "Lines": {
-            "MY_LINE": {
-                "label": "My Custom Line",
-                "urls": {},
-                "color": {
-                    "default": "#123456",
-                    "easy": "#654321"
-                },
-                "stations": {
-                    "route-a": ["STATION_1", "STATION_2"],
-                    "route-b": "~route-a"
-                }
-            }
-        }
-    }
+	{
+		"Lines": {
+			"MY_LINE": {
+				"label": "My Custom Line",
+				"urls": {},
+				"color": {
+					"default": "#123456",
+					"easy": "#654321"
+				},
+				"stations": {
+					"route-a": ["STATION_1", "STATION_2"],
+					"route-b": "~route-a"
+				}
+			}
+		}
+	}
 
 This structure allows for easy modification and extension as needed.
 

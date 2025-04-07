@@ -6,8 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Octoliner-Maptiva'
-copyright = '2024, Léo Cluzel'
+project = 'Octoliner-Mapdiver'
+copyright = '2025, Léo Cluzel'
 author = 'Léo Cluzel'
 
 # -- General configuration ---------------------------------------------------
@@ -24,8 +24,8 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
-html_static_path = ['_static']
+html_static_path = []
 
 # js-doc variable
-js_source_path = ['../../src/app','../../src/loader','../../src/map','../../src/page','../../src/utils','../../resources-config/','../../src/components']
+js_source_path = ['../../resources/src/app','../../resources/src/loader','../../resources/src/map','../../resources/src/page','../../resources/src/utils','../../resources/resources-config/','../../resources/src/components']
 root_for_relative_js_paths = './'

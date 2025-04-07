@@ -15,12 +15,6 @@ import Switch_Event from "./switch.js";
  * - **Options**: Allows users to modify characteristics of the map.
  */
 class Left_Panel extends Base_Panel {
-
-	/**
-	 * Indicates whether the left panel is currently visible or not.
-	 */
-	panel_visible = false;
-
 	constructor() {
 		super();
 	}

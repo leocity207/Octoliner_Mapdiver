@@ -3,6 +3,7 @@ import Map_Page from "./svg-map-page.js";
 import Utils from "../utils/utils.js";
 import { Config, Network_Config} from "../../resources-config/config.js"
 import Switch_Event from "../components/switch.js";
+import Right_Panel from "../right-panel/right-panel.js";
 /**
  * Network_Map_Station define a node that contain a Network_Map object
  * 
@@ -43,8 +44,8 @@ class Network_Map_Page extends Map_Page {
 		if(this.prev_event.type === 'line')
 			this.map.Reset_All_Highlight_Station();
 		this.map.Highlight_All_Lines_At_Station(event.detail);
-		if(this.panel_detail_is_open) 
-			this.map.Zoom_Highlighted_Stations(event.detail);
+		this.m_right_panel.Open_Station_Info(event.detail);
+		this.map.Zoom_Highlighted_Stations(event.detail);
 	}
 
 	/**
@@ -56,8 +57,8 @@ class Network_Map_Page extends Map_Page {
 		if(this.prev_event.type === 'station')
 			this.map.Reset_All_Highlight_Station();
 		this.map.Highlight_Lines([event.detail]);
-		if(this.panel_detail_is_open) 
-			this.map.Zoom_Highlighted_Line(event.detail);
+		this.m_right_panel.Open_Line_Info(event.detail);
+		this.map.Zoom_Highlighted_Line(event.detail);
 	}
 
 	/**
@@ -66,13 +67,14 @@ class Network_Map_Page extends Map_Page {
 	 * @param {Object} event 
 	 */
 	On_Pop_State(event) {
+		this.m_right_panel.Close();
 		if(!this.prev_event.type) 
 			this.map.Initial_Zoom_Move();
 		if(prev_event.type === 'station') {
 			this.map.Reset_All_Highlight_Station();
 			this.map.Reset_Line_Highlight();
 		} else if(prev_event.type === 'line') 
-			this.map.Reset_Line_Highlight();
+			this.map.Reset_Line_Highlight();	
 	}
 
 	/**
@@ -96,6 +98,10 @@ class Network_Map_Page extends Map_Page {
 		// Set variable
 		this.prev_event = {type: undefined, detail: undefined};
 		this.panel_detail_is_open = false;
+
+		this.m_right_panel = Right_Panel.Create();
+		this.shadowRoot.prepend(this.m_right_panel);
+
 		// Bind calback to this
 		this.On_Line_CLicked = this.On_Line_CLicked.bind(this);
 		this.On_Station_CLicked = this.On_Station_CLicked.bind(this);

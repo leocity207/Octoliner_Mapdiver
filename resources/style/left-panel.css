@@ -20,3 +20,7 @@ switch-event {
 	display: block;
 	margin-left: 2rem !important;
 }
+
+.open.left {
+	left: 0;
+}

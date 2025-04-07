@@ -31,13 +31,23 @@ class Right_Panel extends Base_Panel {
 	 * Initializes the right panel and its elements.
 	 */
 	Init() {
-		this.attachShadow({ mode: "open" });
+		super.Init()
 
 		const style_link = document.createElement("link");
 		style_link.setAttribute("rel", "stylesheet");
 		style_link.setAttribute("href", "style/right-panel.css");
 
+		this.base_panel.classList.add("right");
+
 		this.shadowRoot.appendChild(style_link);
+	}
+
+	Open_Line_Info(line_ID) {
+		this.Open();
+	}
+
+	Open_Station_Info(Station_ID) {
+		this.Open();
 	}
 }
 

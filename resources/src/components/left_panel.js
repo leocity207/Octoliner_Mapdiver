@@ -41,7 +41,7 @@ class Left_Panel extends Base_Panel {
 
 		this.shadowRoot.appendChild(style_link);
 
-		this.base_panel.classList.add("left");;
+		this.base_panel.classList.add("left");
 
 		const title = document.createElement("div");
 		title.classList.add("title");
@@ -60,7 +60,6 @@ class Left_Panel extends Base_Panel {
 
 		this.base_panel.appendChild(Switch_Event.Create("color", "Simple color"));
 
-		this.shadowRoot.appendChild(this.base_panel);
 		Sticky_Header.On_Hamburger_Clicked().subscribe(() => this.Toggle_Panel());
 	}
 }

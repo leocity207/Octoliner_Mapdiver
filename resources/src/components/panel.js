@@ -29,9 +29,9 @@ class Base_Panel extends HTMLElement {
 	 * @returns {base_Panel} A new instance of base_Panel.
 	 */
 	static Create() {
-		const base_panel = document.createElement("base-panel");
-		base_panel.Init();
-		return base_panel;
+		const panel = document.createElement("base-panel");
+		panel.Init();
+		return panel;
 	}
 
 	/**
@@ -53,6 +53,8 @@ class Base_Panel extends HTMLElement {
 
 		this.base_panel = document.createElement("div");
 		this.base_panel.classList.add("base-panel");
+
+		this.shadowRoot.appendChild(this.base_panel);
 	}
 
 	/**
@@ -63,8 +65,19 @@ class Base_Panel extends HTMLElement {
 		if (this.panel_visible)
 			this.base_panel.classList.add("open");
 		else 
+			this.base_panel.classList.remove("open");	
+	}
+
+	Open() {
+		if(!this.panel_visible)
+			this.base_panel.classList.add("open");
+		this.panel_visible = true;
+	}
+
+	Close() {
+		if(this.panel_visible)
 			this.base_panel.classList.remove("open");
-		
+		this.panel_visible = false;
 	}
 }
 

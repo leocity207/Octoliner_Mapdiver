@@ -11,9 +11,3 @@
 .base-panel.right> * {
 	margin-left: 1rem;
 }
-
-
-.open {
-	left: 0 !important;
-    right: 0 !important;
-}

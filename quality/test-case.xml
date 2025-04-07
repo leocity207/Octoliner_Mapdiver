@@ -48,6 +48,25 @@
 			</Dimension>
 			Verify that users can change the color via the left panel menue.
 		</Test>
+
+		<Test id="T10" name="Opening of The Right panel for station" req="R4 R21">
+			<Dimension type="object-type">
+				<Choice name="station-label"/>
+				<Choice name="station"/>
+			</Dimension>
+			when clicking on the Station object the right panel should open and siplay the right information for the station for now a blank page.
+		</Test>
+		<Test id="T11" name="Opening of The Right panel for station" req="R4 R21">
+			<Dimension type="object-type">
+				<Choice name="track-line"/>
+				<Choice name="track-label"/>
+			</Dimension>
+			when clicking on the Line object the right panel should open and siplay the right information for the line for now a blank page.
+		</Test>
+		<Test id="T12" name="closing the right panel" req="R4 R21">
+			when clicking the cross inside the right panel the right panel shoudl close and all the lines are higlighted again.
+		</Test>
+
 	</Folder>
 
 	<Folder id="T7" name="Accessibility Requirements" req="R16 R21">

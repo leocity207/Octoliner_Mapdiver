@@ -3,6 +3,7 @@ import SVG_Map from "../map/svg_map.js";
 import {Config} from "../../resources-config/config.js"
 import Sticky_Header from "../components/sticky_header.js"
 import LeftPanel from "../components/left_panel.js"
+import Right_Panel from "../right-panel/right-panel.js";
 
 /**
  * Map_App are object that define a node containing a SVG_Map for manipulation and display
@@ -44,6 +45,9 @@ class Map_Page extends Page {
 
 		this.LeftPanel = LeftPanel.Create();
 		this.shadowRoot.appendChild(this.LeftPanel);
+
+		this.m_right_panel = Right_Panel.Create();
+		this.shadowRoot.appendChild(this.m_right_panel);
 
 		// create a container to hold the canvas
 		this.map_container = document.createElement('div');

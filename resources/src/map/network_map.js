@@ -200,7 +200,7 @@ class Network_Map extends SVG_Map {
 	 */
 	Zoom_Highlighted_Line = (line_code) => {
 		const line_data = this._Find_Line_Data_By_Id(line_code)
-		if (line_data !== undefined) {
+		if (line_data !== undefined && line_data.map_stations !== undefined) {
 			const station_codes = line_data.map_stations.split("-");
 			this.Zoom_Highlighted_Tracks(station_codes)
 		}

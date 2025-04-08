@@ -1,4 +1,5 @@
 import Base_Panel from "../components/panel.js";
+import Round_Cross from "../components/round-cross.js";
 
 /**
  * The **Right Panel** is a user interface element that remains fixed on the right side of the screen.  
@@ -40,6 +41,8 @@ class Right_Panel extends Base_Panel {
 		this.base_panel.classList.add("right");
 
 		this.shadowRoot.appendChild(style_link);
+
+		this.base_panel.appendChild(Round_Cross.Create("right-panel-cross"));
 	}
 
 	Open_Line_Info(line_ID) {

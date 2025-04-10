@@ -88,6 +88,7 @@ Documentation Index
 	rst/frontend/page/page_base
 	rst/frontend/map/map_base
 	rst/frontend/components/component_base
+	rst/frontend/right-panel/right-panel_base
 	rst/frontend/loader/loader_base
 	rst/frontend/utils/utils
 

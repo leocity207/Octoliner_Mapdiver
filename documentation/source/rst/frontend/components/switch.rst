@@ -22,6 +22,10 @@ Attributes
 ----------
 	.. js:autoattribute:: Switch_Event#name
 
+Currently used name
+^^^^^^^^^^^^^^^^^^^
+- **color**: used inside the left panel for letting the user toggle the color type displayed on the map
+
 ====================
 
 Static Attributes

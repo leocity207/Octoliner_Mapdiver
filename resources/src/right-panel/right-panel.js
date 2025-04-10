@@ -45,10 +45,20 @@ class Right_Panel extends Base_Panel {
 		this.base_panel.appendChild(Round_Cross.Create("right-panel-cross"));
 	}
 
+	/**
+	 * Display the info a line
+	 * 
+	 * @param {String} line_ID the Id of the line
+	 */
 	Open_Line_Info(line_ID) {
 		this.Open();
 	}
 
+	/**
+	 * Show the info of a station
+	 * 
+	 * @param {String} Station_ID 
+	 */
 	Open_Station_Info(Station_ID) {
 		this.Open();
 	}

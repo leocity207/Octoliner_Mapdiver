@@ -7,4 +7,6 @@ Componants describe utility componants node object that can be integrated into t
 
 	sticky_header.rst
 	switch.rst
+	round-cross.rst
+	panel.rst
 	left_panel.rst

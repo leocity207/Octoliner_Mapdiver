@@ -25,16 +25,6 @@ class Base_Panel extends HTMLElement {
 	}
 
 	/**
-	 * Creates and initializes a base_Panel instance.
-	 * @returns {base_Panel} A new instance of base_Panel.
-	 */
-	static Create() {
-		const panel = document.createElement("base-panel");
-		panel.Init();
-		return panel;
-	}
-
-	/**
 	 * Initializes the base panel and its elements.
 	 */
 	Init() {
@@ -68,12 +58,18 @@ class Base_Panel extends HTMLElement {
 			this.base_panel.classList.remove("open");	
 	}
 
+	/**
+	 * Open the panel.
+	 */
 	Open() {
 		if(!this.panel_visible)
 			this.base_panel.classList.add("open");
 		this.panel_visible = true;
 	}
 
+	/**
+	 * Close the panel.
+	 */
 	Close() {
 		if(this.panel_visible)
 			this.base_panel.classList.remove("open");

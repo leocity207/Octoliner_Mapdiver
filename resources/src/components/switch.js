@@ -17,7 +17,7 @@ class Switch_Event extends HTMLElement {
 	static switch_event_subject = new Subject();
 
 	/**
-	 * Name identifier of the switch (this is the name to use when you want to subscribe to the event of the switch).s
+	 * Name identifier of the switch (this is the name to use when you want to subscribe to the event of the switch).
 	 */
 	name;
 

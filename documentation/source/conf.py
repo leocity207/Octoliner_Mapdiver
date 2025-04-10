@@ -27,5 +27,13 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = []
 
 # js-doc variable
-js_source_path = ['../../resources/src/app','../../resources/src/loader','../../resources/src/map','../../resources/src/page','../../resources/src/utils','../../resources/resources-config/','../../resources/src/components']
+js_source_path = [
+	'../../resources/src/app',
+	'../../resources/src/loader',
+	'../../resources/src/map',
+	'../../resources/src/page',
+	'../../resources/src/utils',
+	'../../resources/resources-config/',
+	'../../resources/src/components',
+	'../../resources/src/right-panel',]
 root_for_relative_js_paths = './'

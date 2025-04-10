@@ -101,4 +101,30 @@
 			</Dimension>
 		</Test>
 	</Campaign>
+
+	<Campaign date="10-04-25" commit="5957ceaf75441d4d09ce8e6b76955b9a7a60d838" tester="leo">
+		<Test id="T10">
+			<Dimension type="result">
+				<Choice name="success"/>
+			</Dimension>
+			<Dimension type="object-type">
+				<Choice name="station-label"/>
+				<Choice name="station"/>
+			</Dimension>
+		</Test>
+		<Test id="T11">
+			<Dimension type="object-type">
+				<Choice name="track-line"/>
+				<Choice name="track-label"/>
+			</Dimension>
+			<Dimension type="result">
+				<Choice name="success"/>
+			</Dimension>
+		</Test>
+		<Test id="T12">
+			<Dimension type="result">
+				<Choice name="success"/>
+			</Dimension>
+		</Test>
+	</Campaign>
 </History>

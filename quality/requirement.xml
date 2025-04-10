@@ -21,9 +21,15 @@
 			The left panel must contain text indications (instructions or information).
 			The left panel must include a switch list, where each switch can change the color of an element on the main map.
 		</Requirement>
-		<Requirement id="R20" name="lading-specific-page">
-			Thwhen loading a specific line or station the application should directly load on the station
+		<Requirement id="R20" name="loading-specific-page">
+			When loading a specific line or station the application should directly load on the station.
 		</Requirement>
+		<Folder name="Right-panel">
+			<Requirement id="R23" name="right-panel-opening">
+				When clicking on a station the right panel should be displayed and show information about the selected object.
+				Clickig on the cross inside should reset the map.
+			</Requirement>
+		</Folder>
 	</Folder>
 
 	<Folder name="UI/UX Requirements">

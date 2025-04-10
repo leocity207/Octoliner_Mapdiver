@@ -1,0 +1,27 @@
+.circle {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 2px solid black;
+	position: relative;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.left,
+.right {
+	position: absolute;
+	width: 20px;
+	height: 2px;
+	background-color: black;
+}
+
+.left {
+	transform: rotate(45deg);
+}
+
+.right {
+	transform: rotate(-45deg);
+}

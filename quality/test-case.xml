@@ -1,92 +1,92 @@
-<Project name="Mapdiver">
-	<Folder name="Functional-Tests">
-		<Test id="T1" name="verify-map-display" req="R1">
+<Project-div name="Mapdiver">
+	<Folder-div name="Functional-Tests">
+		<Test-div id="T1" name="verify-map-display" req="R1">
 			Verify that the map is correctly displayed on the main webpage. After loading the page
-		</Test>
+		</Test-div>
 
-		<Test id="T2" name="do-a-research" req="R3 R5 R8 R14">
-			<Dimension type="text-type">
-				<Choice name="station-label"/>
-				<Choice name="track-label"/>
-			</Dimension>
-			<Dimension type="search-Input">
-				<Choice name="valid-station-name"/>
-				<Choice name="valid-line-name"/>
-				<Choice name="invalid-input"/>
-			</Dimension>
+		<Test-div id="T2" name="do-a-research" req="R3 R5 R8 R14">
+			<Dimension-div type="text-type">
+				<Choice-div name="station-label"/>
+				<Choice-div name="track-label"/>
+			</Dimension-div>
+			<Dimension-div type="search-Input">
+				<Choice-div name="valid-station-name"/>
+				<Choice-div name="valid-line-name"/>
+				<Choice-div name="invalid-input"/>
+			</Dimension-div>
 			Make a research using the search.
 			Once validating your choice the map should display the slected choice.
 			you could also be able to change element via the arrow or tab on keyboard and push enter to select the result
-		</Test>
+		</Test-div>
 
-		<Test id="T3" name="hamburger-menue" req="R6 R9 R13">
+		<Test-div id="T3" name="hamburger-menue" req="R6 R9 R13">
 			Verify that users can search and highlight elements on the map.
-		</Test>
+		</Test-div>
 
-		<Test id="T4" name="select-on-map" req="R6 R9 R2 R11 R7">
-			<Dimension type="object-type">
-				<Choice name="station-label"/>
-				<Choice name="station"/>
-				<Choice name="track-line"/>
-				<Choice name="track-label"/>
-			</Dimension>
+		<Test-div id="T4" name="select-on-map" req="R6 R9 R2 R11 R7">
+			<Dimension-div type="object-type">
+				<Choice-div name="station-label"/>
+				<Choice-div name="station"/>
+				<Choice-div name="track-line"/>
+				<Choice-div name="track-label"/>
+			</Dimension-div>
 			Verify that users can select item on the map.
-		</Test>
+		</Test-div>
 
-		<Test id="T5" name="traveling-on-the-map" req="R22">
-			<Dimension type="gesture">
-				<Choice name="mousse drag"/>
-				<Choice name="mousse Scrolling"/>
-			</Dimension>
+		<Test-div id="T5" name="traveling-on-the-map" req="R22">
+			<Dimension-div type="gesture">
+				<Choice-div name="mousse drag"/>
+				<Choice-div name="mousse Scrolling"/>
+			</Dimension-div>
 			Verify that users can navigate all acrosse the map.
-		</Test>
+		</Test-div>
 
-		<Test id="T6" name="changing-color-map" req="R4 R21">
-			<Dimension type="color-mode">
-				<Choice name="default"/>
-				<Choice name="easy"/>
-			</Dimension>
+		<Test-div id="T6" name="changing-color-map" req="R4 R21">
+			<Dimension-div type="color-mode">
+				<Choice-div name="default"/>
+				<Choice-div name="easy"/>
+			</Dimension-div>
 			Verify that users can change the color via the left panel menue.
-		</Test>
+		</Test-div>
 
-		<Test id="T10" name="Opening of The Right panel for station" req="R4 R21">
-			<Dimension type="object-type">
-				<Choice name="station-label"/>
-				<Choice name="station"/>
-			</Dimension>
+		<Test-div id="T10" name="Opening of The Right panel for station" req="R4 R21">
+			<Dimension-div type="object-type">
+				<Choice-div name="station-label"/>
+				<Choice-div name="station"/>
+			</Dimension-div>
 			when clicking on the Station object the right panel should open and siplay the right information for the station for now a blank page.
-		</Test>
-		<Test id="T11" name="Opening of The Right panel for station" req="R4 R21">
-			<Dimension type="object-type">
-				<Choice name="track-line"/>
-				<Choice name="track-label"/>
-			</Dimension>
+		</Test-div>
+		<Test-div id="T11" name="Opening of The Right panel for station" req="R4 R21">
+			<Dimension-div type="object-type">
+				<Choice-div name="track-line"/>
+				<Choice-div name="track-label"/>
+			</Dimension-div>
 			when clicking on the Line object the right panel should open and siplay the right information for the line for now a blank page.
-		</Test>
-		<Test id="T12" name="closing the right panel" req="R4 R21">
+		</Test-div>
+		<Test-div id="T12" name="closing the right panel" req="R4 R21">
 			when clicking the cross inside the right panel the right panel shoudl close and all the lines are higlighted again.
-		</Test>
+		</Test-div>
 
-	</Folder>
+	</Folder-div>
 
-	<Folder id="T7" name="Accessibility Requirements" req="R16 R21">
-		<Dimension type="screen-ratio">
-			<Choice name="3840x2160"/>
-			<Choice name="412x915"/>
-			<Choice name="1500x750"/>
-			<Choice name="1000x1000"/>
-		</Dimension>
+	<Folder-div id="T7" name="Accessibility Requirements" req="R16 R21">
+		<Dimension-div type="screen-ratio">
+			<Choice-div name="3840x2160"/>
+			<Choice-div name="412x915"/>
+			<Choice-div name="1500x750"/>
+			<Choice-div name="1000x1000"/>
+		</Dimension-div>
 		The screen should adapt with the screen not get out of bound or display weirdly
-	</Folder>
+	</Folder-div>
 
-	<Folder name="Performance-Tests">
-		<Test id="T8" name="measure-map-load-time" req="R10">
-			<Dimension type="Load Time"/>
+	<Folder-div name="Performance-Tests">
+		<Test-div id="T8" name="measure-map-load-time" req="R10">
+			<Dimension-div type="Load Time"/>
 			Verify that the map loads within 3 seconds.
-		</Test>
-		<Test id="T9" name="measure-search-performance" req="R12">
-			<Dimension type="Response-Time"/>
+		</Test-div>
+		<Test-div id="T9" name="measure-search-performance" req="R12">
+			<Dimension-div type="Response-Time"/>
 			Verify that search results are displayed within 300ms.
-		</Test>
-	</Folder>
-</Project>
+		</Test-div>
+	</Folder-div>
+</Project-div>

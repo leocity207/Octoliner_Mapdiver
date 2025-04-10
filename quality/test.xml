@@ -1,130 +1,130 @@
 
-<History>
-	<Campaign date="23-03-25" commit="1e9899bdb75d27e9326f5d1a932a8c9cb16b6e6f" tester="leo">
-		<Test id="T1">
-			<Dimension type="result">
-				<Choice name="failed"/>
-			</Dimension>
-			<Dimension type="remark">
+<History-div>
+	<Campaign-div date="23-03-25" commit="1e9899bdb75d27e9326f5d1a932a8c9cb16b6e6f" tester="leo">
+		<Test-div id="T1">
+			<Dimension-div type="result">
+				<Choice-div name="failed"/>
+			</Dimension-div>
+			<Dimension-div type="remark">
 				When we open the map after loading there is a frame where the map change weirdly
-			</Dimension>
-		</Test>
+			</Dimension-div>
+		</Test-divs>
 
-		<Test id="T2">
-			<Dimension type="text-type">
-				<Choice name="station-label"/>
-				<Choice name="track-label"/>
-			</Dimension>
-			<Dimension type="search-Input">
-				<Choice name="valid-station-name"/>
-				<Choice name="valid-line-name"/>
-				<Choice name="invalid-input"/>
-			</Dimension>
-			<Dimension type="result">
-				<Choice name="success"/>
-			</Dimension>
-		</Test>
+		<Test-div id="T2">
+			<Dimension-div type="text-type">
+				<Choice-div name="station-label"/>
+				<Choice-div name="track-label"/>
+			</Dimension-div>
+			<Dimension-div type="search-Input">
+				<Choice-div name="valid-station-name"/>
+				<Choice-div name="valid-line-name"/>
+				<Choice-div name="invalid-input"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
 
-		<Test id="T3">
-			<Dimension type="result">
-				<Choice name="success"/>
-			</Dimension>
-		</Test>
+		<Test-div id="T3">
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
 
-		<Test id="T4">
-			<Dimension type="object-type">
-				<Choice name="station-label"/>
-				<Choice name="station"/>
-				<Choice name="track-line"/>
-				<Choice name="track-label"/>
-			</Dimension>
-			<Dimension type="result">
-				<Choice name="success"/>
-			</Dimension>
-		</Test>
+		<Test-div id="T4">
+			<Dimension-div type="object-type">
+				<Choice-div name="station-label"/>
+				<Choice-div name="station"/>
+				<Choice-div name="track-line"/>
+				<Choice-div name="track-label"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
 
-		<Test id="T5">
-			<Dimension type="gesture">
-				<Choice name="mousse drag"/>
-				<Choice name="mousse Scrolling"/>
-			</Dimension>
-			<Dimension type="result">
-				<Choice name="failed"/>
-			</Dimension>
-			<Dimension type="remark">
+		<Test-div id="T5">
+			<Dimension-div type="gesture">
+				<Choice-div name="mousse drag"/>
+				<Choice-div name="mousse Scrolling"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="failed"/>
+			</Dimension-div>
+			<Dimension-div type="remark">
 				The scrolling is a bit heratics
-			</Dimension>
-		</Test>
+			</Dimension-div>
+		</Test-divs>
 
-		<Test ref="T6" >
-			<Dimension type="color-mode">
-				<Choice name="default"/>
-				<Choice name="easy"/>
-			</Dimension>
-			<Dimension type="result">
-				<Choice name="success"/>
-			</Dimension>
-		</Test>
+		<Test-div ref="T6" >
+			<Dimension-div type="color-mode">
+				<Choice-div name="default"/>
+				<Choice-div name="easy"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
 
-		<Test id="T7">
-			<Dimension type="screen-ratio">
-				<Choice name="3840x2160"/>
-				<Choice name="412x915"/>
-				<Choice name="1500x750"/>
-				<Choice name="1000x1000"/>
-			</Dimension>
-			<Dimension type="result">
-				<Choice name="failed"/>
-			</Dimension>
-			<Dimension type="remark">
+		<Test-div id="T7">
+			<Dimension-div type="screen-ratio">
+				<Choice-div name="3840x2160"/>
+				<Choice-div name="412x915"/>
+				<Choice-div name="1500x750"/>
+				<Choice-div name="1000x1000"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="failed"/>
+			</Dimension-div>
+			<Dimension-div type="remark">
 				The GUI is broken and doesn't adapt to the size and the initial move get outside
-			</Dimension>
-		</Test>
+			</Dimension-div>
+		</Test-divs>
 
-		<Test id="T8">
-			<Dimension type="result">
-				<Choice name="success"/>
-			</Dimension>
-		</Test>
+		<Test-div id="T8">
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>s
 
-		<Test id="T9">
-			<Dimension type="result">
-				<Choice name="success"/>
-			</Dimension>
-		</Test>
-	</Campaign>
+		<Test-div id="T9">s
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
+	</Campaign-div>
 
-	<Campaign date="29-03-25" commit="7dbe7e080cfddd1c299a65252d7e63e6a7c876e7" tester="leo">
-		<Test id="T1">
-			<Dimension type="result">
-				<Choice name="success"/>
-			</Dimension>
-		</Test>
-	</Campaign>
+	<Campaign-div date="29-03-25" commit="7dbe7e080cfddd1c299a65252d7e63e6a7c876e7" tester="leo">
+		<Test-div id="T1">
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
+	</Campaign-div>
 
-	<Campaign date="10-04-25" commit="5957ceaf75441d4d09ce8e6b76955b9a7a60d838" tester="leo">
-		<Test id="T10">
-			<Dimension type="result">
-				<Choice name="success"/>
-			</Dimension>
-			<Dimension type="object-type">
-				<Choice name="station-label"/>
-				<Choice name="station"/>
-			</Dimension>
-		</Test>
-		<Test id="T11">
-			<Dimension type="object-type">
-				<Choice name="track-line"/>
-				<Choice name="track-label"/>
-			</Dimension>
-			<Dimension type="result">
-				<Choice name="success"/>
-			</Dimension>
-		</Test>
-		<Test id="T12">
-			<Dimension type="result">
-				<Choice name="success"/>
-			</Dimension>
-		</Test>
-	</Campaign>
-</History>
+	<Campaign-div date="10-04-25" commit="5957ceaf75441d4d09ce8e6b76955b9a7a60d838" tester="leo">
+		<Test-div id="T10">
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+			<Dimension-div type="object-type">
+				<Choice-div name="station-label"/>
+				<Choice-div name="station"/>
+			</Dimension-div>
+		</Test-divs>
+		<Test-div id="T11">
+			<Dimension-div type="object-type">
+				<Choice-div name="track-line"/>
+				<Choice-div name="track-label"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
+		<Test-div id="T12">
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
+	</Campaign-div>
+</History-div>

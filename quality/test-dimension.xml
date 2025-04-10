@@ -1,51 +1,51 @@
-<Project name="Mapdiver">
- 	<Dimension type="ressource">
-		<Choice name="Bretagne"/>
-	</Dimension>
+<Project-div name="Mapdiver">
+ 	<Dimension-div type="ressource">
+		<Choice-div name="Bretagne"/>
+	</Dimension-div>
 
-	<Dimension type="object-type">
-		<Choice name="station-label">The station label</Choice>
-		<Choice name="station">the station element.</Choice>
-		<Choice name="track-line">the track line displayed as a path.</Choice>
-		<Choice name="track-label">The track label.</Choice>
-	</Dimension>
+	<Dimension-div type="object-type">
+		<Choice-div name="station-label">The station label</Choice-div>
+		<Choice-div name="station">the station element.</Choice-div>
+		<Choice-div name="track-line">the track line displayed as a path.</Choice-div>
+		<Choice-div name="track-label">The track label.</Choice-div>
+	</Dimension-div>
 
-	<Dimension type="text-type">
-		<Choice name="station-label">The station label</Choice>
-		<Choice name="track-label">The track label.</Choice>
-	</Dimension>
+	<Dimension-div type="text-type">
+		<Choice-div name="station-label">The station label</Choice-div>
+		<Choice-div name="track-label">The track label.</Choice-div>
+	</Dimension-div>
 
-	<Dimension type="search-Input">
-		<Choice name="valid-station-name">User enters an existing station name.</Choice>
-		<Choice name="valid-line-name">User enters an existing station name.</Choice>
-		<Choice name="invalid-input">User enters a random string.</Choice>
-	</Dimension>
+	<Dimension-div type="search-Input">
+		<Choice-div name="valid-station-name">User enters an existing station name.</Choice-div>
+		<Choice-div name="valid-line-name">User enters an existing station name.</Choice-div>
+		<Choice-div name="invalid-input">User enters a random string.</Choice-div>
+	</Dimension-div>
 
-	<Dimension type="color-mode">
-		<Choice name="default">the default coloring schems</Choice>
-		<Choice name="easy">the easy to read coloring schems.</Choice>
-	</Dimension>
+	<Dimension-div type="color-mode">
+		<Choice-div name="default">the default coloring schems</Choice-div>
+		<Choice-div name="easy">the easy to read coloring schems.</Choice-div>
+	</Dimension-div>
 
-	<Dimension type="gesture">
-		<Choice name="mousse drag">Dragging with the mousse.</Choice>
-		<Choice name="finger drag">Dragging with the finger.</Choice>
-		<Choice name="mousse Scrolling">Scrolling in and out with the mousse.</Choice>
-		<Choice name="finger Scrolling">Scrolling in and out with the user finger.</Choice>
-	</Dimension>
+	<Dimension-div type="gesture">
+		<Choice-div name="mousse drag">Dragging with the mousse.</Choice-div>
+		<Choice-div name="finger drag">Dragging with the finger.</Choice-div>
+		<Choice-div name="mousse Scrolling">Scrolling in and out with the mousse.</Choice-div>
+		<Choice-div name="finger Scrolling">Scrolling in and out with the user finger.</Choice-div>
+	</Dimension-div>
 
-	<Dimension type="screen-ratio">
-		<Choice name="3840x2160"/>
-		<Choice name="412x915"/>
-		<Choice name="1500x750"/>
-		<Choice name="1000x1000"/>
-	</Dimension>
+	<Dimension-div type="screen-ratio">
+		<Choice-div name="3840x2160"/>
+		<Choice-div name="412x915"/>
+		<Choice-div name="1500x750"/>
+		<Choice-div name="1000x1000"/>
+	</Dimension-div>
 
-	<Dimension type="result">
-		<Choice name="success"/>
-		<Choice name="failed"/>
-	</Dimension>
+	<Dimension-div type="result">
+		<Choice-div name="success"/>
+		<Choice-div name="failed"/>
+	</Dimension-div>
 
-	<Dimension type="remark" free="true">
-	</Dimension>
+	<Dimension-div type="remark" free="true">
+	</Dimension-div>
 
-</Project>
+</Project-div>

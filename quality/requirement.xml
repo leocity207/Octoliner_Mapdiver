@@ -30,6 +30,9 @@
 				Clickig on the cross inside should reset the map.
 			</Requirement-div>
 		</Folder-div>
+		<Requirement-div id="R24" name="resizing the GUI">
+			The user can resize the screen and the map should adapts its size
+		</Requirement-div>
 	</Folder-div>
 
 	<Folder-div name="UI/UX Requirements">

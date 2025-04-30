@@ -127,4 +127,12 @@
 			</Dimension-div>
 		</Test-divs>
 	</Campaign-div>
+
+	<Campaign-div date="30-04-25" commit="0322e5be9052836e680d5159d5332d7b1ae48b7a" tester="leo">
+		<Test-div id="T13">
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
+	</Campaign-div>
 </History-div>

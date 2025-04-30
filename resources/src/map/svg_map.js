@@ -777,6 +777,11 @@ class SVG_Map {
 	}
 
 
+	/**
+	 * Change the inner map container width and height to the desired size
+	 * @param {float} map_containter_width desired width of the map canvas
+	 * @param {float} map_container_height desired height of the map canvas
+	 */
 	Zoom_Check_Map_Resize = (map_containter_width, map_container_height) => {
 		this.fabric_canvas.setWidth(map_containter_width);
 		this.fabric_canvas.setHeight(map_container_height);

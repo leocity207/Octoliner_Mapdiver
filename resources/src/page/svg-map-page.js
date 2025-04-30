@@ -69,6 +69,14 @@ class Map_Page extends Page {
 		this.map = new SVG_Map("Desktop", "image/map.svg", Config);
 		await this.map.Setup("Fr", this.map_canvas);
 		this.map.Setup_Mouse_Handlers();
+
+		this.resizeObserver = new ResizeObserver(entries => {
+			for (let entry of entries) {
+				const { width, height } = entry.contentRect;
+				this.map.Zoom_Check_Map_Resize(width, height);
+			}
+		});
+		this.resizeObserver.observe(this.map_container);
 	}
 
 	/**

@@ -243,22 +243,6 @@ class SVG_Map {
 	}
 
 	/**
-	* Set the new width and heights, center and zoom to the whole map
-	* @param {Number} map_containter_width width of the new map
-	* @param {Number} map_container_height height of the new map
-	*/
-	Zoom_Check_Map_Resize = (map_containter_width, map_container_height) => {
-		this.fabric_canvas.setWidth(map_containter_width)
-		this.fabric_canvas.setHeight(map_container_height)
-		this.fabric_canvas.calcOffset()
-		this.fabric_canvas.requestRenderAll()
-		// do recalc and center
-		const initial_zoom = this._Best_Initial_Zoom()
-		this.fabric_canvas.setZoom(initial_zoom)
-		this.fabric_canvas.viewportCenterObject(this.svg_main_group)
-	}
-
-	/**
 	* Initial animation toward the initial ID of an element inside the map
 	* This function is synchronous and wait for the end of the animation
 	*/
@@ -774,6 +758,21 @@ class SVG_Map {
 		fabric.Rect.ATTRIBUTE_NAMES.push('class')
 		fabric.Circle.ATTRIBUTE_NAMES.push('class')
 		fabric.Polygon.ATTRIBUTE_NAMES.push('class')
+	}
+
+
+	/**
+	 * Change the inner map container width and height to the desired size
+	 * @param {float} map_containter_width desired width of the map canvas
+	 * @param {float} map_container_height desired height of the map canvas
+	 */
+	Zoom_Check_Map_Resize = (map_containter_width, map_container_height) => {
+
+		this.fabric_canvas.setWidth(map_containter_width);
+		this.fabric_canvas.setHeight(map_container_height);
+		this.fabric_canvas.calcOffset();
+		this.fabric_canvas.requestRenderAll();
+
 	}
 
 }

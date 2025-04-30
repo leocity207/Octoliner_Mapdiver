@@ -66,6 +66,10 @@
 		<Test-div id="T12" name="closing the right panel" req="R4 R21">
 			when clicking the cross inside the right panel the right panel shoudl close and all the lines are higlighted again.
 		</Test-div>
+		<Test-div id="T13" name="changing size of the windows" req="R24">
+			when resizing the windows on the right the canvas should adapt, when resizing the windows from the top the canvas should also adapt
+		</Test-div>
+
 
 	</Folder-div>
 

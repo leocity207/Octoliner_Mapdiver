@@ -130,6 +130,18 @@ class Network_Map_Page extends Map_Page {
 		Round_Cross.Get_Observable("right-panel-cross").subscribe((event) => {
 			history.back();
 		});
+		
+		let resizeTimeout;
+		this.resizeObserver = new ResizeObserver(entries => {
+			clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(() => {
+				for (let entry of entries) {
+					const { width, height } = entry.contentRect;
+					this.map.Zoom_Check_Map_Resize(width, height);
+				}
+			}, 25); //Debounce time
+		});
+		this.resizeObserver.observe(this.map_container);
 	}
 
 	/**

@@ -767,16 +767,12 @@ class SVG_Map {
 	 * @param {float} map_container_height desired height of the map canvas
 	 */
 	Zoom_Check_Map_Resize = (map_containter_width, map_container_height) => {
-		const objects = this.fabric_canvas.getObjects();
-		const json = this.fabric_canvas.toJSON();
-		
-		this.fabric_canvas.clear();
+
 		this.fabric_canvas.setWidth(map_containter_width);
 		this.fabric_canvas.setHeight(map_container_height);
-		
-		this.fabric_canvas.loadFromJSON(json, () => {
-			this.fabric_canvas.renderAll();
-		});
+		this.fabric_canvas.calcOffset();
+		this.fabric_canvas.requestRenderAll();
+
 	}
 
 }

@@ -131,11 +131,15 @@ class Network_Map_Page extends Map_Page {
 			history.back();
 		});
 		
+		let resizeTimeout;
 		this.resizeObserver = new ResizeObserver(entries => {
-			for (let entry of entries) {
-				const { width, height } = entry.contentRect;
-				this.map.Zoom_Check_Map_Resize(width, height);
-			}
+			clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(() => {
+				for (let entry of entries) {
+					const { width, height } = entry.contentRect;
+					this.map.Zoom_Check_Map_Resize(width, height);
+				}
+			}, 25); //Debounce time
 		});
 		this.resizeObserver.observe(this.map_container);
 	}

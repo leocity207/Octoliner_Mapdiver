@@ -778,12 +778,10 @@ class SVG_Map {
 
 
 	Zoom_Check_Map_Resize = (map_containter_width, map_container_height) => {
-		this.fabric_canvas.setWidth(map_containter_width)
-		this.fabric_canvas.setHeight(map_container_height)
-		this.fabric_canvas.calcOffset()
-		this.fabric_canvas.requestRenderAll()
-		// do recalc and center
-		//this.fabric_canvas.viewportCenterObject(this.svg_main_group)
+		this.fabric_canvas.setWidth(map_containter_width);
+		this.fabric_canvas.setHeight(map_container_height);
+		this.fabric_canvas.calcOffset();
+		this.fabric_canvas.requestRenderAll();
 	}
 
 }

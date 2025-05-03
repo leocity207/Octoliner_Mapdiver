@@ -116,7 +116,7 @@ static void Serialize_Lines_Test()
 
 static void Deserialize_Lines_Test()
 {
-	OATPP_LOGi("[Info]", "deserializeLineTest");
+	OATPP_LOGi("[Info]", "Deserialize_Lines_Test");
 	auto jsonObjectMapper = oatpp::json::ObjectMapper();
 	auto object = jsonObjectMapper.readFromString<oatpp::Object<Lines_DTO>>(json_lines_test);
 

@@ -3,186 +3,137 @@
 #include "src/config.h"
 
 #include "oatpp/json/ObjectMapper.hpp"
+#include "src/dto/line.h"
 #include "src/dto/lines.h"
+#include "src/dto/timetable_pattern.h"
+#include "src/dto/line_flow_stop.h"
 
-static void SerializeLineTest()
+static void Serialize_Line_Test()
 {
-	OATPP_LOGi("[Info]", "SerializeLineTest");
-	// 1. Create the LinesDTO object
-	auto linesDTO = LinesDTO::createShared();
+	OATPP_LOGi("[Info]", "Serialize_Line_Test");
 
-	// 2. Populate LineDTO objects
-	auto line_BRE0 = LineDTO::createShared();
-	line_BRE0->label = "LER BRE0";
-	line_BRE0->colors = { {"default", "#25158B"}, {"easy", "#DD2F1D"} };
-	line_BRE0->urls = {};
+	auto lineflowstops_1 = Line_Flow_Stop_DTO::createShared();
+	lineflowstops_1->station_ID = "Station_1";
+	lineflowstops_1->departure_minute = 14;
+	lineflowstops_1->flags = {};
 
-	auto reverse_a = oatpp::data::type::String("~default-a");
-	auto BRE0_stations = oatpp::Vector<oatpp::String>::createShared();
-	for (auto elt : { "FR_29019_0", "FR_29103_0", "FR_29105_0",
-		"FR_29265_0", "FR_29151_0", "FR_22207_0",
-		"FR_22070_0", "FR_22278_0", "FR_22093_0",
-		"FR_35184_0", "FR_35238_0", "FR_35360_0",
-		"FR_53130_0", "FR_53097_0", "FR_72181_0" })
-		BRE0_stations->emplace_back(elt);
-	auto BRE1_stations = oatpp::Vector<oatpp::String>::createShared();
-	for (auto elt : { "FR_29019_0", "FR_29080_0", "FR_29302_0",
-			"FR_29232_0", "FR_29233_0", "FR_56121_0",
-			"FR_56098_0", "FR_56007_0", "FR_56260_0",
-			"FR_56206_0", "FR_56184_0", "FR_35236_0",
-			"FR_44129_0", "FR_44195_0", "FR_44109_0",
-			"FR_44003_0", "FR_49007_0", "FR_49328_0",
-			"FR_37261_0" })
-		BRE1_stations->emplace_back(elt);
-	auto BRE2_stations = oatpp::Vector<oatpp::String>::createShared();
-	for (auto elt : { "FR_29232_0", "FR_29233_0", "FR_56121_0",
-			"FR_56098_0", "FR_56007_0", "FR_56260_0",
-			"FR_56206_0", "FR_56184_0", "FR_35236_0",
-			"FR_44007_0", "FR_35176_0", "FR_35238_0" })
-		BRE2_stations->emplace_back(elt);
+	auto lineflowstops_2 = Line_Flow_Stop_DTO::createShared();
+	lineflowstops_2->station_ID = "Station_2";
+	lineflowstops_2->departure_minute = 24;
+	lineflowstops_2->departure_minute = 24;
+	lineflowstops_2->flags->emplace_back("warning");
+
+	auto timetable_pattern = Timetable_Pattern_DTO::createShared();
+	timetable_pattern->code = "code_1";
+	timetable_pattern->label = "a - b";
+	timetable_pattern->interval_minutes = 60,
+	timetable_pattern->departure_minute = 22,
+	timetable_pattern->first_departure = "4:22:00",
+	timetable_pattern->last_departure ="23:22:00",
+	timetable_pattern->service = "local",
+	timetable_pattern->infomessages = {},
+	timetable_pattern->lineflowstops =  {lineflowstops_1, lineflowstops_2};
+
+	auto line = Line_DTO::createShared();
+	line->code = "LER_BRE0";
+	line->label = "LER BRE0";
+	line->color = { {"default", "#25158B"}, {"easy", "#DD2F1D"} };
+	line->urls = {{"fr","/fr/BRE0"},{"en","/en/BRE0"}};
+	line->timetable_pattern = {timetable_pattern};
 	
-
-	line_BRE0->stations = {
-		{"default-a", oatpp::Any(BRE0_stations)},
-		{"default-r", oatpp::Any(reverse_a)}
-	};
-
-	auto line_BRE1 = LineDTO::createShared();
-	line_BRE1->label = "LER BRE1";
-	line_BRE1->colors = { {"default", "#4D84B8"}, {"easy", "#9184BE"} };
-	line_BRE1->urls = {};
-	line_BRE1->stations = {
-		{"default-a", oatpp::Any(BRE1_stations)},
-		{"default-r", oatpp::Any(reverse_a)}
-	};
-
-	auto line_BRE2 = LineDTO::createShared();
-	line_BRE2->label = "LER BRE2";
-	line_BRE2->colors = { {"default", "#7065B2"}, {"easy", "#008B39"} };
-	line_BRE2->urls = {};
-	line_BRE2->stations = {
-		{"default-a", oatpp::Any(BRE2_stations)},
-		{"default-r", oatpp::Any(reverse_a)}
-	};
-
-	// 3. Populate the LinesDTO object
-	linesDTO->lines = {
-		{"LER-BRE0", line_BRE0},
-		{"LER-BRE1", line_BRE1},
-		{"LER-BRE2", line_BRE2}
-	};
-
-	// 4. Serialize the object to JSON
 	auto jsonObjectMapper = oatpp::json::ObjectMapper();
-	auto serializedJson = jsonObjectMapper.writeToString(linesDTO);
+	auto serializedJson = jsonObjectMapper.writeToString(line);
 
-	// 6. Compare the serialized JSON with the expected JSON
-	OATPP_ASSERT(serializedJson == serialization_line_res);
+	OATPP_ASSERT(serializedJson == json_line_test_serialized);
 }
 
-static void deserializeLineTest()
+static void Deserialize_Line_Test()
+{
+	OATPP_LOGi("[Info]", "Deserialize_Line_Test");
+	auto jsonObjectMapper = oatpp::json::ObjectMapper();
+	auto object = jsonObjectMapper.readFromString<oatpp::Object<Line_DTO>>(json_line_test);
+
+	OATPP_ASSERT(object->code == "EXPRESS_1");
+	OATPP_ASSERT(object->label == "Express Line 1");
+	OATPP_ASSERT(object->urls.getValueByKey("fr") == "/fr/express1");
+	OATPP_ASSERT(object->urls.getValueByKey("en") == "/en/express1");
+	OATPP_ASSERT(object->color.getValueByKey("default") == "#FF0000");
+	OATPP_ASSERT(object->color.getValueByKey("night") == "#880000");
+	auto& timetable_pattern = object->timetable_pattern[0];
+
+	OATPP_ASSERT(timetable_pattern->code == "EXPRESS_1_A_00");
+	OATPP_ASSERT(timetable_pattern->label == "North Terminal → South Terminal");
+	OATPP_ASSERT(timetable_pattern->interval_minutes == 30);
+	OATPP_ASSERT(timetable_pattern->departure_minute == 0);
+	OATPP_ASSERT(timetable_pattern->first_departure == "5:00:00");
+	OATPP_ASSERT(timetable_pattern->last_departure == "23:00:00");
+	OATPP_ASSERT(timetable_pattern->service == "express");
+	OATPP_ASSERT(timetable_pattern->infomessages->size() == 0);
+	OATPP_ASSERT(timetable_pattern->code == "EXPRESS_1_A_00");
+
+	auto& station_1 = timetable_pattern->lineflowstops[0];
+	auto& station_2 = timetable_pattern->lineflowstops[1];
+	auto& station_3 = timetable_pattern->lineflowstops[2];
+
+	OATPP_ASSERT(station_1->station_ID = "NORTH_TERMINAL");
+	OATPP_ASSERT(station_1->departure_minute == 0);
+	OATPP_ASSERT(station_1->hasArrivalMinute() == false);
+	OATPP_ASSERT(station_1->hasDepartureMinute() == true);
+	OATPP_ASSERT(station_1->hasFlags() == false);
+
+	OATPP_ASSERT(station_2->station_ID = "CENTER_CITY");
+	OATPP_ASSERT(station_2->departure_minute == 16);
+	OATPP_ASSERT(station_2->arrival_minute == 15);
+	OATPP_ASSERT(station_2->flags->front() == "warning");
+	OATPP_ASSERT(station_2->flags->size() == 1);
+	OATPP_ASSERT(station_2->hasArrivalMinute() == true);
+	OATPP_ASSERT(station_2->hasDepartureMinute() == true);
+	OATPP_ASSERT(station_2->hasFlags() == true);
+
+	OATPP_ASSERT(station_3->station_ID = "SOUTH_TERMINAL");
+	OATPP_ASSERT(station_3->arrival_minute == 30);
+	OATPP_ASSERT(station_3->hasArrivalMinute() == true);
+	OATPP_ASSERT(station_3->hasDepartureMinute() == false);
+	OATPP_ASSERT(station_3->hasFlags() == false);
+}
+
+static void Serialize_Lines_Test()
+{
+	OATPP_LOGi("[Info]", "Serialize_Lines_Test");
+
+	auto lines = Lines_DTO::createShared();
+	lines->lines = {};
+	lines->lines->emplace_back("LINE_1");
+	lines->lines->emplace_back("LINE_2");
+	lines->lines->emplace_back("LINE_3");
+
+
+	auto jsonObjectMapper = oatpp::json::ObjectMapper();
+	auto serializedJson = jsonObjectMapper.writeToString(lines);
+
+	OATPP_ASSERT(serializedJson == json_lines_test_serialized);
+}
+
+static void Deserialize_Lines_Test()
 {
 	OATPP_LOGi("[Info]", "deserializeLineTest");
 	auto jsonObjectMapper = oatpp::json::ObjectMapper();
-	auto object = jsonObjectMapper.readFromString<oatpp::Object<LinesDTO>>(json_line_test);
+	auto object = jsonObjectMapper.readFromString<oatpp::Object<Lines_DTO>>(json_lines_test);
 
-	auto& line_BRE0 = object->lines["LER-BRE0"];
-	auto& line_BRE1 = object->lines["LER-BRE1"];
-	auto& line_BRE2 = object->lines["LER-BRE2"];
-	OATPP_ASSERT(line_BRE0->label == "LER BRE0");
-	OATPP_ASSERT(line_BRE1->label == "LER BRE1");
-	OATPP_ASSERT(line_BRE2->label == "LER BRE2");
+	OATPP_ASSERT(object->lines->size() == 4);
 
-	OATPP_ASSERT(line_BRE0->colors["default"] == "#25158B");
-	OATPP_ASSERT(line_BRE0->colors["easy"] == "#DD2F1D");
-
-	OATPP_ASSERT(line_BRE1->colors["default"] == "#4D84B8");
-	OATPP_ASSERT(line_BRE1->colors["easy"] == "#9184BE");
-
-	OATPP_ASSERT(line_BRE2->colors["default"] == "#7065B2");
-	OATPP_ASSERT(line_BRE2->colors["easy"] == "#008B39");
-
-
-	OATPP_ASSERT(line_BRE0->urls->size() == 0);
-	OATPP_ASSERT(line_BRE1->urls->size() == 0);
-	OATPP_ASSERT(line_BRE2->urls->size() == 0);
-
-	auto& stationsBRE0 = line_BRE0->stations;
-	OATPP_ASSERT(LineDTO::GetStationType(stationsBRE0, "default-a")->classId == oatpp::Vector<oatpp::String>::Class::getType()->classId);
-	OATPP_ASSERT(LineDTO::GetStationType(stationsBRE0, "default-r")->classId == oatpp::String::Class::getType()->classId);
-	OATPP_ASSERT(LineDTO::GetStationString(stationsBRE0, "default-r") == "~default-a");
-	std::vector<oatpp::String> BREO = {
-		"FR_29019_0",
-		"FR_29103_0",
-		"FR_29105_0",
-		"FR_29265_0",
-		"FR_29151_0",
-		"FR_22207_0",
-		"FR_22070_0",
-		"FR_22278_0",
-		"FR_22093_0",
-		"FR_35184_0",
-		"FR_35238_0",
-		"FR_35360_0",
-		"FR_53130_0",
-		"FR_53097_0",
-		"FR_72181_0" };
-	auto BRE0_List = LineDTO::GetStationList(stationsBRE0, "default-a");
-	for (auto& station : *BRE0_List)
-		OATPP_ASSERT(std::find(BREO.begin(), BREO.end(), station) != BREO.end());
-
-	auto& stationsBRE1 = line_BRE1->stations;
-	OATPP_ASSERT(LineDTO::GetStationType(stationsBRE1, "default-a")->classId == oatpp::Vector<oatpp::String>::Class::getType()->classId);
-	OATPP_ASSERT(LineDTO::GetStationType(stationsBRE1, "default-r")->classId == oatpp::String::Class::getType()->classId);
-	OATPP_ASSERT(LineDTO::GetStationString(stationsBRE1, "default-r") == "~default-a");
-	std::vector<oatpp::String> BRE1 = {
-		"FR_29019_0",
-		"FR_29080_0",
-		"FR_29302_0",
-		"FR_29232_0",
-		"FR_29233_0",
-		"FR_56121_0",
-		"FR_56098_0",
-		"FR_56007_0",
-		"FR_56260_0",
-		"FR_56206_0",
-		"FR_56184_0",
-		"FR_35236_0",
-		"FR_44129_0",
-		"FR_44195_0",
-		"FR_44109_0",
-		"FR_44003_0",
-		"FR_49007_0",
-		"FR_49328_0",
-		"FR_37261_0" };
-	auto BRE1_List = LineDTO::GetStationList(stationsBRE1, "default-a");
-	for (auto& station : *BRE1_List)
-		OATPP_ASSERT(std::find(BRE1.begin(), BRE1.end(), station) != BRE1.end());
-
-	auto& stationsBRE2 = line_BRE2->stations;
-	OATPP_ASSERT(LineDTO::GetStationType(stationsBRE2, "default-a")->classId == oatpp::Vector<oatpp::String>::Class::getType()->classId);
-	OATPP_ASSERT(LineDTO::GetStationType(stationsBRE2, "default-r")->classId == oatpp::String::Class::getType()->classId);
-	OATPP_ASSERT(LineDTO::GetStationString(stationsBRE2, "default-r") == "~default-a");
-	std::vector<oatpp::String> BRE2 = {
-		"FR_29232_0",
-		"FR_29233_0",
-		"FR_56121_0",
-		"FR_56098_0",
-		"FR_56007_0",
-		"FR_56260_0",
-		"FR_56206_0",
-		"FR_56184_0",
-		"FR_35236_0",
-		"FR_44007_0",
-		"FR_35176_0",
-		"FR_35238_0" };
-	auto BRE2_List = LineDTO::GetStationList(stationsBRE2, "default-a");
-	for (auto& station : *BRE2_List)
-		OATPP_ASSERT(std::find(BRE2.begin(), BRE2.end(), station) != BRE2.end());
+	auto it = object->lines->begin();
+	OATPP_ASSERT(*(it) == "LER_BRE0");
+	OATPP_ASSERT(*(++it) == "LER_BRE1");
+	OATPP_ASSERT(*(++it) == "LER_BRE2");
+	OATPP_ASSERT(*(++it) == "LER_BRE3");
 }
 
 void LineDTOTest::onRun()
 {
-	SerializeLineTest();
-	deserializeLineTest();
+	Serialize_Line_Test();
+	Deserialize_Line_Test();
+
+	Serialize_Lines_Test();
+	Deserialize_Lines_Test();
 }

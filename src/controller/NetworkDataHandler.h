@@ -35,12 +35,12 @@ class NetworkDataHandler : public oatpp::web::server::api::ApiController {
             oatpp::String json_data_station = oatpp::String::loadFromFile((RESOURCE_PATH() + oatpp::String("resources-config/data/station.json"))->c_str());
 
             auto jsonObjectMapper = oatpp::json::ObjectMapper();
-            auto lines_data_dto = jsonObjectMapper.readFromString<oatpp::Object<LinesDTO>>(json_data_lines);
+            auto lines_data_dto = jsonObjectMapper.readFromString<oatpp::Object<Lines_DTO>>(json_data_lines);
             auto station_data_dto = jsonObjectMapper.readFromString<oatpp::Object<StationsDTO>>(json_data_station);
             
             auto network_dto = NetworkDTO::createShared();
             network_dto->stations = station_data_dto->stations;
-            network_dto->lines = lines_data_dto->lines;
+            //network_dto->lines = lines_data_dto->lines;
 
             auto response = createDtoResponse(Status::CODE_200, network_dto);
             response->putHeader("Content-Type", "json");

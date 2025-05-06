@@ -437,6 +437,12 @@ class Network_Map extends SVG_Map {
 	_Find_Station_Data_By_Id = (code) => {
 		return this.all_stations_json.find(x => x.code === code);
 	}
+
+	Get_Line_Data = async function(line_ID) {
+		return {"data": this.lines[line_ID],
+				"icon": await this.Extract_Parent_Group_By_Id("LT-" + line_ID + "-0")
+		};
+	}
 }
 
 export default Network_Map;

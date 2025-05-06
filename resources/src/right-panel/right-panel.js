@@ -50,7 +50,8 @@ class Right_Panel extends Base_Panel {
 	 * 
 	 * @param {String} line_ID the Id of the line
 	 */
-	Open_Line_Info(line_ID) {
+	Open_Line_Info = async function(async_line_data) {
+		line_data = await async_line_data;
 		this.Open();
 	}
 

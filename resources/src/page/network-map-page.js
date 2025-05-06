@@ -59,7 +59,7 @@ class Network_Map_Page extends Map_Page {
 		//if(this.prev_event.type === 'station')
 		//	this.map.Reset_All_Highlight_Station();
 		this.map.Highlight_Lines([event.detail]);
-		this.m_right_panel.Open_Line_Info(event.detail);
+		this.m_right_panel.Open_Line_Info(this.map.Get_Line_Data(event.detail));
 		this.map.Zoom_Highlighted_Line(event.detail);
 		this.prev_event = {type: "line", detail: event.detail};
 	}

@@ -1,5 +1,6 @@
 import Base_Panel from "../components/panel.js";
 import Round_Cross from "../components/round-cross.js";
+import Line_Info from "./line_info.js"
 
 /**
  * The **Right Panel** is a user interface element that remains fixed on the right side of the screen.  
@@ -51,8 +52,9 @@ class Right_Panel extends Base_Panel {
 	 * @param {String} line_ID the Id of the line
 	 */
 	Open_Line_Info = async function(async_line_data) {
-		line_data = await async_line_data;
+		let line_data = await async_line_data;
 		this.Open();
+		this.base_panel.appendChild(Line_Info.Create(line_data));
 	}
 
 	/**

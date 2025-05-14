@@ -1,0 +1,113 @@
+// line-info.js
+import Line_Schedule from './line-schedule.js';
+
+/**
+ * The **Ligne info** is a n object used to display line information.
+ * Structure
+ * ---------
+ * 
+ * The ligne infos has two componants:
+ * 
+ * - **Title and Subtitle**: Provides line names and icons.
+ * - **Info about the line** : Provide information about the line status globaly
+ * - **Line schedule data**: display all the line schedule to the user.
+ */
+export default class Line_Info extends HTMLElement {
+	constructor() {
+		super();
+		this.shadow_root = this.attachShadow({ mode: 'open' });
+
+		// CSS externe
+		const style_link = document.createElement("link");
+		style_link.setAttribute("rel", "stylesheet");
+		style_link.setAttribute("href", "style/line-info.css");
+		this.shadow_root.appendChild(style_link);
+
+		this.container = document.createElement('div');
+		this.container.classList.add('line-info');
+		this.shadow_root.appendChild(this.container);
+
+		this._data = null;
+	}
+
+	/**  
+	 * @param {Object} data = { line_data, line_icon }  
+	 */
+	static Create(data) {
+		const el = document.createElement('line-info');
+		el._data = data;
+		el.Render();
+		return el;
+	}
+
+	/**
+	 * Render the while line data to the screen
+	*/
+	Render() {
+		if (!this._data) return;
+		const line_data = this._data.data;
+		const line_icon = this._data.icon;
+
+		this.container.innerHTML = '';
+
+		this.Render_Header(line_data, line_icon);
+		this.Render_Info_Messages(line_data.infomessages);
+		this.Render_Schedules(line_data.timetable_pattern);
+	}
+
+	/**
+	 * render the title header of the line
+	 * @param {Object} line_data 
+	 * @param {Object} line_icon 
+	 */
+	Render_Header(line_data, line_icon) {
+		const header = document.createElement('div');
+		header.classList.add('line-header');
+
+		const icon_wrap = document.createElement('div');
+		icon_wrap.classList.add('line-logo');
+		//icon_wrap.appendChild(line_icon.clone());
+
+		const title = document.createElement('div');
+		title.classList.add('line-title');
+		title.textContent = line_data.label;
+
+		header.append(icon_wrap, title);
+		this.container.appendChild(header);
+	}
+
+	/**
+	 * Render info message that are below the tittle
+	 * @param {Infomessages} messages 
+	 * @returns 
+	 */
+	Render_Info_Messages(messages = []) {
+		if (!messages.length) return;
+		const info_wrap = document.createElement('div');
+		info_wrap.classList.add('line-infomessages');
+		messages.forEach(msg => {
+			const p = document.createElement('p');
+			p.classList.add('infomessage');
+			p.textContent = msg.text.fr;
+			info_wrap.appendChild(p);
+		});
+		this.container.appendChild(info_wrap);
+	}
+
+	/**
+	 * Render all the schedules of the line
+	 * @param {Object} schedules 
+	 */
+	Render_Schedules(schedules = []) {
+		const sched_wrap = document.createElement('div');
+		sched_wrap.classList.add('schedules');
+
+		schedules.forEach(sch => {
+			sched_wrap.appendChild(Line_Schedule.Create(sch));
+		});
+
+		this.container.appendChild(sched_wrap);
+	}
+}
+
+customElements.define('line-info', Line_Info);

@@ -1,0 +1,37 @@
+.line-info {
+	font-family: sans-serif;
+	padding: 1em;
+}
+
+.line-header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5em;
+}
+
+.line-logo {
+	width: 40px;
+	height: 40px;
+	margin-right: 0.5em;
+}
+
+.line-title {
+	font-size: 1.25em;
+	font-weight: bold;
+}
+
+.line-infomessages {
+	background: #fff4e5;
+	border: 1px solid #f5c26b;
+	padding: 0.5em;
+	border-radius: 4px;
+	margin-bottom: 0.75em;
+}
+
+.infomessage {
+	margin: 0.25em 0;
+}
+
+.schedules {
+	margin-top: 0.5em;
+}

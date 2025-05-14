@@ -1,0 +1,28 @@
+.schedule-item {
+	border-top: 1px solid #ddd;
+}
+
+.schedule-item:first-child {
+	border-top: none;
+}
+
+.schedule-header {
+	padding: 0.5em;
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	user-select: none;
+}
+
+.schedule-info-icon {
+	margin-left: 0.5em;
+}
+
+.schedule-details {
+	display: none;
+	padding: 0.5em;
+}
+
+.schedule-details.open {
+	display: block;
+}

@@ -1,0 +1,26 @@
+.station-row {
+	display: flex;
+	align-items: center;
+}
+
+.station-icon-wrap {
+	width: 10px;
+	height: 100%;
+	margin-right: 0.5em;
+}
+
+.station-icon-svg rect {
+	fill: #555;
+}
+
+.station-icon-svg circle {
+	fill: #fff;
+}
+
+.station-name {
+	flex: 1;
+}
+
+.station-name.warning {
+	color: red;
+}

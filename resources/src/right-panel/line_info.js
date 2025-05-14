@@ -27,7 +27,7 @@ export default class Line_Info extends HTMLElement {
 		this.container.classList.add('line-info');
 		this.shadow_root.appendChild(this.container);
 
-		this._data = null;
+		this.data = null;
 	}
 
 	/**  
@@ -35,7 +35,7 @@ export default class Line_Info extends HTMLElement {
 	 */
 	static Create(data) {
 		const el = document.createElement('line-info');
-		el._data = data;
+		el.data = data;
 		el.Render();
 		return el;
 	}
@@ -44,15 +44,13 @@ export default class Line_Info extends HTMLElement {
 	 * Render the while line data to the screen
 	*/
 	Render() {
-		if (!this._data) return;
-		const line_data = this._data.data;
-		const line_icon = this._data.icon;
+		if (!this.data) return;
 
 		this.container.innerHTML = '';
 
-		this.Render_Header(line_data, line_icon);
-		this.Render_Info_Messages(line_data.infomessages);
-		this.Render_Schedules(line_data.timetable_pattern);
+		this.Render_Header(this.data.lines, this.data.icon);
+		this.Render_Info_Messages(this.data.lines.infomessages);
+		this.Render_Schedules(this.data.lines.timetable_pattern,this.data.stations);
 	}
 
 	/**
@@ -98,12 +96,12 @@ export default class Line_Info extends HTMLElement {
 	 * Render all the schedules of the line
 	 * @param {Object} schedules 
 	 */
-	Render_Schedules(schedules = []) {
+	Render_Schedules(schedules = [],stations) {
 		const sched_wrap = document.createElement('div');
 		sched_wrap.classList.add('schedules');
 
 		schedules.forEach(sch => {
-			sched_wrap.appendChild(Line_Schedule.Create(sch));
+			sched_wrap.appendChild(Line_Schedule.Create(sch, stations));
 		});
 
 		this.container.appendChild(sched_wrap);

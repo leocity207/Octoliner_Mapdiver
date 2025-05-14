@@ -439,7 +439,8 @@ class Network_Map extends SVG_Map {
 	}
 
 	Get_Line_Data = async function(line_ID) {
-		return {"data": this.lines[line_ID],
+		return {"lines": this.lines[line_ID],
+				"stations": this.stations,
 				"icon": await this.Extract_Parent_Group_By_Id("LT-" + line_ID + "-0")
 		};
 	}

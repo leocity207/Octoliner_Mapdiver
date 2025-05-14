@@ -28,30 +28,32 @@ export default class Line_Schedule extends HTMLElement {
     this.container.classList.add('schedule-item');
     this.shadow_root.appendChild(this.container);
 
-    this._data = null;
+    this.data = null;
+    this.stations = null;
   }
 
   /**  
    * @param {Object} data  sch = { label, infomessages, lineflowstops, … }  
    */
-  static Create(data) {
+  static Create(data, stations) {
     const el = document.createElement('line-schedule');
-    el._data = data;
+    el.data = data;
+    el.stations = stations;
     el.Render();
     return el;
   }
 
   /** Reconstruit l’horaire pliable */
   Render() {
-    if (!this._data) return;
+    if (!this.data) return;
     this.container.innerHTML = '';
 
     // header
     const header = document.createElement('div');
     header.classList.add('schedule-header');
-    header.textContent = this._data.label;
+    header.textContent = this.data.label;
 
-    if (this._data.infomessages?.length) {
+    if (this.data.infomessages?.length) {
       const svg_ns = 'http://www.w3.org/2000/svg';
       const info_icon = document.createElementNS(svg_ns, 'svg');
       info_icon.setAttribute('class', 'schedule-info-icon');
@@ -89,8 +91,8 @@ export default class Line_Schedule extends HTMLElement {
     this.container.append(header, details);
 
     // stations
-    this._data.lineflowstops.forEach(st => {
-      details.appendChild(Line_Station.Create(st));
+    this.data.lineflowstops.forEach(st => {
+      details.appendChild(Line_Station.Create(st,this.stations));
     });
   }
 }

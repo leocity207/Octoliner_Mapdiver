@@ -15,22 +15,24 @@ export default class Line_Station extends HTMLElement {
     this.container.classList.add('station-row');
     this.shadow_root.appendChild(this.container);
 
-    this._data = null;
+    this.data = null;
+    this.stations = null;
   }
 
   /**  
    * @param {Object} data  { station_code, flag, … }  
    */
-  static Create(data) {
+  static Create(data,stations) {
     const el = document.createElement('line-station');
-    el._data = data;
+    el.data = data;
+    el.stations = stations;
     el.Render();
     return el;
   }
 
   /** Reconstruit la ligne de station */
   Render() {
-    if (!this._data) return;
+    if (!this.data) return;
 
     // reset
     this.container.innerHTML = '';
@@ -49,8 +51,8 @@ export default class Line_Station extends HTMLElement {
     // nom de la station
     const station_name = document.createElement('span');
     station_name.classList.add('station-name');
-    station_name.textContent = this._data.station_code;
-    if (this._data.flag && this._data.flag.includes('warning')) {
+    station_name.textContent = this.stations[this.data.station_ID].label;
+    if (this.data.flag && this.data.flag.includes('warning')) {
       station_name.classList.add('warning');
     }
     this.container.appendChild(station_name);

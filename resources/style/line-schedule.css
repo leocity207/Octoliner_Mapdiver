@@ -19,10 +19,14 @@
 }
 
 .schedule-details {
-	display: none;
-	padding: 0.5em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	max-height:0px;
+    overflow: hidden;
+	transition: max-height 0.3s ease;
 }
 
 .schedule-details.open {
-	display: block;
+	max-height:1000px;
+	transition: max-height 0.3s ease;
 }

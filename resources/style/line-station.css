@@ -7,6 +7,7 @@
 	width: 10px;
 	height: 100%;
 	margin-right: 0.5em;
+	display: inline-flex;
 }
 
 .station-icon-svg rect {
@@ -19,6 +20,7 @@
 
 .station-name {
 	flex: 1;
+	max-height: 40px;
 }
 
 .station-name.warning {

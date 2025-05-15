@@ -1,5 +1,6 @@
 // line-info.js
 import Line_Schedule from './line-schedule.js';
+import Round_Cross from '../components/round-cross.js';
 
 /**
  * The **Ligne info** is a n object used to display line information.
@@ -70,7 +71,7 @@ export default class Line_Info extends HTMLElement {
 		title.classList.add('line-title');
 		title.textContent = line_data.label;
 
-		header.append(icon_wrap, title);
+		header.append(icon_wrap, title, Round_Cross.Create("right-panel-cross"));
 		this.container.appendChild(header);
 	}
 
@@ -101,6 +102,7 @@ export default class Line_Info extends HTMLElement {
 		sched_wrap.classList.add('schedules');
 
 		schedules.forEach(sch => {
+			sch.parent = this.data.lines;
 			sched_wrap.appendChild(Line_Schedule.Create(sch, stations));
 		});
 

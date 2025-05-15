@@ -1,5 +1,4 @@
 import Base_Panel from "../components/panel.js";
-import Round_Cross from "../components/round-cross.js";
 import Line_Info from "./line_info.js"
 
 /**
@@ -42,8 +41,6 @@ class Right_Panel extends Base_Panel {
 		this.base_panel.classList.add("right");
 
 		this.shadowRoot.appendChild(style_link);
-
-		this.base_panel.appendChild(Round_Cross.Create("right-panel-cross"));
 	}
 
 	/**
@@ -54,6 +51,9 @@ class Right_Panel extends Base_Panel {
 	Open_Line_Info = async function(async_line_data) {
 		let line_data = await async_line_data;
 		this.Open();
+		while (this.base_panel.firstChild) {
+			this.base_panel.removeChild(this.base_panel.firstChild);
+		}
 		this.base_panel.appendChild(Line_Info.Create(line_data));
 	}
 

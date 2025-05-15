@@ -92,6 +92,7 @@ export default class Line_Schedule extends HTMLElement {
 
     // stations
     this.data.lineflowstops.forEach(st => {
+      st.parent = this.data;
       details.appendChild(Line_Station.Create(st,this.stations));
     });
   }

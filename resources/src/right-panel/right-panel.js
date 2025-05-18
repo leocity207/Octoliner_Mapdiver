@@ -48,12 +48,10 @@ class Right_Panel extends Base_Panel {
 	 * 
 	 * @param {String} line_ID the Id of the line
 	 */
-	Open_Line_Info = async function(async_line_data) {
-		let line_data = await async_line_data;
+	Open_Line_Info = async function(line_data) {
 		this.Open();
-		while (this.base_panel.firstChild) {
+		while (this.base_panel.firstChild)
 			this.base_panel.removeChild(this.base_panel.firstChild);
-		}
 		this.base_panel.appendChild(Line_Info.Create(line_data));
 	}
 

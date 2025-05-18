@@ -774,42 +774,6 @@ class SVG_Map {
 		this.fabric_canvas.requestRenderAll();
 
 	}
-
-	/**
-	 * Asynchronously finds and clones the parent group of an object with a specific ID
-	 * from a Fabric.js object tree.
-	 *
-	 * @param {fabric.Object[]} objects - Top-level objects (e.g. from canvas.getObjects()).
-	 * @param {string} targetId - The ID of the SVG element to search for.
-	 * @returns {Promise<fabric.Group|null>} - A deep clone of the parent group, or null if not found.
-	 */
-	Extract_Parent_Group_By_Id = async function(objects, targetId) {
-		function findInGroup(group, parent = null) {
-			if (group.type === 'group' && group._objects) {
-				for (let child of group._objects) {
-					if (child.id === targetId) {
-						return parent || group; // Return immediate parent or group itself
-					}
-					if (child.type === 'group') {
-						const result = findInGroup(child, group);
-						if (result) return result;
-					}
-				}
-			}
-			return null;
-		}
-
-		for (const obj of objects) {
-			const foundGroup = findInGroup(obj);
-			if (foundGroup) {
-				return await new Promise(resolve => {
-					foundGroup.clone(clone => resolve(clone));
-				});
-			}
-		}
-		return null; // ID not found
-	}
-
 }
 
 export default SVG_Map;

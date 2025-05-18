@@ -17,6 +17,7 @@ class Line_DTO : public oatpp::DTO {
 		DTO_FIELD(String, label, "label");
 		DTO_FIELD(Fields<String>, urls, "urls");
 		DTO_FIELD(Fields<String>, color, "color");
+		DTO_FIELD(String, svg_icon, "svg_icon");
 		DTO_FIELD(List<Object<Timetable_Pattern_DTO>>, timetable_pattern, "timetable_pattern");
 };
 

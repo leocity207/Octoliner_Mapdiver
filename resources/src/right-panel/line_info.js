@@ -32,7 +32,7 @@ export default class Line_Info extends HTMLElement {
 	}
 
 	/**  
-	 * @param {Object} data = { line_data, line_icon }  
+	 * @param {Object} data = line_data
 	 */
 	static Create(data) {
 		const el = document.createElement('line-info');
@@ -49,7 +49,7 @@ export default class Line_Info extends HTMLElement {
 
 		this.container.innerHTML = '';
 
-		this.Render_Header(this.data.lines, this.data.icon);
+		this.Render_Header(this.data.lines);
 		this.Render_Info_Messages(this.data.lines.infomessages);
 		this.Render_Schedules(this.data.lines.timetable_pattern,this.data.stations);
 	}
@@ -57,19 +57,27 @@ export default class Line_Info extends HTMLElement {
 	/**
 	 * render the title header of the line
 	 * @param {Object} line_data 
-	 * @param {Object} line_icon 
 	 */
-	Render_Header(line_data, line_icon) {
+	Render_Header(line_data) {
 		const header = document.createElement('div');
 		header.classList.add('line-header');
 
 		const icon_wrap = document.createElement('div');
 		icon_wrap.classList.add('line-logo');
-		//icon_wrap.appendChild(line_icon.clone());
+		icon_wrap.innerHTML = line_data.svg_icon;
+		const rect = icon_wrap.querySelector('rect');
+
+		if (rect) {
+			rect.setAttribute('fill', line_data.color.default);
+		} else {
+			console.warn('No <rect> element found in SVG.');
+		}
+
+		// 4. Add the cloned group and render
 
 		const title = document.createElement('div');
 		title.classList.add('line-title');
-		title.textContent = line_data.label;
+		title.textContent = "Ligne " + line_data.label;
 
 		header.append(icon_wrap, title, Round_Cross.Create("right-panel-cross"));
 		this.container.appendChild(header);

@@ -1,5 +1,5 @@
 .base-panel.left {
-	left: -250px;
+	left: -18.75em;
 	transition: left 0.3s ease;
 }
 

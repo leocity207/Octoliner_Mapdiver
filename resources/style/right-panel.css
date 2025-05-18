@@ -1,5 +1,5 @@
 .base-panel.right {
-	right: -250px;
+	right: -18.75em;
 	transition: right 0.3s ease;
 }
 

@@ -1,74 +1,69 @@
-import { Subject, filter } from "../../libraries/RxJS_wrapper.js";
+import Observable from "/src/utils/Observable.js";
+import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
 
 /**
- * The **round-cross** is an element that looks like a cross within a circle.
- * When clicked, it sends a named event through an observable.
+ * Round_Cross emits an event when clicked.
  */
-class Round_Cross extends HTMLElement {
-
-	/**
-	 * the observable that listen for click on the ``Round_Cross``
-	 */
-	static s_round_cross_subject = new Subject();
-
-	/**
-	 * Name identifier of the cross (this is the name to use when you want to subscribe to the event of the switch).
-	 */
+class Round_Cross extends MixHTMLElementWith(Observable) {
 	m_name;
 
-	constructor() {
-		super();
-	}
-
-	/**
-	 * Creates and initializes a Round_Cross instance.
-	 * @returns {Round_Cross} A new instance of Round_Cross.
-	 */
-	static Create(name) {
-		const round_cross = document.createElement("round-cross");
-		round_cross.Init(name);
-		return round_cross;
-	}
-
-	/**
-	 * Initializes the Round cross element.
-	 */
-	Init(name) {
-		this.m_name = name;
-		this.attachShadow({ mode: "open" });
-
-		const style_link = document.createElement("link");
-		style_link.setAttribute("rel", "stylesheet");
-		style_link.setAttribute("href", "style/round-cross.css");
-		this.shadowRoot.appendChild(style_link);
+	static template_base = (() => {
+		const template = document.createElement('template');
 
 		const wrapper = document.createElement("div");
 		wrapper.classList.add("circle");
 
-		const cross_left = document.createElement("div");
-		cross_left.classList.add("left");
+		const left = document.createElement("div");
+		left.classList.add("left");
 
-		const cross_right = document.createElement("div");
-		cross_right.classList.add("right");
+		const right = document.createElement("div");
+		right.classList.add("right");
 
-		wrapper.appendChild(cross_left);
-		wrapper.appendChild(cross_right);
+		wrapper.appendChild(left);
+		wrapper.appendChild(right);
+		template.content.appendChild(wrapper);
+		return template;
+	})();
 
-		wrapper.addEventListener("click", () => {
-			Round_Cross.s_round_cross_subject.next({ name: this.m_name });
-		});
+	constructor() {
+		super();
 
-		this.shadowRoot.appendChild(wrapper);
+		this.m_name = "";
+		this.attachShadow({ mode: "open" });
 	}
 
-	/**
-	 * @param {String} name of the round cross
-	 * @returns The observable that you can catch the event from the named Round_Cross
-	 */
-	static Get_Observable(name) {
-		return Round_Cross.s_round_cross_subject.pipe(
-			filter((event) => event.name === name)
-		);
+	static Create(name) {
+		const elt = document.createElement("round-cross");
+		elt.m_name = name;
+		return elt;
+	}
+
+	connectedCallback() {
+		this.Render();
+		this.addEventListener("click", () => {
+			this.Emit({ name: this.m_name });
+		});
+	}
+
+	disconnectedCallback() {
+		this.removeEventListener("click", () => {
+			this.Emit({ name: this.m_name });
+		});
+	}
+
+	Render() {
+		// Clear existing content
+		while (this.shadowRoot.firstChild)
+      		this.shadowRoot.removeChild(this.shadowRoot.firstChild);
+
+		const style = document.createElement("link");
+		style.rel = "stylesheet";
+		style.href = "style/round-cross.css";
+		this.shadowRoot.appendChild(style);
+
+		// Clone and append the template content
+		let c = document.importNode(Round_Cross.template_base.content,true);
+		this.shadowRoot.appendChild(c);
 	}
 }
 

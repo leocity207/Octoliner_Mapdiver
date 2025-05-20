@@ -1,4 +1,6 @@
-import { Subject, filter } from "../../libraries/RxJS_wrapper.js";
+import Observable from "/src/utils/Observable.js";
+import Toggleable from "/src/utils/toggleable.js";
+import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
 
 /**
  * The **Switch_Event** is a UI component that can hold two states and triggers an event when toggled by the user.
@@ -9,55 +11,29 @@ import { Subject, filter } from "../../libraries/RxJS_wrapper.js";
  * - Can switch between **two states** (e.g., ON/OFF, Enabled/Disabled).
  * - Sends an **event notification** whenever the state changes.
  */
-class Switch_Event extends HTMLElement {
+class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 
 	/**
-	 * the observable that listen for switch events
+	 * text to be displayed on the left of the Switch
 	 */
-	static switch_event_subject = new Subject();
+	m_text
 
 	/**
-	 * Name identifier of the switch (this is the name to use when you want to subscribe to the event of the switch).
+	 * Base template for the round cross wich contain the circle and the cross
 	 */
-	name;
+	static template = (() => {
+		const template = document.createElement('template');
 
-	constructor() {
-		super();
-	}
-
-	/**
-	 * Creates and initializes a Switch_Event instance.
-	 * @param {string} name - The identifier for the switch.
-	 * @param {string} text - The label text for the switch.
-	 * @returns {Switch_Event} A new instance of Switch_Event.
-	 */
-	static Create(name, text) {
-		const switch_event = document.createElement("switch-event");
-		switch_event.Init(name, text);
-		return switch_event;
-	}
-
-	/**
-	 * #PROTECTED#
-	 * 
-	 * Initializes the switch component.
-	 * @param {string} name - The identifier for the switch.
-	 * @param {string} text - The label text for the switch.
-	 */
-	Init(name, text) {
-		this.name = name;
-		this.attachShadow({ mode: "open" });
-
+		// add stylesheet
 		const style_link = document.createElement("link");
 		style_link.setAttribute("rel", "stylesheet");
 		style_link.setAttribute("href", "style/switch.css");
-		this.shadowRoot.appendChild(style_link);
+		template.content.appendChild(style_link);
 
 		const master_switch = document.createElement("div");
 		master_switch.classList.add("switch-container");
 
 		const text_elt = document.createElement("text");
-		text_elt.innerHTML = text;
 
 		const label_switch = document.createElement("label");
 		label_switch.classList.add("switch");
@@ -68,31 +44,76 @@ class Switch_Event extends HTMLElement {
 		const span_checkbox = document.createElement("span");
 		span_checkbox.classList.add("slider");
 
-		label_switch.appendChild(input_checkbox);
-		label_switch.appendChild(span_checkbox);
-		master_switch.appendChild(text_elt);
-		master_switch.appendChild(label_switch);
+		label_switch.append(input_checkbox, span_checkbox);
+		master_switch.append(text_elt, label_switch);
+		template.content.appendChild(master_switch);
+		return template;
+	})();
 
-		span_checkbox.addEventListener("click", () => {
-			Switch_Event.switch_event_subject.next({ name: this.name, state: !input_checkbox.checked });
-		});
+	constructor() {
+		super();
 
-		this.shadowRoot.appendChild(master_switch);
+		this.m_text = "";
+		this.attachShadow({ mode: "open" });
+		this._handleClick = this._handleClick.bind(this);
 	}
 
 	/**
-	 * Returns an observable that listens for switch events with the specified name.
+	 * Creates and initializes a Switch_Event instance.
 	 * @param {string} name - The identifier for the switch.
-	 * @returns {Observable} An RxJS observable for the switch events. the observable return a dictionary containing the 'name' and 'state' of the switch
-	 * 
-	 * @example
-	 * Switch.Get_Observable('mySwitch')subscribe(event => {
-	 *    console.log(`Switch toggled: ${event.name} - ${event.state}`);
-	 * });
-	 * 
+	 * @param {string} text - The label text for the switch.
+	 * @returns {Switch_Event} A new instance of Switch_Event.
 	 */
-	static Get_Observable(name) {
-		return Switch_Event.switch_event_subject.pipe(filter((event) => event.name === name));
+	static Create(name, text) {
+		const elt = document.createElement("switch-event");
+		elt.Observable_Init(name);
+		elt.Toggleable_Init([false,true],false);
+		elt.m_text = text;
+		return elt;
+	}
+
+	/**
+	* Called when node is connected to the dom
+	*/
+	connectedCallback() {
+		this.Render();
+		const checkbox = this.shadowRoot.querySelector("input[type='checkbox']");
+		if (checkbox) {
+			checkbox.addEventListener("click", this._handleClick.bind(this));
+		}
+	}
+
+	/**
+	 * Called when node disapear from the dom
+	 */
+	disconnectedCallback() {
+		const checkbox = this.shadowRoot.querySelector("input[type='checkbox']");
+		if (checkbox) {
+			checkbox.removeEventListener("click", this._handleClick.bind(this));
+		}
+	}
+
+	/**
+	 * Render the node add styles and 
+	 */
+	Render() {
+		// Clear existing content
+		while (this.shadowRoot.firstChild)
+			this.shadowRoot.removeChild(this.shadowRoot.firstChild);
+
+		let node = document.importNode(Switch_Event.template.content,true);
+		const text_elt = node.querySelector("text");
+		if (text_elt)
+			text_elt.textContent = this.m_text;
+		else
+			throw Error("Could not find text element inside the switch");
+		this.shadowRoot.appendChild(node);
+	}
+
+	_handleClick(event) {
+		event.stopPropagation(); // (optionnel) évite que le clic remonte inutilement
+		this.Next_State();
+		this.Emit(this.Get_State());
 	}
 }
 

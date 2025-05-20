@@ -1,19 +1,34 @@
 /**
  * Toggleable allows cycling between multiple named states.
  */
-
 export default class Toggleable {
+
 	/**
-	 * @param {Array<string>} states - List of allowed states.
+	 * the list of all possible states. the list is ordered.
+	 */
+	m_states;
+
+	/**
+	 * the current index ammong the states
+	 */
+	m_current_index;
+
+	/**
+	 * @param {Array<string>} states - List of allowed states. Note : they should be ordered in the transition order
 	 * @param {string} initial_state - Initial state name.
 	 */
-	constructor(states = [], initial_state = null) {
-		this.states = states;
-		this.current_index = 0;
-		if (initial_state) {
+	Toggleable_Init(states, initial_state){
+		this.m_states = states;
+		this.m_current_index = 0;
+		if (initial_state !== null) {
 			const idx = states.indexOf(initial_state);
-			this.current_index = idx >= 0 ? idx : 0;
+			if (idx !== -1) 
+				this.m_current_index = idx;
+			else
+				throw Error("Desired state is not in the state list");
 		}
+		else
+			this.m_current_index = 0;
 	}
 
 	/**
@@ -21,8 +36,8 @@ export default class Toggleable {
 	 * @returns {string}
 	 */
 	Next_State() {
-		this.current_index = (this.current_index + 1) % this.states.length;
-		return this.get_state();
+		this.m_current_index = (this.m_current_index + 1) % this.m_states.length;
+		return this.Get_State();
 	}
 
 	/**
@@ -30,7 +45,7 @@ export default class Toggleable {
 	 * @returns {string}
 	 */s
 	Get_State() {
-		return this.states[this.current_index];
+		return this.m_states[this.m_current_index];
 	}
 
 	/**
@@ -38,7 +53,10 @@ export default class Toggleable {
 	 * @param {string} state
 	 */
 	Set_State(state) {
-		const idx = this.states.indexOf(state);
-		if (idx !== -1) this.current_index = idx;
+		const idx = this.m_states.indexOf(state);
+		if (idx !== -1) 
+			this.m_current_index = idx;
+		else
+			throw Error("Desired state is not in the state list");
 	}
-}s
+}

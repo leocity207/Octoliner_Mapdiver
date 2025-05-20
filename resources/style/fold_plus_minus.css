@@ -1,0 +1,37 @@
+.circle {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 2px solid black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	position: relative;
+	background-color: white;
+	transition: background-color 0.2s ease;
+}
+
+/* Common bar style */
+.bar {
+	position: absolute;
+	width: 20px;
+	height: 2px;
+	background-color: black;
+	transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Horizontal bar (always visible) */
+.bar-horizontal {
+	transform: rotate(0deg);
+}
+
+/* Vertical bar (only visible when folded) */
+.bar-vertical {
+	transform: rotate(90deg);
+}
+
+/* Hide vertical bar to show minus */
+.unfolded .bar-vertical {
+	opacity: 0;
+}

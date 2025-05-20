@@ -121,7 +121,7 @@ class Network_Map_Page extends Map_Page {
 		const labels = Object.values(this.network_data.lines).map(line => line.label).concat(Object.values(this.network_data.stations).map(station => station.label));
 		this.sticky_header.Set_Autocomplete_List(labels).subscribe(label => this.On_Selected_By_Label(label));
 		Switch_Event.Get_Observable("color").subscribe((event) => {
-			if(event.state)
+			if(event.data)
 				this.map.Change_Color("easy");
 			else
 				this.map.Change_Color("default");

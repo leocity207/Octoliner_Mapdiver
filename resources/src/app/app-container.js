@@ -13,7 +13,7 @@ import Utils from '../utils/utils.js';
  * 
  *  this class create a custome element named "app-container"
  */
-class App_Container extends HTMLElement
+export default class App_Container extends HTMLElement
 {
 	/**
 	 * The list of app inside the container
@@ -60,10 +60,12 @@ class App_Container extends HTMLElement
 	* @return a new instance App_Container ready to be added to the DOM
 	*/
 	static Create() {
-		let elt = document.createElement("app-container");
-		return elt;
+		return document.createElement("app-container");
 	}
 
+	/**
+	 * Called when node is connected to the dom
+	 */
 	connectedCallback() {
 		this.Render();
 	}
@@ -95,7 +97,7 @@ class App_Container extends HTMLElement
 
 		this.panel = Utils.Get_Subnode(this.shadowRoot, '.panel');
 		this.app_window = Utils.Get_Subnode(this.shadowRoot, '.app-window');
-		
+
 		if(this.m_app_list.length > 1)
 			this.panel.style.display = 'block';
 		for(let app of this.m_app_list)
@@ -104,6 +106,4 @@ class App_Container extends HTMLElement
 }
 
 customElements.define("app-container", App_Container);
-
-export default App_Container;
 

@@ -8,7 +8,7 @@ import Round_Cross from "../components/round-cross.js";
 /**
  * Network_Map_Station define a node that contain a Network_Map object
  * 
- * Map_App define a custom element named "svg-map-app"
+ * Map_Page define a custom element named "svg-map-app"
  */
 class Network_Map_Page extends Map_Page {
 

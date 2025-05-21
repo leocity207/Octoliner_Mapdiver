@@ -98,6 +98,31 @@ class Utils {
 		const match = input.match(/^([^-]+-[^-]+)/);
 		return match ? match[0] : input;
 	}
+
+	static Add_Stylesheet = function(node, href) {
+		const style = document.createElement("link");
+		style.rel = "stylesheet";
+		style.href = href;
+		node.appendChild(style);
+	}
+
+	static Create_Element_With_Class = function(tag, className) {
+		const node = document.createElement(tag);
+		node.classList.add(className);
+		return node;
+	}
+
+	static Get_Subnode = function(parent_node, selector) {
+		const node = parent_node.querySelector(selector);
+		if (!node) 
+			throw new Error(`Subnode not found for selector: '${selector}'`);
+		return node;
+	}
+
+	static Empty_Node(node) {
+		while (node.firstChild)
+			node.removeChild(node.firstChild);
+	}
   
 }
 

@@ -61,11 +61,13 @@ export default class Round_Cross extends MixHTMLElementWith(Observable) {
 	 * Called when node disapear from the dom
 	 */
 	disconnectedCallback() {
-		this.removeEventListener("click");
+		this.removeEventListener("click",() => {
+			this.Emit();
+		});
 	}
 
 	/**
-	 * Render the node add styles and 
+	 * Render the node and styles
 	 */
 	Render() {
 		// Clear existing content

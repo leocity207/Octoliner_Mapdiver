@@ -23,6 +23,12 @@ export default class Observable {
 	Observable_Init(name) 
 	{
 		this.m_name = name;
+		this.setAttribute("data-name", this.m_name)
+	}
+
+	Observable_connectedCallback() {
+		const nameAttr = this.getAttribute('data-name');
+ 		if (nameAttr != undefined) this.m_name = nameAttr;
 	}
 
 	/**

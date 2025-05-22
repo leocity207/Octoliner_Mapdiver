@@ -1,5 +1,6 @@
-import Base_Panel from "../components/panel.js";
+import Base_Panel from "/src/components/panel.js";
 import Line_Info from "./line_info.js"
+import Utils from "/src/utils/utils.js";
 
 /**
  * The **Right Panel** is a user interface element that remains fixed on the right side of the screen.  
@@ -13,34 +14,14 @@ import Line_Info from "./line_info.js"
  * - **Title and Subtitle**: Provides instructions or context for users.
  * - **Options**: Allows users to modify characteristics of the map.
  */
-class Right_Panel extends Base_Panel {
-	constructor() {
-		super();
-	}
+export default class Right_Panel extends Base_Panel {
 
 	/**
 	 * Creates and initializes a Right_Panel instance.
 	 * @returns {Right_Panel} A new instance of Right_Panel.
 	 */
 	static Create() {
-		const Right_panel = document.createElement("right-panel");
-		Right_panel.Init();
-		return Right_panel;
-	}
-
-	/**
-	 * Initializes the right panel and its elements.
-	 */
-	Init() {
-		super.Init()
-
-		const style_link = document.createElement("link");
-		style_link.setAttribute("rel", "stylesheet");
-		style_link.setAttribute("href", "style/right-panel.css");
-
-		this.base_panel.classList.add("right");
-
-		this.shadowRoot.appendChild(style_link);
+		return document.createElement("right-panel");
 	}
 
 	/**
@@ -50,9 +31,10 @@ class Right_Panel extends Base_Panel {
 	 */
 	Open_Line_Info = async function(line_data) {
 		this.Open();
-		while (this.base_panel.firstChild)
-			this.base_panel.removeChild(this.base_panel.firstChild);
-		this.base_panel.appendChild(Line_Info.Create(line_data));
+		let base_panel = Utils.Get_Subnode(this.shadowRoot,".base-panel")
+		while (base_panel.firstChild)
+			base_panel.removeChild(base_panel.firstChild);
+		base_panel.appendChild(Line_Info.Create(line_data));
 	}
 
 	/**
@@ -63,9 +45,17 @@ class Right_Panel extends Base_Panel {
 	Open_Station_Info(Station_ID) {
 		this.Open();
 	}
+
+	connectedCallback() {
+		this.Render();
+	}
+
+	Render() {
+		super.Render();
+		Utils.Add_Stylesheet(this.shadowRoot, "style/right-panel.css");
+		Utils.Get_Subnode(this.shadowRoot,".base-panel").classList.add("right");
+	}
 }
 
 // Define the custom element
 customElements.define("right-panel", Right_Panel);
-
-export default Right_Panel;

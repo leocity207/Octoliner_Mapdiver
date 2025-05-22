@@ -76,6 +76,8 @@ class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 	* Called when node is connected to the dom
 	*/
 	connectedCallback() {
+		this.Observable_connectedCallback();
+		this.Toggleable_connectedCallback();
 		this.Render();
 		const checkbox = this.shadowRoot.querySelector("input[type='checkbox']");
 		if (checkbox) {

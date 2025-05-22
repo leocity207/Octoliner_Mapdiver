@@ -20,6 +20,8 @@ export default class Toggleable {
 	Toggleable_Init(states, initial_state){
 		this.m_states = states;
 		this.m_current_index = 0;
+		this.setAttribute("current-state", this.m_current_index);
+		this.setAttribute("states", this.Serialize(this.m_states));
 		if (initial_state !== null) {
 			const idx = states.indexOf(initial_state);
 			if (idx !== -1) 
@@ -29,6 +31,13 @@ export default class Toggleable {
 		}
 		else
 			this.m_current_index = 0;
+	}
+
+	Toggleable_connectedCallback() {
+		const current_index = parseInt(this.getAttribute('current-state'));
+ 		if (current_index != undefined) this.m_current_index = current_index;
+		const states = this.Deserialize(this.getAttribute("states"));
+		if (states != undefined) this.m_states = states;
 	}
 
 	/**
@@ -58,5 +67,36 @@ export default class Toggleable {
 			this.m_current_index = idx;
 		else
 			throw Error("Desired state is not in the state list");
+	}
+
+	/**
+	 * Serializes a list of objects into a JSON string for use in an attribute.
+	 *
+	 * @param {Array<Object>} objList - The list of objects to serialize.
+	 * @returns {string} - Serialized JSON string.
+	 */
+	Serialize(objList) {
+		try {
+			return JSON.stringify(objList);
+		} catch (e) {
+			console.error("Serialization failed:", e);
+			return "";
+		}
+	}
+
+	/**
+	 * Deserializes a JSON string from an attribute back into a list of objects.
+	 *
+	 * @param {string} str - The JSON string to deserialize.
+	 * @returns {Array<Object>} - The deserialized object list or an empty array.
+	*/
+	Deserialize(str) {
+		try {
+			const parsed = JSON.parse(str);
+			return Array.isArray(parsed) ? parsed : [];
+		} catch (e) {
+			console.error("Deserialization failed:", e);
+			return [];
+		}
 	}
 }

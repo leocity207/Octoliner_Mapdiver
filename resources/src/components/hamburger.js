@@ -1,10 +1,11 @@
 import Observable from "/src/utils/Observable.js";
 import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
+import Utils from "/src/utils/utils.js"
 
 /**
- * Round_Cross emits an event when clicked.
+ * Hamberger emits an event when clicked.
  */
-export default class Round_Cross extends MixHTMLElementWith(Observable) {
+export default class Hamburger extends MixHTMLElementWith(Observable) {
 
 	/**
 	 * Base template for the round cross wich contain the circle and the cross
@@ -12,20 +13,23 @@ export default class Round_Cross extends MixHTMLElementWith(Observable) {
 	static template = (() => {
 		const template = document.createElement('template');
 
-		// Create the main circle
-		const wrapper = document.createElement("div");
-		wrapper.classList.add("circle");
+		const hamburger = document.createElement("div");
+		hamburger.setAttribute("id", "hamburger");
 
-		// Create the cross
-		const left = document.createElement("div");
-		left.classList.add("left");
+		const bar1 = document.createElement("div");
+		const bar2 = document.createElement("div");
+		const bar3 = document.createElement("div");
 
-		const right = document.createElement("div");
-		right.classList.add("right");
+		bar1.classList.add("bar");
+		bar2.classList.add("bar");
+		bar3.classList.add("bar");
 
-		wrapper.appendChild(left);
-		wrapper.appendChild(right);
-		template.content.appendChild(wrapper);
+		bar1.classList.add("bar1");
+		bar2.classList.add("bar2");
+		bar3.classList.add("bar3");
+
+		hamburger.append(bar1, bar2, bar3);
+		template.content.append(hamburger);
 		return template;
 	})();
 
@@ -40,18 +44,20 @@ export default class Round_Cross extends MixHTMLElementWith(Observable) {
 	 * @returns Round_Cross
 	 */
 	static Create(name) {
-		const elt = document.createElement("round-cross");
+		let elt = document.createElement("hamburger-button");
 		elt.Observable_Init(name);
 		return elt;
 	}
 
 	/**
-	 * Called when node is connected to the dom
+	 * Called when node is connected to the DOM
 	 */
 	connectedCallback() {
 		this.Observable_connectedCallback();
+
 		this.Render();
 		this.addEventListener("click", () => {
+			Utils.Get_Subnode(this.shadowRoot,"#hamburger").classList.toggle("active");
 			this.Emit();
 		});
 	}
@@ -73,14 +79,11 @@ export default class Round_Cross extends MixHTMLElementWith(Observable) {
 		while (this.shadowRoot.firstChild)
       		this.shadowRoot.removeChild(this.shadowRoot.firstChild);
 
-		const style = document.createElement("link");
-		style.rel = "stylesheet";
-		style.href = "style/round-cross.css";
-		this.shadowRoot.appendChild(style);
+		Utils.Add_Stylesheet(this.shadowRoot, "style/hamburger.css")
 
 		// Clone and append the template content
-		this.shadowRoot.appendChild(document.importNode(Round_Cross.template.content,true));
+		this.shadowRoot.appendChild(document.importNode(Hamburger.template.content,true));
 	}
 }
 
-customElements.define("round-cross", Round_Cross);
+customElements.define("hamburger-button", Hamburger);

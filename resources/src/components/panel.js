@@ -1,5 +1,6 @@
 import Sticky_Header from "./sticky_header.js";
 import Switch_Event from "./switch.js";
+import Utils from "/src/utils/utils.js";
 
 /**
  * The **Base Panel** is a user interface element that remains fixed on the base side of the screen.  
@@ -9,7 +10,7 @@ import Switch_Event from "./switch.js";
  * ---------
  *
  */
-class Base_Panel extends HTMLElement {
+export default class Base_Panel extends HTMLElement {
 
 	/**
 	 * Indicates whether the base panel is currently visible or not.
@@ -20,50 +21,52 @@ class Base_Panel extends HTMLElement {
 	 * The DOM element representing the base panel.
 	 */
 	base_panel;
+
+	static template = (() => {
+		const template = document.createElement('template');
+
+		const base_panel = document.createElement("div");
+		base_panel.classList.add("base-panel");
+
+		template.content.append(base_panel)
+		return template;
+	})();
+
 	constructor() {
 		super();
+		this.attachShadow({ mode: "open" });
 	}
 
-	/**
-	 * Initializes the base panel and its elements.
-	 */
-	Init() {
-		this.attachShadow({ mode: "open" });
+	connectedCallback() {
+		this.Render();
+	}
 
-		const style_link = document.createElement("link");
-		style_link.setAttribute("rel", "stylesheet");
-		style_link.setAttribute("href", "style/base-panel.css");
-
-		const font_link = document.createElement("link");
-		font_link.setAttribute("rel", "stylesheet");
-		font_link.setAttribute("href", "resources-config/style/text-font.css");
-
-		this.shadowRoot.appendChild(style_link);
-		this.shadowRoot.appendChild(font_link);
-
-		this.base_panel = document.createElement("div");
-		this.base_panel.classList.add("base-panel");
-
-		this.shadowRoot.appendChild(this.base_panel);
+	Render() {
+		Utils.Empty_Node(this.shadowRoot);
+		this.shadowRoot.appendChild(document.importNode(Base_Panel.template.content, true));
+		Utils.Add_Stylesheet(this.shadowRoot, "style/base-panel.css");
+		Utils.Add_Stylesheet(this.shadowRoot, "resources-config/style/text-font.css");
 	}
 
 	/**
 	 * Toggles the visibility of the base panel.
 	 */
 	Toggle_Panel() {
+		const base_panel = Utils.Get_Subnode(this.shadowRoot,".base-panel");
 		this.panel_visible = !this.panel_visible;
 		if (this.panel_visible)
-			this.base_panel.classList.add("open");
+			base_panel.classList.add("open");
 		else 
-			this.base_panel.classList.remove("open");	
+			base_panel.classList.remove("open");	
 	}
 
 	/**
 	 * Open the panel.
 	 */
 	Open() {
+		const base_panel = Utils.Get_Subnode(this.shadowRoot,".base-panel");
 		if(!this.panel_visible)
-			this.base_panel.classList.add("open");
+			base_panel.classList.add("open");
 		this.panel_visible = true;
 	}
 
@@ -71,13 +74,12 @@ class Base_Panel extends HTMLElement {
 	 * Close the panel.
 	 */
 	Close() {
+		const base_panel = Utils.Get_Subnode(this.shadowRoot,".base-panel");
 		if(this.panel_visible)
-			this.base_panel.classList.remove("open");
+			base_panel.classList.remove("open");
 		this.panel_visible = false;
 	}
 }
 
 // Define the custom element
 customElements.define("base-panel", Base_Panel);
-
-export default Base_Panel;

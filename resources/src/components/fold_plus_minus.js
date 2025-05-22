@@ -26,7 +26,7 @@ export default class Fold_Plus_Minus extends MixHTMLElementWith(Observable, Togg
 
 		wrapper.appendChild(horizontal);
 		wrapper.appendChild(vertical);
-		template.appendChild(wrapper);
+		template.content.appendChild(wrapper);
 		return template;
 	})();
 

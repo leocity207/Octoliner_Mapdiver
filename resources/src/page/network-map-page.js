@@ -87,11 +87,15 @@ class Network_Map_Page extends Map_Page {
 	 */
 	On_Selected_By_Label(label) {
 		let solutionKey = Object.keys(this.network_data.stations).find(key => this.network_data.stations[key].label === label);
-		if(solutionKey)
+		if(solutionKey) {
+			history.pushState({ station: solutionKey }, "", solutionKey);
 			return this.On_Station_CLicked({type: 'station', detail: solutionKey});
+		}
 		solutionKey = Object.keys(this.network_data.lines).find(key => this.network_data.lines[key].label === label);
-		if(solutionKey)
+		if(solutionKey) {
+			history.pushState({ line: solutionKey }, "", solutionKey);
 			return this.On_Line_CLicked({type: 'line', detail: solutionKey})
+		}
 		if(!solutionKey)
 			return console.error("No solution found for label " + label);
 	}
@@ -119,7 +123,7 @@ class Network_Map_Page extends Map_Page {
 		this.map.Setup_Mouse_Handlers(this.network_data.lines, this.network_data.stations);
 
 		const labels = Object.values(this.network_data.lines).map(line => line.label).concat(Object.values(this.network_data.stations).map(station => station.label));
-		this.sticky_header.Set_Autocomplete_List(labels).subscribe(label => this.On_Selected_By_Label(label));
+		this.sticky_header.Set_Autocomplete_List(labels).subscribe(event => this.On_Selected_By_Label(event.data));
 		Switch_Event.Get_Observable("color").subscribe((event) => {
 			if(event.data)
 				this.map.Change_Color("easy");

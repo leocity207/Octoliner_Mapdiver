@@ -1,9 +1,9 @@
 import Page from "./page.js";
 import SVG_Map from "../map/svg_map.js";
 import {Config} from "../../resources-config/config.js"
-import Sticky_Header from "../components/sticky_header.js"
-import LeftPanel from "../components/left_panel.js"
-import Right_Panel from "../right-panel/right-panel.js";
+import Sticky_Header from "/src/components/sticky_header.js"
+import LeftPanel from "/src/components/left_panel.js"
+import Right_Panel from "/src/right-panel/right-panel.js";
 
 /**
  * Map_App are object that define a node containing a SVG_Map for manipulation and display

@@ -1,5 +1,6 @@
 import Toggleable from "./Toggleable.js";
 import { MixHTMLElementWith } from "./MixHTMLElementWith.js";
+import Utils from "/src/utils/utils.js" 
 
 /**
  * Plus_Minus cycles between "plus" and "minus" states visually.
@@ -9,11 +10,10 @@ export default class Fold_Plus_Minus extends MixHTMLElementWith(Observable, Togg
 	static template = (() => {
 		const template = document.createElement('template');
 
-		// add stylesheet
-		const style = document.createElement("link");
-		style.rel = "stylesheet";
-		style.href = "style/fold-plus-minus.css";
-		this.shadowRoot.appendChild(style);
+		const input = document.createElement('input');
+		input.type = 'checkbox';
+		input.id = 'toggle';
+		input.hidden = true;
 
 		const wrapper = document.createElement("div");
 		wrapper.classList.add("symbol");
@@ -26,7 +26,7 @@ export default class Fold_Plus_Minus extends MixHTMLElementWith(Observable, Togg
 
 		wrapper.appendChild(horizontal);
 		wrapper.appendChild(vertical);
-		template.content.appendChild(wrapper);
+		template.content.append(wrapper,input);
 		return template;
 	})();
 
@@ -76,11 +76,12 @@ export default class Fold_Plus_Minus extends MixHTMLElementWith(Observable, Togg
 	}
 
 	Render() {
+		// Clear existing content
 		while (this.shadowRoot.firstChild)
 			this.shadowRoot.removeChild(this.shadowRoot.firstChild);
 		// Clone and append the template content
-		this.shadowRoot.appendChild(document.importNode(Switch_Event.template_base.content,true));
-		this.Check_Symbole();
+		Utils.Add_Stylesheet(this.shadowRoot, "style/fold-plus-minus.css");
+		this.shadowRoot.appendChild(document.importNode(Fold_Plus_Minus.template.content,true));
 	}
 }
 

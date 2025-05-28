@@ -1,5 +1,6 @@
 import Observable from "/src/utils/Observable.js";
 import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
+import Utils from "/src/utils/utils.js" 
 
 /**
  * Round_Cross emits an event when clicked.
@@ -71,12 +72,9 @@ export default class Round_Cross extends MixHTMLElementWith(Observable) {
 	Render() {
 		// Clear existing content
 		while (this.shadowRoot.firstChild)
-      		this.shadowRoot.removeChild(this.shadowRoot.firstChild);
+			this.shadowRoot.removeChild(this.shadowRoot.firstChild);
 
-		const style = document.createElement("link");
-		style.rel = "stylesheet";
-		style.href = "style/round-cross.css";
-		this.shadowRoot.appendChild(style);
+		Utils.Add_Stylesheet(this.shadowRoot, "style/round-cross.css")
 
 		// Clone and append the template content
 		this.shadowRoot.appendChild(document.importNode(Round_Cross.template.content,true));

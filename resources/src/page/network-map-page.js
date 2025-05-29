@@ -1,40 +1,31 @@
 import Network_Map from "../map/network_map.js";
 import Map_Page from "./svg-map-page.js";
-import Utils from "../utils/utils.js";
-import { Config, Network_Config} from "../../resources-config/config.js"
-import Switch_Event from "../components/switch.js";
-import Round_Cross from "../components/round-cross.js";
+import Utils from "/src/utils/utils.js";
+import { Config, Network_Config} from "/src/../resources-config/config.js"
+import Switch_Event from "/src/components/switch.js";
+import Round_Cross from "/src/components/round-cross.js";
 
 /**
  * Network_Map_Station define a node that contain a Network_Map object
  * 
  * Map_Page define a custom element named "svg-map-app"
  */
-class Network_Map_Page extends Map_Page {
+export default class Network_Map_Page extends Map_Page {
 
 	/**
 	 * last event that happend in the form  {type: string, detail: Any};
 	 */
-	prev_event
+	prev_event = null;
 
 	/**
 	 * tells wether the panel is open (should be unused)
 	 */
-	panel_detail_is_open
+	panel_detail_is_open = false;
 
 	/**
 	 * data bout the network that is being displayed {Stations: json_data, detail: json_data}
 	 */
-	network_data
-
-	/**
-	 * the network Network_Map
-	 */
-	map 
-
-	constructor() {
-		super();
-	}
+	network_data = null;
 
 	/**
 	 * When the user click on a staion
@@ -42,10 +33,8 @@ class Network_Map_Page extends Map_Page {
 	 * @param {Object} event 
 	 */
 	On_Station_CLicked(event) {
-		//if(this.prev_event.type === 'line')
-		//	this.map.Reset_All_Highlight_Station();
 		this.map.Highlight_All_Lines_At_Station(event.detail);
-		this.m_right_panel.Open_Station_Info(event.detail);
+		Utils.Get_Subnode(this.shadowRoot, 'right-panel').Open_Station_Info(event.detail);
 		this.map.Zoom_Highlighted_Stations(event.detail);
 		this.prev_event = {type: "station", detail: event.detail};
 	}
@@ -56,10 +45,8 @@ class Network_Map_Page extends Map_Page {
 	 * @param {Object} event 
 	 */
 	On_Line_CLicked(event) {
-		//if(this.prev_event.type === 'station')
-		//	this.map.Reset_All_Highlight_Station();
 		this.map.Highlight_Lines([event.detail]);
-		this.m_right_panel.Open_Line_Info(this.map.Get_Line_Data(event.detail));
+		Utils.Get_Subnode(this.shadowRoot, 'right-panel').Open_Line_Info(this.map.Get_Line_Data(event.detail));
 		this.map.Zoom_Highlighted_Line(event.detail);
 		this.prev_event = {type: "line", detail: event.detail};
 	}
@@ -70,13 +57,12 @@ class Network_Map_Page extends Map_Page {
 	 * @param {Object} event 
 	 */
 	On_Pop_State(event) {
-		this.m_right_panel.Close();
+		Utils.Get_Subnode(this.shadowRoot, 'right-panel').Close();
 		if(!this.prev_event.type) 
 			this.map.Initial_Zoom_Move();
-		if(this.prev_event.type === 'station') {
-			// this.map.Reset_All_Highlight_Station(); not supported yet
+		if(this.prev_event.type === 'station')
 			this.map.Reset_Line_Highlight();
-		} else if(this.prev_event.type === 'line') 
+		else if(this.prev_event.type === 'line') 
 			this.map.Reset_Line_Highlight();
 		this.prev_event = {type: "back"};
 	}
@@ -118,12 +104,13 @@ class Network_Map_Page extends Map_Page {
 		document.addEventListener("line-click", this.On_Line_CLicked);
 		// Initialize map
 		this.map = new Network_Map("Desktop", "resources-config/image/map.svg", Config, Network_Config);
-		await this.map.Setup("Fr", this.map_canvas);
+		await this.map.Setup("Fr", Utils.Get_Subnode(this.shadowRoot, '.map-canvas'));
 		this.network_data = await Utils.Fetch_Resource("dyn/network_data")
 		this.map.Setup_Mouse_Handlers(this.network_data.lines, this.network_data.stations);
 
 		const labels = Object.values(this.network_data.lines).map(line => line.label).concat(Object.values(this.network_data.stations).map(station => station.label));
-		this.sticky_header.Set_Autocomplete_List(labels).subscribe(event => this.On_Selected_By_Label(event.data));
+
+		Utils.Get_Subnode(this.shadowRoot, 'sticky-header').Set_Autocomplete_List(labels).subscribe(event => this.On_Selected_By_Label(event.data));
 		Switch_Event.Get_Observable("color").subscribe((event) => {
 			if(event.data)
 				this.map.Change_Color("easy");
@@ -136,7 +123,7 @@ class Network_Map_Page extends Map_Page {
 		});
 		
 		let resizeTimeout;
-		this.resizeObserver = new ResizeObserver(entries => {
+		this.resize_observer = new ResizeObserver(entries => {
 			clearTimeout(resizeTimeout);
 			resizeTimeout = setTimeout(() => {
 				for (let entry of entries) {
@@ -145,7 +132,7 @@ class Network_Map_Page extends Map_Page {
 				}
 			}, 25); //Debounce time
 		});
-		this.resizeObserver.observe(this.map_container);
+		this.resize_observer.observe(Utils.Get_Subnode(this.shadowRoot, '.map-container'));
 	}
 
 	/**
@@ -154,12 +141,8 @@ class Network_Map_Page extends Map_Page {
 	 * @returns {Map_App} an Page Object
 	 */
 	static Create() {
-		let elt = document.createElement("network-map-page");
-		elt.Init();
-		return elt;
+		return document.createElement("network-map-page");
 	}
 }
 
 customElements.define("network-map-page", Network_Map_Page);
-
-export default Network_Map_Page;

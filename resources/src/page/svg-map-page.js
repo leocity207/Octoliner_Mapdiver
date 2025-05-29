@@ -4,62 +4,40 @@ import {Config} from "../../resources-config/config.js"
 import Sticky_Header from "/src/components/sticky_header.js"
 import LeftPanel from "/src/components/left_panel.js"
 import Right_Panel from "/src/right-panel/right-panel.js";
+import Utils from "/src/utils/utils.js";
 
 /**
  * Map_App are object that define a node containing a SVG_Map for manipulation and display
  * 
  * Map_App define a custom element named "svg-map-app"
  */
-class Map_Page extends Page {
+export default class Map_Page extends Page {
+
+	map = null;
+
+	resize_observer = null;
 
 	/**
-	 * div container for the map
+	 * Base template strucutre
 	 */
-	map_container
+	static template_base =(() =>{
+		const template = document.createElement('template');
+		const sticky_header = Sticky_Header.Create();
+		const left_panel = LeftPanel.Create();
+		const right_panel = Right_Panel.Create();
+		const map_container = Utils.Create_Element_With_Class('div','map-container');
+		const map_canvas = Utils.Create_Element_With_Class('canvas','map-canvas');
 
-	/**
-	 * canva div that will be inside the  map_container
-	 */
-	map_canvas
+		map_container.appendChild(map_canvas);
 
-	/**
-	 * sticky header above the map
-	 */
-	sticky_header
+		template.content.append(sticky_header, left_panel, right_panel, map_container);
+
+		return template;
+	})();
 	
 	constructor() {
 		super();
-	}
-
-	/**
-	 * Initialize an Map_App object after it has been instantiated
-	 *
-	 * This function create a container and a canvas inside it. The container is used to scale the canvas
-	 * and the canvas is used as the context for the fabric.js canvas
-	 */
-	Init() {
-		super.Init();
-
-		this.sticky_header = Sticky_Header.Create();
-		this.shadowRoot.appendChild(this.sticky_header);
-
-		this.LeftPanel = LeftPanel.Create();
-		this.shadowRoot.appendChild(this.LeftPanel);
-
-		this.m_right_panel = Right_Panel.Create();
-		this.shadowRoot.appendChild(this.m_right_panel);
-
-		// create a container to hold the canvas
-		this.map_container = document.createElement('div');
-		this.map_container.setAttribute('id', 'map-container');
-
-		// create a canvas inside the container
-		this.map_canvas  = document.createElement('canvas');
-		this.map_container.appendChild(this.map_canvas);
-		this.map_canvas.setAttribute('id', 'map-canvas');
-
-		// add the container to the shadow root
-		this.shadowRoot.appendChild(this.map_container);
+		Utils.Clone_Node_Into(this.shadowRoot, Map_Page.template_base);
 	}
 
 	/**
@@ -67,23 +45,24 @@ class Map_Page extends Page {
 	 */
 	Initialize_Map = async () => {
 		this.map = new SVG_Map("Desktop", "image/map.svg", Config);
-		await this.map.Setup("Fr", this.map_canvas);
+		await this.map.Setup("Fr", Utils.Get_Subnode(this.shadowRoot, '.map-canvas'));
 		this.map.Setup_Mouse_Handlers();
 
-		this.resizeObserver = new ResizeObserver(entries => {
+		this.resize_observer = new ResizeObserver(entries => {
 			for (let entry of entries) {
 				const { width, height } = entry.contentRect;
 				this.map.Zoom_Check_Map_Resize(width, height);
 			}
 		});
-		this.resizeObserver.observe(this.map_container);
+		this.resize_observer.observe(this.map_container);
 	}
 
 	/**
 	 * create a travling movemont tower the initial object indicated in the conf on the map
 	 */
 	Initial_Zoom_Move = async () => {
-		await this.map.Initial_Zoom_Move();
+		if(this.map)
+			await this.map.Initial_Zoom_Move();
 	}
 
 	/**
@@ -92,12 +71,8 @@ class Map_Page extends Page {
 	 * @returns {Map_Page} a Page Object
 	 */
 	static Create() {
-		const element = document.createElement('svg-map-page');
-		element.Init();
-		return element;
+		return document.createElement('svg-map-page');
 	}
 }
 
 customElements.define("svg-map-page", Map_Page);
-
-export default Map_Page;

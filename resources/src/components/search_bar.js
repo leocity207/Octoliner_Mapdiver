@@ -21,7 +21,7 @@ import Utils from "/src/utils/utils.js"
 export default class Search_Bar extends MixHTMLElementWith(Observable) {
 
 	/**
-	 * Base template for the round cross wich contain the circle and the cross
+	 * Base template
 	 */
 	static template = (() => {
 		const template = document.createElement('template');

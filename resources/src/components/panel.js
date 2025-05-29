@@ -1,5 +1,3 @@
-import Sticky_Header from "./sticky_header.js";
-import Switch_Event from "./switch.js";
 import Utils from "/src/utils/utils.js";
 
 /**

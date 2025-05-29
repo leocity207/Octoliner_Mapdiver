@@ -5,75 +5,72 @@ import Utils from "/src/utils/utils.js"
 import Switch_Event from "/src/components/switch.js";
 
 /**
- * The **Ligne info** is a n object used to display line information.
+ * The **Ligne info** is an object used to display line information.
  * Structure
  * ---------
- * 
- * The ligne infos has two componants:
- * 
- * - **Title and Subtitle**: Provides line names and icons.
- * - **Info about the line** : Provide information about the line status globaly
- * - **Line schedule data**: display all the line schedule to the user.
+ *	<div class='line-info'>
+ *		<div class='line-header'>
+ *			<div class='line-logo'>
+ *				* containe the lin logo
+ *			</div>
+ *			<div class='line-title'>
+ *				contain the line title
+ *			</div>
+ *			<round-cross>
+ *		</div>
+ *		<div class='line-infomessages'>
+ *			* list of messages
+ *		</div>
+  *		<div class='schedules'>
+ *			* list of schedules
+ *		</div>
+ *	</div>
  */
 export default class Line_Info extends HTMLElement {
 
+	/**
+	 * Data about the schedule
+	 */
 	line_data = null;
 
-	static template_header = (() => {
+	/**
+	 * Base template strucutre
+	 */
+	static template_base = (() => {
 		const template = document.createElement('template');
+		const container = Utils.Create_Element_With_Class('div', 'line-info');
 
-		const header = document.createElement('div');
-		header.classList.add('line-header');
-
-		const icon_wrap = document.createElement('div');
-		icon_wrap.classList.add('line-logo');
-
-		const title = document.createElement('div');
-		title.classList.add('line-title');
-
+		// header
+		const header = Utils.Create_Element_With_Class('div', 'line-header');
+		const icon_wrap = Utils.Create_Element_With_Class('div', 'line-logo');
+		const title =  Utils.Create_Element_With_Class('div', 'line-title');
 		header.append(icon_wrap, title, Round_Cross.Create("right-panel-cross"));
-		template.content.append(header);
-		return template;
-	})();
 
-	static template_message = (() => {
-		const template = document.createElement('template');
+		// infos
+		const infos = Utils.Create_Element_With_Class('div', 'line-infomessages');
 
-		const info_wrap = document.createElement('div');
-		info_wrap.classList.add('line-infomessages');
+		// schedules
+		const schedules = Utils.Create_Element_With_Class('div', 'schedules');
 
-		template.content.append(info_wrap);
-		return template;
-	})();
-
-	static template_schedules = (() => {
-		const template = document.createElement('template');
-
-		const schedules = document.createElement('div');
-		schedules.classList.add('schedules');
-
-		template.content.append(schedules);
+		container.append(header, infos , schedules);
+		template.content.append(container);
 		return template;
 	})();
 
 	constructor() {
 		super();
 		this.shadow_root = this.attachShadow({ mode: 'open' });
-
-		this.container = document.createElement('div');
-		this.container.classList.add('line-info');
-		this.shadow_root.appendChild(this.container);
-
+		Utils.Clone_Node_Into(this.shadowRoot, Line_Info.template_base)
 		Utils.Add_Stylesheet(this.shadowRoot, "style/line-info.css");
 	}
 
 	/**  
-	 * @param {Object} data = line_data
+	 * @param {Object} line_data the line data
 	 */
-	static Create(data) {
-		const el = document.createElement('line-info');
-		el.line_data = data;
-		return el;
+	static Create(line_data) {
+		const object = document.createElement('line-info');
+		object.line_data = line_data;
+		return object;
 	}
 
 	/**
@@ -81,62 +78,53 @@ export default class Line_Info extends HTMLElement {
 	 */
 	connectedCallback() {
 		this.Render();
-		Switch_Event.Get_Observable("color").subscribe((event) => {
-			const rect = Utils.Get_Subnode(this.container,".line-logo").querySelector('rect')
-			if(event.data)
-				rect.setAttribute('fill', this.line_data.lines.color["easy"]);
-			else
-				rect.setAttribute('fill', this.line_data.lines.color["default"]);
-		});
 	}
-
-		/**
-	 * Called when node disapear from the dom
-	 */
-	disconnectedCallback() {
-		Switch_Event.Get_Observable("color").unsubscribe();
-	}
-
-
 
 	/**
-	 * Render the while line data to the screen
+	 * Render the line infos.
+	 * Change the name and the logo of the line info.
+	 * Add message if needed.
+	 * Change the schedules
+	 * 
 	*/
 	Render() {
-		while (this.container.firstChild)
-			this.container.removeChild(this.container.firstChild);
+		const line_logo = Utils.Get_Subnode(this.shadowRoot, ".line-logo");
+		const line_text = Utils.Get_Subnode(this.shadowRoot, ".line-title");
 
-		// render template Header
-		const header_node = document.importNode(Line_Info.template_header.content,true);
-		this.container.appendChild(header_node);
-		const line_logo = Utils.Get_Subnode(this.container,".line-logo")
+		// Update line logo
 		line_logo.innerHTML = this.line_data.lines.svg_icon;
 		const rect = line_logo.querySelector('rect');
 		if (rect) 
 			rect.setAttribute('fill', this.line_data.lines.color.default);
 		else 
 			console.warn('No <rect> element found in SVG.');
-		const line_text = Utils.Get_Subnode(this.container,".line-title")
+
+		// Update line text
 		line_text.textContent = "Ligne " + this.line_data.lines.label;
 
-		// render message node if needed
+		// Render message node if needed
+
+		const message_node = Utils.Get_Subnode(this.shadowRoot, ".line-infomessages");
+		message_node.style.display = 'none';
+		Utils.Empty_Node(message_node);
 		if(this.line_data.lines.infomessages) {
-			const message_node = document.importNode(Line_Info.template_message.content,true);
 			this.line_data.lines.infomessages.forEach(msg => {
 				const p = document.createElement('p');
 				p.classList.add('infomessage');
 				p.textContent = msg.text.fr;
 				message_node.appendChild(p);
+				message_node.style.display = 'block';
 			});
-			this.container.appendChild(message_node);
 		}
-		//render schedule
-		const schedules_node = document.importNode(Line_Info.template_schedules.content,true);
-		this.line_data.lines.timetable_pattern.forEach(sch => {
-			sch.parent = this.line_data.lines;
-			schedules_node.appendChild(Line_Schedule.Create(sch, this.line_data.stations));
+
+
+		// Render schedule
+		const schedules_node = Utils.Get_Subnode(this.shadowRoot, ".schedules");
+		Utils.Empty_Node(schedules_node);
+		this.line_data.lines.timetable_pattern.forEach(schedule => {
+			schedule.parent = this.line_data.lines;
+			schedules_node.appendChild(Line_Schedule.Create(schedule, this.line_data.stations));
 		});
-		this.container.appendChild(schedules_node);
 	}
 }
 

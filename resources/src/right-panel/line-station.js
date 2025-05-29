@@ -1,73 +1,137 @@
-// line-station.js
+import Utils from "/src/utils/utils.js" 
+
+
+const SVG_NS = "http://www.w3.org/2000/svg"
+
+
+/**
+ * The **Ligne station** is an object used to display station information inside a schedule.
+ * Structure
+ * ---------
+ * 
+ * The station node is composed as follow:
+ * 
+ *	<div class='station-row'>
+ *		<div class='station-icon-wrap'>
+ *			<svg>
+ *				<path>
+ *				<circle>
+ * 			</svg>
+ *		</div>
+ *		<div class='station-name'>
+ *			* name of the station
+ *		</div>
+ *	</div>
+ */
 export default class Line_Station extends HTMLElement {
+
+	/**
+	 * data about the schedule
+	 */
+	station_data = null;
+
+	/**
+	 * all data about stations
+	 */
+	stations_data = null;
+	
+	/**
+	 * For path with a rounded top
+	 */
+	static start_icon_path = "M0,20 A5,5 0 0 1 10,20 V40 H0 Z";
+
+	/**
+	 * Rectangle for station in the middle of the line
+	 */
+	static middle_icon_path = "M 0,0 H 10 V 40 H 0 Z";
+
+	/**
+	 * For path with a rounded corner at the bottom
+	 */
+	static end_icon_path = "M0,0 H10 V20 A5,5 0 0 1 0,20 Z";
+
+
+	/**
+	 * Base template strucutre
+	 */
+	static template_base = (() => {
+		const template = document.createElement('template');
+
+		//main containers
+		const container = Utils.Create_Element_With_Class('div','station-row');
+
+		// icon on the left
+		const  icon_wrap = Utils.Create_Element_With_Class('div', 'station-icon-wrap');
+
+		const svg = document.createElementNS(SVG_NS, "svg");
+		svg.setAttribute("class", "station-icon-svg");
+		svg.setAttribute("viewBox", "0 0 10 40");
+		svg.setAttribute("preserveAspectRatio", "none");
+
+		const path = document.createElementNS(SVG_NS, "path");
+
+		const circle = document.createElementNS(SVG_NS, "circle");
+		circle.setAttribute("cx", "5");
+		circle.setAttribute("cy", "20");
+		circle.setAttribute("r", "4");
+
+		svg.append(path, circle);
+		icon_wrap.appendChild(svg);
+
+		// station name
+		const station_name = Utils.Create_Element_With_Class('span', 'station-name');
+
+		container.append(icon_wrap, station_name)
+		template.content.append(container);
+		return template;
+	})()
+
 	constructor() {
 		super();
 		this.shadow_root = this.attachShadow({ mode: 'open' });
 
-		// charger CSS externe
-		const style_link = document.createElement('link');
-		style_link.setAttribute('rel', 'stylesheet');
-		style_link.setAttribute('href', 'style/line-station.css');
-		this.shadow_root.appendChild(style_link);
-
-		// conteneur principal
-		this.container = document.createElement('div');
-		this.container.classList.add('station-row');
-		this.shadow_root.appendChild(this.container);
-
-		this.data = null;
-		this.stations = null;
+		Utils.Add_Stylesheet(this.shadow_root, 'style/line-station.css')
+		Utils.Clone_Node_Into(this.shadow_root,Line_Station.template_base);	
 	}
 
 	/**  
-	 * @param {Object} data  { station_code, flag, … }  
+	 * @param {Object} station_data  information about the station
+	 * @param {Object} stations_data  information about all the stations in the network
 	 */
-	static Create(data,stations) {
-		const el = document.createElement('line-station');
-		el.data = data;
-		el.stations = stations;
-		el.Render();
-		return el;
+	static Create(station_data, stations_data) {
+		const object = document.createElement('line-station');
+		object.station_data = station_data;
+		object.stations_data = stations_data;
+		return object;
 	}
 
-	/** Reconstruit la ligne de station */
+	/**
+	 * Called when node is connected to the DOM
+	 */
+	connectedCallback() {
+		this.Render();
+	}
+
+	/**
+	 * Render the station
+	 * change the path color and type (end/middle/start)
+	 * change the staton name
+	 */
 	Render() {
-		if (!this.data) return;
+		const path = Utils.Get_Subnode(this.shadow_root,'path');
+		const station_name = Utils.Get_Subnode(this.shadow_root,'.station-name');
 
-		// reset
-		this.container.innerHTML = '';
-
-		// icône SVG : rectangle plein-hauteur + rond blanc centré
-		const icon_wrap = document.createElement('div');
-		icon_wrap.classList.add('station-icon-wrap');
-		if(!this.data.arrival_minute)
-			icon_wrap.innerHTML = `
-			<svg class="station-icon-svg" viewBox="0 0 10 40" preserveAspectRatio="none"">
-				<path d="M0,20 A5,5 0 0 1 10,20 V40 H0 Z"  style="fill: ${this.data.parent.parent.color.default};"/>
-				<circle cx="5" cy="20" r="4" />
-			</svg>`;
-		else if(!this.data.departure_minute)
-			icon_wrap.innerHTML = `
-			<svg class="station-icon-svg" viewBox="0 0 10 40" preserveAspectRatio="none">
-  				<path d="M0,0 H10 V20 A5,5 0 0 1 0,20 Z" style="fill: ${this.data.parent.parent.color.default};" />
-				<circle cx="5" cy="20" r="4" />
-			</svg>`;
+		// change path attributes
+		path.setAttribute("style", `fill: ${this.station_data.parent.parent.color.default};`);
+		if(!this.station_data.arrival_minute)
+			path.setAttribute("d", Line_Station.start_icon_path);
+		else if(!this.station_data.departure_minute)
+			path.setAttribute("d", Line_Station.end_icon_path);
 		else
-			icon_wrap.innerHTML = `
-			<svg class="station-icon-svg" viewBox="0 0 10 40" preserveAspectRatio="none">
-				<rect width="10" height="40" style="fill: ${this.data.parent.parent.color.default};"/>
-				<circle cx="5" cy="20" r="4" />
-			</svg>`;
-		this.container.appendChild(icon_wrap);
+			path.setAttribute("d", Line_Station.middle_icon_path);
 
-		// nom de la station
-		const station_name = document.createElement('span');
-		station_name.classList.add('station-name');
-		station_name.textContent = this.stations[this.data.station_ID].label;
-		if (this.data.flag && this.data.flag.includes('warning')) {
-			station_name.classList.add('warning');
-		}
-		this.container.appendChild(station_name);
+		// Change station name
+		station_name.textContent = this.stations_data[this.station_data.station_ID].label;
 	}
 }
 

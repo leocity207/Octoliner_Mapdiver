@@ -8,6 +8,8 @@ import Utils from "/src/utils/utils.js";
  * 
  * Structure
  * ---------
+ *	<div class='base-panel'> 
+ *	</div>
  *
  */
 export default class Base_Panel extends HTMLElement {
@@ -20,14 +22,14 @@ export default class Base_Panel extends HTMLElement {
 	/**
 	 * The DOM element representing the base panel.
 	 */
-	base_panel;
+	base_panel = null;
 
+	/**
+	 * Base template strucutre
+	 */
 	static template = (() => {
 		const template = document.createElement('template');
-
-		const base_panel = document.createElement("div");
-		base_panel.classList.add("base-panel");
-
+		const base_panel = Utils.Create_Element_With_Class('div', 'base-panel');
 		template.content.append(base_panel)
 		return template;
 	})();
@@ -35,17 +37,8 @@ export default class Base_Panel extends HTMLElement {
 	constructor() {
 		super();
 		this.attachShadow({ mode: "open" });
-	}
-
-	connectedCallback() {
-		this.Render();
-	}
-
-	Render() {
-		Utils.Empty_Node(this.shadowRoot);
-		this.shadowRoot.appendChild(document.importNode(Base_Panel.template.content, true));
 		Utils.Add_Stylesheet(this.shadowRoot, "style/base-panel.css");
-		Utils.Add_Stylesheet(this.shadowRoot, "resources-config/style/text-font.css");
+		Utils.Clone_Node_Into(this.shadowRoot, Base_Panel.template);
 	}
 
 	/**

@@ -16,6 +16,12 @@ import Search_Bar from "/src/components/search_bar.js"
  * - **Left Section:** A **hamburger menu** that triggers a click event when selected.
  * - **Center Section:** A **search bar** that accepts a list of searchable elements and emits an event when an item is selected.
  * - **Right Section:** A **logo** that can be displayed for branding purposes.
+ * 
+ *	<header class="sticky-header">
+ *		<Hamburger>
+ *		<Search_Bar>
+ *		<img>
+ *	</header>
  *
  */
 export default class Sticky_Header extends MixHTMLElementWith(Observable) {
@@ -23,8 +29,7 @@ export default class Sticky_Header extends MixHTMLElementWith(Observable) {
 	static template = (() => {
 		const template = document.createElement('template');
 
-		const header = document.createElement("header");
-		header.setAttribute("id", "sticky-header");
+		const header = Utils.Create_Element_With_Class('header','sticky-header');
 
 		const hamburger = Hamburger.Create("left-panel-hamburger");
 
@@ -37,6 +42,10 @@ export default class Sticky_Header extends MixHTMLElementWith(Observable) {
 		return template;
 	})();
 
+	/**
+	 * Factory cronstructor of Sticky_Header
+	 * @returns Sticky_Header instance
+	 */
 	static Create() {
 		return document.createElement("sticky-header");
 	}
@@ -44,22 +53,17 @@ export default class Sticky_Header extends MixHTMLElementWith(Observable) {
 	constructor() {
 		super();
 		this.attachShadow({ mode: "open" });
+		Utils.Add_Stylesheet(this.shadowRoot, "style/sticky-header.css");
+		Utils.Clone_Node_Into(this.shadowRoot, Sticky_Header.template);
 	}
 
-	connectedCallback() {
-		this.Render();
-	}
-
+	/**
+	 * Initializes autocomplete functionality with a list of suggestions.
+	 * @param {Array<string>} match_list - List of suggestions.
+	 */
 	Set_Autocomplete_List(match_list) {
-		this.Render();
 		Utils.Get_Subnode(this.shadowRoot,"search-bar").Set_Autocomplete_List(match_list);
 		return Search_Bar.Get_Observable("main-search-bar");
-	}
-
-	Render() {
-		Utils.Empty_Node(this.shadowRoot);
-		this.shadowRoot.appendChild(document.importNode(Sticky_Header.template.content, true));
-		Utils.Add_Stylesheet(this.shadowRoot, "style/sticky-header.css");
 	}
 }
 

@@ -11,28 +11,34 @@ import Utils from "/src/utils/utils.js";
  * Structure
  * ---------
  * 
- * The left panel consists of two main components:
- * 
- * - **Title and Subtitle**: Provides instructions or context for users.
- * - **Options**: Allows users to modify characteristics of the map.
+ *	<div class='base-panel'>
+ *		<div class='title'>
+ *			* main title
+ *		</div>
+  *		<div class='text'>
+ *			subtext of the title
+ *		</div>
+  *		<div class='title'>
+ *			* main option title
+ *		</div>
+ *		<switch-event data-name="color">
+ *	</div>
  */
 export default class Left_Panel extends Base_Panel {
 
+	/**
+	 * Base template strucutre
+	 */
 	static template = (() => {
 		const template = document.createElement('template');
 
-		//this.base_panel.classList.add("left");
-
-		const title = document.createElement("div");
-		title.classList.add("title");
+		const title = Utils.Create_Element_With_Class('div','title');
 		title.innerHTML = "Liaisons grandes lignes directes";
 
-		const subtitle = document.createElement("div");
-		subtitle.classList.add("text");
+		const subtitle = Utils.Create_Element_With_Class('div','text');
 		subtitle.innerHTML = "Sélectionnez votre ligne/gare de départ sur la carte ou utilisez le champ de saisie";
 
-		const title_option = document.createElement("div");
-		title_option.classList.add("title");
+		const title_option = Utils.Create_Element_With_Class('div','Option');
 		title_option.innerHTML = "Option:";
 
 		const color_switch = Switch_Event.Create("color", "Simple color");
@@ -40,6 +46,14 @@ export default class Left_Panel extends Base_Panel {
 		template.content.append(title, subtitle, title_option, color_switch);
 		return template;
 	})();
+
+	constructor() {
+		super();
+		Utils.Add_Stylesheet(this.shadowRoot, "style/left-panel.css");
+		const base_panel = Utils.Get_Subnode(this.shadowRoot,".base-panel");
+		base_panel.classList.add("left");
+		Utils.Clone_Node_Into(base_panel, Left_Panel.template);
+	}
 
 	/**
 	 * Creates and initializes a Left_Panel instance.
@@ -49,20 +63,18 @@ export default class Left_Panel extends Base_Panel {
 		return document.createElement("left-panel");
 	}
 
+	/**
+	 * Called when node is connected to the DOM
+	 */
 	connectedCallback() {
-		this.Render();
 		Hamburger.Get_Observable("left-panel-hamburger").subscribe(() => this.Toggle_Panel());
 	}
 
+	/**
+	 * Called when node is disconnected to the DOM
+	 */
 	disconnectedCallback() {
 		Hamburger.Get_Observable("left-panel-hamburger").unsubscribe();
-	}
-
-	Render() {
-		super.Render();
-		Utils.Add_Stylesheet(this.shadowRoot, "style/left-panel.css");
-		Utils.Get_Subnode(this.shadowRoot,".base-panel").classList.add("left");
-		Utils.Get_Subnode(this.shadowRoot,".base-panel").appendChild(document.importNode(Left_Panel.template.content,true));
 	}
 }
 

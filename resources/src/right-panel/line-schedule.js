@@ -34,7 +34,7 @@ export default class Line_Schedule extends HTMLElement {
 	/**
 	 * Base template strucutre
 	 */
-	static template_container =(() =>{
+	static template_base =(() =>{
 		const template = document.createElement('template');
 		const container = Utils.Create_Element_With_Class('div', 'schedule-item');
 		const header = Utils.Create_Element_With_Class('div','schedule-header');
@@ -78,14 +78,16 @@ export default class Line_Schedule extends HTMLElement {
 
 	constructor() {
 		super();
-		this.shadow_root = this.attachShadow({ mode: 'open' });
+		this.attachShadow({ mode: 'open' });
 		Utils.Add_Stylesheet(this.shadowRoot, "style/line-schedule.css");
-		Utils.Clone_Node_Into(this.shadow_root,Line_Schedule.template_container);	
+		Utils.Clone_Node_Into(this.shadowRoot,Line_Schedule.template_base);	
 	}
 
-	/**  
+	/**
+	 * Factory to create the Node
 	 * @param {Object} schedule_data  information about the line-schedule
-	 * @param {Object} stations_data  information about all stations 
+	 * @param {Object} stations_data  information about all stations
+	 * @returns instance of Line_Schedule
 	 */
 	static Create(schedule_data, stations_data) {
 		const object = document.createElement('line-schedule');
@@ -106,8 +108,8 @@ export default class Line_Schedule extends HTMLElement {
 	 * change the title name and load the stations for the schedule
 	 */
 	Render() {
-		const header = Utils.Get_Subnode(this.shadow_root,'.schedule-header');
-		const details = Utils.Get_Subnode(this.shadow_root,'.schedule-details');
+		const header = Utils.Get_Subnode(this.shadowRoot,'.schedule-header');
+		const details = Utils.Get_Subnode(this.shadowRoot,'.schedule-details');
 
 		Utils.Empty_Node(header);
 		Utils.Empty_Node(details);

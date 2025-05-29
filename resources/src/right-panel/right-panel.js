@@ -8,13 +8,17 @@ import Utils from "/src/utils/utils.js";
  * 
  * Structure
  * ---------
+ *	<div class='base-panel'> 
+ *	</div>
  * 
- * The right panel consists of two main components:
- * 
- * - **Title and Subtitle**: Provides instructions or context for users.
- * - **Options**: Allows users to modify characteristics of the map.
  */
 export default class Right_Panel extends Base_Panel {
+
+	constructor() {
+		super();
+		Utils.Add_Stylesheet(this.shadowRoot, "style/right-panel.css");
+		Utils.Get_Subnode(this.shadowRoot,".base-panel").classList.add("right");
+	}
 
 	/**
 	 * Creates and initializes a Right_Panel instance.
@@ -44,16 +48,6 @@ export default class Right_Panel extends Base_Panel {
 	 */
 	Open_Station_Info(Station_ID) {
 		this.Open();
-	}
-
-	connectedCallback() {
-		this.Render();
-	}
-
-	Render() {
-		super.Render();
-		Utils.Add_Stylesheet(this.shadowRoot, "style/right-panel.css");
-		Utils.Get_Subnode(this.shadowRoot,".base-panel").classList.add("right");
 	}
 }
 

@@ -4,25 +4,28 @@ import Utils from "/src/utils/utils.js"
 
 /**
  * Round_Cross emits an event when clicked.
+ * 
+ * Structure
+ * ---------
+ *	<div class='circle'> 
+ *	</div>
+ *	<div class='left'> 
+ *	</div>
+ *	<div class='right'> 
+ *	</div>
  */
 export default class Round_Cross extends MixHTMLElementWith(Observable) {
 
 	/**
-	 * Base template for the round cross wich contain the circle and the cross
+	 * Base template strucutre
 	 */
 	static template = (() => {
 		const template = document.createElement('template');
 
 		// Create the main circle
-		const wrapper = document.createElement("div");
-		wrapper.classList.add("circle");
-
-		// Create the cross
-		const left = document.createElement("div");
-		left.classList.add("left");
-
-		const right = document.createElement("div");
-		right.classList.add("right");
+		const wrapper = Utils.Create_Element_With_Class('div','circle');
+		const left = Utils.Create_Element_With_Class('div','left');
+		const right = Utils.Create_Element_With_Class('div','right');
 
 		wrapper.appendChild(left);
 		wrapper.appendChild(right);
@@ -33,6 +36,8 @@ export default class Round_Cross extends MixHTMLElementWith(Observable) {
 	constructor() {
 		super();
 		this.attachShadow({ mode: "open" });
+		Utils.Add_Stylesheet(this.shadowRoot, "style/round-cross.css");
+		Utils.Clone_Node_Into(this.shadowRoot, Round_Cross.template);
 	}
 
 	/**
@@ -41,9 +46,9 @@ export default class Round_Cross extends MixHTMLElementWith(Observable) {
 	 * @returns Round_Cross
 	 */
 	static Create(name) {
-		const elt = document.createElement("round-cross");
-		elt.Observable_Init(name);
-		return elt;
+		const object = document.createElement("round-cross");
+		object.Observable_Init(name);
+		return object;
 	}
 
 	/**
@@ -51,7 +56,6 @@ export default class Round_Cross extends MixHTMLElementWith(Observable) {
 	 */
 	connectedCallback() {
 		this.Observable_connectedCallback();
-		this.Render();
 		this.addEventListener("click", () => {
 			this.Emit();
 		});
@@ -64,20 +68,6 @@ export default class Round_Cross extends MixHTMLElementWith(Observable) {
 		this.removeEventListener("click",() => {
 			this.Emit();
 		});
-	}
-
-	/**
-	 * Render the node and styles
-	 */
-	Render() {
-		// Clear existing content
-		while (this.shadowRoot.firstChild)
-			this.shadowRoot.removeChild(this.shadowRoot.firstChild);
-
-		Utils.Add_Stylesheet(this.shadowRoot, "style/round-cross.css")
-
-		// Clone and append the template content
-		this.shadowRoot.appendChild(document.importNode(Round_Cross.template.content,true));
 	}
 }
 

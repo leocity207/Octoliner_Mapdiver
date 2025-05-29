@@ -1,6 +1,7 @@
 import Observable from "/src/utils/Observable.js";
 import Toggleable from "/src/utils/toggleable.js";
 import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
+import Utils from "/src/utils/utils.js"
 
 /**
  * The **Switch_Event** is a UI component that can hold two states and triggers an event when toggled by the user.
@@ -10,8 +11,17 @@ import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
  * 
  * - Can switch between **two states** (e.g., ON/OFF, Enabled/Disabled).
  * - Sends an **event notification** whenever the state changes.
+ * Structure
+ * ---------
+ *	<div class="switch-container">
+ *		<text> *text of the switch
+ *		<label>
+ *			<input>
+ *			<span> 	
+ *		</label>
+ *	</div>
  */
-class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
+export default class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 
 	/**
 	 * text to be displayed on the left of the Switch
@@ -24,27 +34,16 @@ class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 	static template = (() => {
 		const template = document.createElement('template');
 
-		// add stylesheet
-		const style_link = document.createElement("link");
-		style_link.setAttribute("rel", "stylesheet");
-		style_link.setAttribute("href", "style/switch.css");
-		template.content.appendChild(style_link);
-
-		const master_switch = document.createElement("div");
-		master_switch.classList.add("switch-container");
+		const master_switch = Utils.Create_Element_With_Class('div', 'switch-container');
 
 		const text_elt = document.createElement("text");
-
-		const label_switch = document.createElement("label");
-		label_switch.classList.add("switch");
+		const label_switch = Utils.Create_Element_With_Class('label','switch');
 
 		const input_checkbox = document.createElement("input");
 		input_checkbox.setAttribute("type", "checkbox");
-
-		const span_checkbox = document.createElement("span");
-		span_checkbox.classList.add("slider");
-
+		const span_checkbox = Utils.Create_Element_With_Class('span','slider');
 		label_switch.append(input_checkbox, span_checkbox);
+		
 		master_switch.append(text_elt, label_switch);
 		template.content.appendChild(master_switch);
 		return template;
@@ -55,6 +54,8 @@ class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 
 		this.m_text = "";
 		this.attachShadow({ mode: "open" });
+		Utils.Add_Stylesheet(this.shadowRoot, 'style/switch.css')
+		Utils.Clone_Node_Into(this.shadowRoot,Switch_Event.template);
 		this._handleClick = this._handleClick.bind(this);
 	}
 
@@ -68,7 +69,7 @@ class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 		const elt = document.createElement("switch-event");
 		elt.Observable_Init(name);
 		elt.Toggleable_Init([false,true],false);
-		elt.m_text = text;
+		elt.text = text;
 		return elt;
 	}
 
@@ -78,11 +79,8 @@ class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 	connectedCallback() {
 		this.Observable_connectedCallback();
 		this.Toggleable_connectedCallback();
-		this.Render();
 		const checkbox = this.shadowRoot.querySelector("input[type='checkbox']");
-		if (checkbox) {
-			checkbox.addEventListener("click", this._handleClick.bind(this));
-		}
+		checkbox.addEventListener("click", this._handleClick.bind(this));
 	}
 
 	/**
@@ -90,28 +88,22 @@ class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 	 */
 	disconnectedCallback() {
 		const checkbox = this.shadowRoot.querySelector("input[type='checkbox']");
-		if (checkbox) {
-			checkbox.removeEventListener("click", this._handleClick.bind(this));
-		}
+		checkbox.removeEventListener("click", this._handleClick.bind(this));
 	}
 
 	/**
 	 * Render the node add styles and 
 	 */
 	Render() {
-		// Clear existing content
-		while (this.shadowRoot.firstChild)
-			this.shadowRoot.removeChild(this.shadowRoot.firstChild);
-
-		let node = document.importNode(Switch_Event.template.content,true);
-		const text_elt = node.querySelector("text");
-		if (text_elt)
-			text_elt.textContent = this.m_text;
-		else
-			throw Error("Could not find text element inside the switch");
-		this.shadowRoot.appendChild(node);
+		const text_elt = Utils.Get_Subnode(this.shadowRoot,'text');
+		text_elt.textContent = this.text;
 	}
 
+	/**
+	 * Handle the event 
+	 * 
+	 * @param {Event} event 
+	 */
 	_handleClick(event) {
 		event.stopPropagation(); // (optionnel) évite que le clic remonte inutilement
 		this.Next_State();
@@ -121,5 +113,3 @@ class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 
 // Define the custom element
 customElements.define("switch-event", Switch_Event);
-
-export default Switch_Event;

@@ -12,6 +12,16 @@ import Utils from '../utils/utils.js';
  *  every element contained inside the container is inside a ShadowDom
  * 
  *  this class create a custome element named "app-container"
+ * 
+ * Structure
+ * ---------
+ * 
+ *	<div class='app-window'>
+ *		* main app window
+ *	</div>
+*	<div class='panel'>
+ *		* list of app you can switch on
+ *	</div>
  */
 export default class App_Container extends HTMLElement
 {
@@ -38,7 +48,7 @@ export default class App_Container extends HTMLElement
 	/**
 	 * Base template for panel and main app
 	 */
-	static template = (() => {
+	static template_base = (() => {
 		const template = document.createElement('template');
 
 		let app_window = Utils.Create_Element_With_Class('div', 'app-window');
@@ -52,6 +62,8 @@ export default class App_Container extends HTMLElement
 	constructor() {
 		super();
 		this.attachShadow({ mode: "open" });
+		Utils.Add_Stylesheet(this.shadowRoot, "style/app-container.css");
+		Utils.Clone_Node_Into(this.shadowRoot,App_Container.template_base);	
 	}
 
 	/**
@@ -76,7 +88,7 @@ export default class App_Container extends HTMLElement
 	*/
 	Add_App(new_app) {
 		if(!new_app instanceof App)
-			throw "new_app parameter should be an App object"
+			throw Error("new_app parameter should be an App object");
 		this.m_app_list.push(new_app);
 		this.Render();
 	}
@@ -89,12 +101,6 @@ export default class App_Container extends HTMLElement
 	 * Call this method should be done after the DOM is ready or when the list of App changed.
 	 */
 	Render() {
-		Utils.Empty_Node(this.shadowRoot);
-
-		this.shadowRoot.appendChild(document.importNode(App_Container.template.content, true));
-
-		Utils.Add_Stylesheet(this.shadowRoot, 'style/app-container.css');
-
 		this.panel = Utils.Get_Subnode(this.shadowRoot, '.panel');
 		this.app_window = Utils.Get_Subnode(this.shadowRoot, '.app-window');
 

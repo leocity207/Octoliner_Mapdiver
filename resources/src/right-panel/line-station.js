@@ -6,6 +6,7 @@ const SVG_NS = "http://www.w3.org/2000/svg"
 
 /**
  * The **Ligne station** is an object used to display station information inside a schedule.
+ * 
  * Structure
  * ---------
  * 
@@ -88,15 +89,16 @@ export default class Line_Station extends HTMLElement {
 
 	constructor() {
 		super();
-		this.shadow_root = this.attachShadow({ mode: 'open' });
-
-		Utils.Add_Stylesheet(this.shadow_root, 'style/line-station.css')
-		Utils.Clone_Node_Into(this.shadow_root,Line_Station.template_base);	
+		this.attachShadow({ mode: 'open' });
+		Utils.Add_Stylesheet(this.shadowRoot, 'style/line-station.css')
+		Utils.Clone_Node_Into(this.shadowRoot,Line_Station.template_base);	
 	}
 
-	/**  
+	/**
+	 * Factory to create the Node
 	 * @param {Object} station_data  information about the station
 	 * @param {Object} stations_data  information about all the stations in the network
+	 * @returns instance of Line_Station
 	 */
 	static Create(station_data, stations_data) {
 		const object = document.createElement('line-station');
@@ -118,8 +120,8 @@ export default class Line_Station extends HTMLElement {
 	 * change the staton name
 	 */
 	Render() {
-		const path = Utils.Get_Subnode(this.shadow_root,'path');
-		const station_name = Utils.Get_Subnode(this.shadow_root,'.station-name');
+		const path = Utils.Get_Subnode(this.shadowRoot,'path');
+		const station_name = Utils.Get_Subnode(this.shadowRoot,'.station-name');
 
 		// change path attributes
 		path.setAttribute("style", `fill: ${this.station_data.parent.parent.color.default};`);

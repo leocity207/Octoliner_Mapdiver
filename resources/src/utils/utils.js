@@ -123,6 +123,12 @@ class Utils {
 		while (node.firstChild)
 			node.removeChild(node.firstChild);
 	}
+
+	static Clone_Node_Into(target, template) {
+		const clone = document.importNode(template.content, true);
+		target.appendChild(clone);
+		return clone;
+	};
   
 }
 

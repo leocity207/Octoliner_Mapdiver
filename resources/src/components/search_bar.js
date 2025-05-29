@@ -3,7 +3,20 @@ import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
 import Utils from "/src/utils/utils.js"
 
 /**
- * Hamberger emits an event when clicked.
+ * Search bar can be used to display research help 
+ * 
+ * Structure
+ * ---------
+ *	<input class='search-bar'>
+ *	<div class="autocomplete-items">
+ *		<div>
+ *			<strong>
+ *				* for the text that math
+ *			</strong> 
+ *				* leftover of the text
+ *			<input type="hidden" value="">
+ *		</div>
+ *	</div>
  */
 export default class Search_Bar extends MixHTMLElementWith(Observable) {
 
@@ -13,8 +26,7 @@ export default class Search_Bar extends MixHTMLElementWith(Observable) {
 	static template = (() => {
 		const template = document.createElement('template');
 
-		const search_bar = document.createElement("input");
-		search_bar.setAttribute("id", "search-bar");
+		const search_bar =Utils.Create_Element_With_Class('input','search-bar');
 		search_bar.setAttribute("placeholder", "Recherche par ligne/gare");
 
 		template.content.append(search_bar);
@@ -24,6 +36,8 @@ export default class Search_Bar extends MixHTMLElementWith(Observable) {
 	constructor() {
 		super();
 		this.attachShadow({ mode: "open" });
+		Utils.Add_Stylesheet(this.shadowRoot, "style/search-bar.css");
+		Utils.Clone_Node_Into(this.shadowRoot, Search_Bar.template);
 	}
 
 	/**
@@ -32,9 +46,9 @@ export default class Search_Bar extends MixHTMLElementWith(Observable) {
 	 * @returns Round_Cross
 	 */
 	static Create(name) {
-		let elt = document.createElement("search-bar");
-		elt.Observable_Init(name);
-		return elt;
+		let object = document.createElement("search-bar");
+		object.Observable_Init(name);
+		return object;
 	}
 
 	/**
@@ -42,10 +56,8 @@ export default class Search_Bar extends MixHTMLElementWith(Observable) {
 	 */
 	connectedCallback() {
 		this.Observable_connectedCallback();
-
-		this.Render();
 		this.addEventListener("click", () => {
-			Utils.Get_Subnode(this.shadowRoot,"#search-bar").classList.toggle("active");
+			Utils.Get_Subnode(this.shadowRoot,".search-bar").classList.toggle("active");
 		});
 	}
 
@@ -54,32 +66,15 @@ export default class Search_Bar extends MixHTMLElementWith(Observable) {
 	 */
 	disconnectedCallback() {
 		this.removeEventListener("click", () => {
-			Utils.Get_Subnode(this.shadowRoot,"#search-bar").classList.toggle("active");
+			Utils.Get_Subnode(this.shadowRoot,".search-bar").classList.toggle("active");
 		});
-	}
-
-	/**
-	 * Render the node and styles
-	 */
-	Render() {
-		// Clear existing content
-		while (this.shadowRoot.firstChild)
-			this.shadowRoot.removeChild(this.shadowRoot.firstChild);
-
-		Utils.Add_Stylesheet(this.shadowRoot, "style/search-bar.css")
-		Utils.Add_Stylesheet(this.shadowRoot, "resources-config/style/text-font.css")
-
-		// Clone and append the template content
-		this.shadowRoot.appendChild(document.importNode(Search_Bar.template.content,true));
 	}
 
 	/**
 	 * Initializes autocomplete functionality with a list of suggestions.
 	 * @param {Array<string>} match_list - List of suggestions.
-	 * @returns {Subject} Subject that emits the selected autocomplete value.
 	 */
 	Set_Autocomplete_List(match_list) {
-		this.Render();
 		this._autocomplete_match_list = match_list;
 		this._autocomplete_container = null;
 		this._current_focus = -1;

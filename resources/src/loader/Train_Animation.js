@@ -26,7 +26,8 @@ export default class Train_Animation extends Loader {
 
 	constructor() {
 		super();
-		let shadow = this.attachShadow({ mode: "open" });
+		this.attachShadow({ mode: "open" });
+		Utils.Clone_Node_Into(this.shadowRoot, Train_Animation.template);
 	}
 
 	/**
@@ -34,22 +35,7 @@ export default class Train_Animation extends Loader {
 	 * @returns {Train_Animation} A ready to be used Train animation.
 	 */
 	static Create() {
-		return  document.createElement("train-animation");
-	}
-
-	/**
-	 * Called when node is connected to the dom
-	 */
-	connectedCallback() {
-		this.Render();
-	}
-
-	/**
-	 * Render the Train Animation
-	 */
-	Render() {
-		Utils.Empty_Node(this.shadowRoot);
-		this.shadowRoot.appendChild(document.importNode(Train_Animation.template.content, true));
+		return document.createElement("train-animation");
 	}
 }
 

@@ -1,4 +1,4 @@
-#hamburger{
+.hamburger{
     width: 1.3125em;
     position : relative;
     height: 1em;
@@ -56,6 +56,6 @@
     opacity: 1;
 }
 
-#hamburger:hover .bar{
+.hamburger:hover .bar{
     background-color: #eb0000;
 }

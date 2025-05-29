@@ -3,26 +3,28 @@ import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
 import Utils from "/src/utils/utils.js"
 
 /**
- * Hamberger emits an event when clicked.
+ * Hamburger emits an event when clicked.
+ * Structure
+ * ---------
+ *	<div class='hamburger'> 
+ *		<div class='bar bar1'>
+ *		<div class='bar bar2'>
+ *		<div class='bar bar3'>
+ *	</div>
  */
 export default class Hamburger extends MixHTMLElementWith(Observable) {
 
 	/**
-	 * Base template for the round cross wich contain the circle and the cross
+	 * Base template strucutre
 	 */
 	static template = (() => {
 		const template = document.createElement('template');
 
-		const hamburger = document.createElement("div");
-		hamburger.setAttribute("id", "hamburger");
+		const hamburger = Utils.Create_Element_With_Class('div','hamburger');
 
-		const bar1 = document.createElement("div");
-		const bar2 = document.createElement("div");
-		const bar3 = document.createElement("div");
-
-		bar1.classList.add("bar");
-		bar2.classList.add("bar");
-		bar3.classList.add("bar");
+		const bar1 = Utils.Create_Element_With_Class('div','bar');
+		const bar2 = Utils.Create_Element_With_Class('div','bar');
+		const bar3 = Utils.Create_Element_With_Class('div','bar');
 
 		bar1.classList.add("bar1");
 		bar2.classList.add("bar2");
@@ -36,17 +38,19 @@ export default class Hamburger extends MixHTMLElementWith(Observable) {
 	constructor() {
 		super();
 		this.attachShadow({ mode: "open" });
+		Utils.Add_Stylesheet(this.shadowRoot, "style/hamburger.css");
+		Utils.Clone_Node_Into(this.shadowRoot, Hamburger.template);	
 	}
 
 	/**
 	 * Factory cronstructor of Round_Cross
 	 * @param {Symbol} name 
-	 * @returns Round_Cross
+	 * @returns instance of Round_Cross
 	 */
 	static Create(name) {
-		let elt = document.createElement("hamburger-button");
-		elt.Observable_Init(name);
-		return elt;
+		let object = document.createElement("hamburger-button");
+		object.Observable_Init(name);
+		return object;
 	}
 
 	/**
@@ -55,9 +59,8 @@ export default class Hamburger extends MixHTMLElementWith(Observable) {
 	connectedCallback() {
 		this.Observable_connectedCallback();
 
-		this.Render();
 		this.addEventListener("click", () => {
-			Utils.Get_Subnode(this.shadowRoot,"#hamburger").classList.toggle("active");
+			Utils.Get_Subnode(this.shadowRoot,".hamburger").classList.toggle("active");
 			this.Emit();
 		});
 	}
@@ -69,20 +72,6 @@ export default class Hamburger extends MixHTMLElementWith(Observable) {
 		this.removeEventListener("click",() => {
 			this.Emit();
 		});
-	}
-
-	/**
-	 * Render the node and styles
-	 */
-	Render() {
-		// Clear existing content
-		while (this.shadowRoot.firstChild)
-      		this.shadowRoot.removeChild(this.shadowRoot.firstChild);
-
-		Utils.Add_Stylesheet(this.shadowRoot, "style/hamburger.css")
-
-		// Clone and append the template content
-		this.shadowRoot.appendChild(document.importNode(Hamburger.template.content,true));
 	}
 }
 

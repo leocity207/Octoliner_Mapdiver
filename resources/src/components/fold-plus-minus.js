@@ -4,28 +4,32 @@ import Utils from "/src/utils/utils.js"
 
 /**
  * Plus_Minus cycles between "plus" and "minus" states visually.
+ * Structure
+ * ---------
+ *	<input>
+ *	<div class='symbol'> 
+ *		<div class='horizontal'>
+ *		<div class='vertical'>
+ *	</div>
  */
 export default class Fold_Plus_Minus extends MixHTMLElementWith(Observable, Toggleable) {
 
+	/**
+	 * Base template strucutre
+	 */
 	static template = (() => {
 		const template = document.createElement('template');
 
-		const input = document.createElement('input');
+		const input = Utils. document.createElement('input');
 		input.type = 'checkbox';
 		input.id = 'toggle';
 		input.hidden = true;
 
-		const wrapper = document.createElement("div");
-		wrapper.classList.add("symbol");
+		const wrapper = Utils.Create_Element_With_Class('div','symbol');
+		const horizontal = Utils.Create_Element_With_Class('div','horizontal');
+		const vertical = Utils.Create_Element_With_Class('div','vertical');
 
-		const horizontal = document.createElement("div");
-		horizontal.classList.add("horizontal");
-
-		const vertical = document.createElement("div");
-		vertical.classList.add("vertical");
-
-		wrapper.appendChild(horizontal);
-		wrapper.appendChild(vertical);
+		wrapper.append(horizontal, vertical);
 		template.content.append(wrapper,input);
 		return template;
 	})();
@@ -33,25 +37,39 @@ export default class Fold_Plus_Minus extends MixHTMLElementWith(Observable, Togg
 	constructor() {
 		super();
 		this.attachShadow({ mode: "open" });
+
+		Utils.Add_Stylesheet(this.shadowRoot, "style/fold-plus-minus.css");
+		Utils.Clone_Node_Into(this.shadowRoot, Fold_Plus_Minus.template_container);	
 	}
 
+	/**
+	 * Factory to create the Node
+	 * @param {String} name name of the folder
+	 * @returns instance of Fold_Plus_Minus
+	 */
 	static Create(name) {
-		const elt = document.createElement("plus-minus");
-		elt.Observable_Init(name);
-		elt.Toggleable_Init([false,true],false);
-		return elt;
+		let object = document.createElement("plus-minus");
+		object.Observable_Init(name);
+		object.Toggleable_Init([false,true],false);
+		return object;
 	}
 
 	/**
 	 * Called when node is connected to the dom
 	 */
 	connectedCallback() {
-		this.Render();
 		this.addEventListener("click", () => {
 			this.Next_State();
 			this.Emit(this.Get_State());
 			this.Check_Symbole();
 		});
+	}
+
+	/**
+	 * Called when node disapear from the dom
+	 */
+	disconnectedCallback() {
+		this.removeEventListener("click");
 	}
 
 	Check_Symbole() {
@@ -66,22 +84,6 @@ export default class Fold_Plus_Minus extends MixHTMLElementWith(Observable, Togg
 				symbole.classList.add("minus");
 			}
 		}
-	}
-
-	/**
-	 * Called when node disapear from the dom
-	 */
-	disconnectedCallback() {
-		this.removeEventListener("click");
-	}
-
-	Render() {
-		// Clear existing content
-		while (this.shadowRoot.firstChild)
-			this.shadowRoot.removeChild(this.shadowRoot.firstChild);
-		// Clone and append the template content
-		Utils.Add_Stylesheet(this.shadowRoot, "style/fold-plus-minus.css");
-		this.shadowRoot.appendChild(document.importNode(Fold_Plus_Minus.template.content,true));
 	}
 }
 

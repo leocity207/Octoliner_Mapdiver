@@ -6,6 +6,7 @@ import Switch_Event from "/src/components/switch.js";
 
 /**
  * The **Ligne info** is an object used to display line information.
+ * 
  * Structure
  * ---------
  *	<div class='line-info'>
@@ -21,7 +22,7 @@ import Switch_Event from "/src/components/switch.js";
  *		<div class='line-infomessages'>
  *			* list of messages
  *		</div>
-  *		<div class='schedules'>
+ *		<div class='schedules'>
  *			* list of schedules
  *		</div>
  *	</div>
@@ -59,13 +60,15 @@ export default class Line_Info extends HTMLElement {
 
 	constructor() {
 		super();
-		this.shadow_root = this.attachShadow({ mode: 'open' });
+		this.attachShadow({ mode: 'open' });
 		Utils.Clone_Node_Into(this.shadowRoot, Line_Info.template_base)
 		Utils.Add_Stylesheet(this.shadowRoot, "style/line-info.css");
 	}
 
-	/**  
+	/**
+	 * Factory to create the Node
 	 * @param {Object} line_data the line data
+	 * @returns instance of Line_Info
 	 */
 	static Create(line_data) {
 		const object = document.createElement('line-info');

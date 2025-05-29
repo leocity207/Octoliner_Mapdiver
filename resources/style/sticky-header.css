@@ -1,6 +1,6 @@
 
 
-#sticky-header {
+.sticky-header {
     position : sticky;
     top : 0;
     z-Index : 1000;

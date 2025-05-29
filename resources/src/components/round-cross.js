@@ -8,10 +8,10 @@ import Utils from "/src/utils/utils.js"
  * Structure
  * ---------
  *	<div class='circle'> 
- *	</div>
- *	<div class='left'> 
- *	</div>
- *	<div class='right'> 
+ *		<div class='left'> 
+ *		</div>
+ *		<div class='right'> 
+ *		</div>
  *	</div>
  */
 export default class Round_Cross extends MixHTMLElementWith(Observable) {

@@ -1,5 +1,6 @@
 .schedule-item {
 	border-top: 1px solid #ddd;
+	background-color: #e5e5e5;
 }
 
 .schedule-item:first-child {
@@ -12,10 +13,7 @@
 	display: flex;
 	justify-content: space-between;
 	user-select: none;
-}
-
-.schedule-info-icon {
-	margin-left: 0.5em;
+	align-items: center;
 }
 
 .schedule-details {
@@ -29,4 +27,51 @@
 .schedule-details.open {
 	max-height:1000px;
 	transition: max-height 0.3s ease;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 4px;
+  width: 100%;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-left: auto; /* Push it to the right */
+}
+
+.header-left-icon {
+  width: 100%;
+  height: 24px;
+}
+
+.header-icon {
+  width: 1em;
+  aspect-ratio: 1 / 1;
+}
+
+.header-left-icon {
+  aspect-ratio: 1 / 1;
+}
+
+.schedule-info-icon,
+.header-left-icon > svg{
+  width: auto;
+  height: 100%;
+  display: block;
+}
+
+.header-left-text {
+  font-size: 14px;
+  color: #444;
+}
+
+.header-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
 }

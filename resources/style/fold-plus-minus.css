@@ -1,33 +1,32 @@
-/* Cercle cliquable */
+
 .circle {
-  width: 40px; 
-  height: 40px;
+  width: 20px; 
+  height: 20px;
   border-radius: 50%; 
-  border: 2px solid black;
+  border: 1px solid black;
   display: flex; 
   align-items: center; 
   justify-content: center;
   cursor: pointer; 
   position: relative;
-  background-color: white;
   transition: background-color 0.2s ease;
 }
 
-/* Barres (+) */
-.bar {
+
+.horizontal,
+.vertical {
   position: absolute;
-  width: 20px; height: 2px;
+  width: 15px; height: 1px;
   background-color: black;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
-.bar-horizontal { /* barre toujours visible */
+.horizontal {
   transform: rotate(0deg);
 }
-.bar-vertical { /* barre qu’on masque en “minus” */
+.vertical {
   transform: rotate(90deg);
 }
 
-/* Quand c’est coché ➝ état “minus” : on cache la barre verticale */
-input:checked + label .bar-vertical {
+.circle.minus > .vertical {
   opacity: 0;
 }

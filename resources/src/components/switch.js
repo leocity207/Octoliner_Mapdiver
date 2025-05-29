@@ -1,4 +1,4 @@
-import Observable from "/src/utils/Observable.js";
+import Observable from "/src/utils/observable.js";
 import Toggleable from "/src/utils/toggleable.js";
 import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
 import Utils from "/src/utils/utils.js"

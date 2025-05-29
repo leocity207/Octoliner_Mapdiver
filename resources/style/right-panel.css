@@ -23,3 +23,15 @@ switch-event {
 .open.right {
 	right: 0;
 }
+
+.base-panel.right.open::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -6px;
+  width: 6px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  z-index: 1;
+}

@@ -1,5 +1,5 @@
-import Toggleable from "./Toggleable.js";
-import { MixHTMLElementWith } from "./MixHTMLElementWith.js";
+import Toggleable from "/src/utils/toggleable.js";
+import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
 import Utils from "/src/utils/utils.js" 
 
 /**
@@ -7,12 +7,12 @@ import Utils from "/src/utils/utils.js"
  * Structure
  * ---------
  *	<input>
- *	<div class='symbol'> 
+ *	<div class='circle'>
  *		<div class='horizontal'>
  *		<div class='vertical'>
  *	</div>
  */
-export default class Fold_Plus_Minus extends MixHTMLElementWith(Observable, Toggleable) {
+export default class Fold_Plus_Minus extends MixHTMLElementWith(Toggleable) {
 
 	/**
 	 * Base template strucutre
@@ -20,12 +20,12 @@ export default class Fold_Plus_Minus extends MixHTMLElementWith(Observable, Togg
 	static template = (() => {
 		const template = document.createElement('template');
 
-		const input = Utils. document.createElement('input');
+		const input = document.createElement('input');
 		input.type = 'checkbox';
 		input.id = 'toggle';
 		input.hidden = true;
 
-		const wrapper = Utils.Create_Element_With_Class('div','symbol');
+		const wrapper = Utils.Create_Element_With_Class('div','circle');
 		const horizontal = Utils.Create_Element_With_Class('div','horizontal');
 		const vertical = Utils.Create_Element_With_Class('div','vertical');
 
@@ -39,17 +39,15 @@ export default class Fold_Plus_Minus extends MixHTMLElementWith(Observable, Togg
 		this.attachShadow({ mode: "open" });
 
 		Utils.Add_Stylesheet(this.shadowRoot, "style/fold-plus-minus.css");
-		Utils.Clone_Node_Into(this.shadowRoot, Fold_Plus_Minus.template_container);	
+		Utils.Clone_Node_Into(this.shadowRoot, Fold_Plus_Minus.template);	
 	}
 
 	/**
 	 * Factory to create the Node
-	 * @param {String} name name of the folder
 	 * @returns instance of Fold_Plus_Minus
 	 */
-	static Create(name) {
+	static Create() {
 		let object = document.createElement("plus-minus");
-		object.Observable_Init(name);
 		object.Toggleable_Init([false,true],false);
 		return object;
 	}
@@ -58,18 +56,12 @@ export default class Fold_Plus_Minus extends MixHTMLElementWith(Observable, Togg
 	 * Called when node is connected to the dom
 	 */
 	connectedCallback() {
-		this.addEventListener("click", () => {
-			this.Next_State();
-			this.Emit(this.Get_State());
-			this.Check_Symbole();
-		});
+		this.Toggleable_connectedCallback();
 	}
 
-	/**
-	 * Called when node disapear from the dom
-	 */
-	disconnectedCallback() {
-		this.removeEventListener("click");
+	Next_State() {
+		super.Next_State();
+		this.Check_Symbole();
 	}
 
 	Check_Symbole() {

@@ -24,3 +24,15 @@ switch-event {
 .open.left {
 	left: 0;
 }
+
+.base-panel.left::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 6px;
+  width: 6px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  z-index: 1;
+}

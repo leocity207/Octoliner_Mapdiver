@@ -7,7 +7,12 @@
 	z-index: 900;
 }
 
-.base-panel.left> *,
+.base-panel.left> * {
+	margin-left: 1em;
+}
+
 .base-panel.right> * {
-	margin-left: 1rem;
+	overflow-y: auto;
+	height: 100%;
+	display: block;
 }

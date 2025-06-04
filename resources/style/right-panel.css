@@ -23,7 +23,6 @@ switch-event {
 .open.right {
 	right: 0;
 	height: 92vh;
-	overflow-y: auto;
 }
 
 .base-panel.right.open::before {

@@ -25,7 +25,7 @@ switch-event {
 	left: 0;
 }
 
-.base-panel.left::after {
+.base-panel.left.open::after {
   content: "";
   position: absolute;
   top: 0;

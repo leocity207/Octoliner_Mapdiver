@@ -8,19 +8,20 @@ import Fold_Plus_Minus from '/src/components/fold-plus-minus.js';
  * 
  * Structure
  * ---------
+ * .. code-block:: html
  * 
- *	<div class='schedule-item'>
- *		<div class='schedule-header'>
- *			* Schedule title
- *			* Icon if schedule has information
- *			* Plus_Minus_Button to acces details
- *		</div>
- *		<div class='schedule-details'>
- *			* list of stations
- *		</div>
- *	</div>
+ * 	<div class='schedule-item'>
+ * 		<div class='schedule-header'>
+ * 			* Schedule title
+ * 			* Icon if schedule has information
+ * 			* Plus_Minus_Button to acces details
+ * 		</div>
+ * 		<div class='schedule-details'>
+ * 			* list of stations
+ * 		</div>
+ * 	</div>
  */
-export default class Line_Schedule extends HTMLElement {
+class Line_Schedule extends HTMLElement {
 
 	/**
 	 * Data about the schedule
@@ -121,6 +122,9 @@ export default class Line_Schedule extends HTMLElement {
 		});
 	}
 
+	/**
+	 * Called when node is disconected from the DOM
+	 */
 	disconnectedCallback() {
 		this.removeEventListener("click",() => {
 			Utils.Get_Subnode(this.shadowRoot,'.schedule-details').classList.toggle('open');
@@ -155,3 +159,5 @@ export default class Line_Schedule extends HTMLElement {
 }
 
 customElements.define('line-schedule', Line_Schedule);
+
+export default Line_Schedule;

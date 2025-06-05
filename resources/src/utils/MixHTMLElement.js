@@ -1,4 +1,9 @@
-function copyStaticProperties(source, target) {
+/**
+ * copy all the static methods and static attributes from source to targets (overide existing properties)
+ * @param {Class} source the source class to copy static properties from
+ * @param {Class} target the target class to copy static properties to
+ */
+function Copy_Static_Properties(source, target) {
 	const keys = [
 		...Object.getOwnPropertyNames(source),
 		...Object.getOwnPropertySymbols(source),
@@ -20,7 +25,12 @@ function copyStaticProperties(source, target) {
 	}
 }
 
-function copyPrototypeProperties(sourceProto, targetProto) {
+/**
+ * copy all the methods and attributes from source to targets (overide existing properties)
+ * @param {Class} source the source class to copy properties from
+ * @param {Class} target the target class to copy properties to
+ */
+function Copy_Prototype_Properties(sourceProto, targetProto) {
 	const keys = [
 		...Object.getOwnPropertyNames(sourceProto),
 		...Object.getOwnPropertySymbols(sourceProto),
@@ -34,7 +44,13 @@ function copyPrototypeProperties(sourceProto, targetProto) {
 	}
 }
 
-export default function MixHTMLElementWith(...bases) {
+/**
+ * Do multiple inheritance from all the bases given in argument and the class HTMLElement
+ * It should be notted that the leftmost class given in argument inside `bases` while have primoty on all the previous classes given in argument if multiple similar properties exist
+ * @param  {...class} bases list of class to inherite properties from
+ * @returns a class that you can extends from that have all mixed properties most left class have the last word on properties
+ */
+function MixHTMLElementWith(...bases) {
 	class Base extends HTMLElement {}
 
 	const MixinClass = bases.reduce((BaseClass, Mixin) => {
@@ -48,13 +64,15 @@ export default function MixHTMLElementWith(...bases) {
 		}
 
 		// Copy static properties
-		copyStaticProperties(Mixin, Mixed);
+		Copy_Static_Properties(Mixin, Mixed);
 
 		// Copy prototype properties (instance methods)
-		copyPrototypeProperties(Mixin.prototype, Mixed.prototype);
+		Copy_Prototype_Properties(Mixin.prototype, Mixed.prototype);
 
 		return Mixed;
 	}, Base);
 
 	return MixinClass;
 }
+
+export default MixHTMLElementWith;

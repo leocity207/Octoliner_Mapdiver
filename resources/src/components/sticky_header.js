@@ -17,15 +17,19 @@ import Search_Bar from "/src/components/search_bar.js"
  * - **Center Section:** A **search bar** that accepts a list of searchable elements and emits an event when an item is selected.
  * - **Right Section:** A **logo** that can be displayed for branding purposes.
  * 
- *	<header class="sticky-header">
- *		<Hamburger>
- *		<Search_Bar>
- *		<img>
- *	</header>
- *
- */
-export default class Sticky_Header extends MixHTMLElementWith(Observable) {
+ * .. code-block:: html
+ * 
+ * 	<header class="sticky-header">
+ * 		<Hamburger>
+ * 		<Search_Bar>
+ * 		<img>
+ * 	</header>
+*/
+class Sticky_Header extends MixHTMLElementWith(Observable) {
 
+	/**
+	 * Base template strucutre
+	 */
 	static template = (() => {
 		const template = document.createElement('template');
 
@@ -69,3 +73,5 @@ export default class Sticky_Header extends MixHTMLElementWith(Observable) {
 
 // Define the custom element
 customElements.define("sticky-header", Sticky_Header);
+
+export default Sticky_Header;

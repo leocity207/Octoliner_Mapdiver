@@ -1,7 +1,7 @@
 /**
  * Toggleable allows cycling between multiple named states.
  */
-export default class Toggleable {
+class Toggleable {
 
 	/**
 	 * the list of all possible states. the list is ordered.
@@ -33,6 +33,9 @@ export default class Toggleable {
 			this.current_index = 0;
 	}
 
+	/**
+	 * This function should be added in inherited class during the connectedCallback function or whenever a copy of the node containing a `Toggleable` is made
+	 */
 	Toggleable_connectedCallback() {
 		const current_index = parseInt(this.getAttribute('current-state'));
  		if (current_index != undefined) this.current_index = current_index;
@@ -52,7 +55,7 @@ export default class Toggleable {
 	/**
 	 * Get the current state.
 	 * @returns {string}
-	 */s
+	 */
 	Get_State() {
 		return this.states[this.current_index];
 	}
@@ -100,3 +103,5 @@ export default class Toggleable {
 		}
 	}
 }
+
+export default Toggleable;

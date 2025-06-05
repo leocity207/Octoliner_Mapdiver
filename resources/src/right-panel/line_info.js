@@ -9,25 +9,27 @@ import Switch_Event from "/src/components/switch.js";
  * 
  * Structure
  * ---------
- *	<div class='line-info'>
- *		<div class='line-header'>
- *			<div class='line-logo'>
- *				* containe the lin logo
- *			</div>
- *			<div class='line-title'>
- *				contain the line title
- *			</div>
- *			<round-cross>
- *		</div>
- *		<div class='line-infomessages'>
- *			* list of messages
- *		</div>
- *		<div class='schedules'>
- *			* list of schedules
- *		</div>
- *	</div>
+ * .. code-block:: html
+ * 
+ * 	<div class='line-info'>
+ * 		<div class='line-header'>
+ * 			<div class='line-logo'>
+ * 				* containe the lin logo
+ * 			</div>
+ * 			<div class='line-title'>
+ * 				* contain the line title
+ * 			</div>
+ * 			<round-cross>
+ * 		</div>
+ * 		<div class='line-infomessages'>
+ * 			* list of messages
+ * 		</div>
+ * 		<div class='schedules'>
+ * 			* list of schedules
+ * 		</div>
+ * 	</div>
  */
-export default class Line_Info extends HTMLElement {
+class Line_Info extends HTMLElement {
 
 	/**
 	 * Data about the schedule
@@ -132,3 +134,5 @@ export default class Line_Info extends HTMLElement {
 }
 
 customElements.define('line-info', Line_Info);
+
+export default Line_Info;

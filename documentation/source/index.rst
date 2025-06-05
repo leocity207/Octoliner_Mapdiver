@@ -90,7 +90,7 @@ Documentation Index
 	rst/frontend/components/component_base
 	rst/frontend/right-panel/right-panel_base
 	rst/frontend/loader/loader_base
-	rst/frontend/utils/utils
+	rst/frontend/utils/utils_base
 
 .. toctree::
 	:maxdepth: 2

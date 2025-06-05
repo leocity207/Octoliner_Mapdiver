@@ -10,21 +10,22 @@ import Utils from "/src/utils/utils.js";
  * 
  * Structure
  * ---------
+ * .. code-block:: html
  * 
- *	<div class='base-panel'>
- *		<div class='title'>
- *			* main title
- *		</div>
-  *		<div class='text'>
- *			subtext of the title
- *		</div>
-  *		<div class='title'>
- *			* main option title
- *		</div>
- *		<switch-event data-name="color">
- *	</div>
+ * 	<div class='base-panel'>
+ * 		<div class='title'>
+ * 			* main title
+ * 		</div>
+ * 		<div class='text'>
+ * 			* subtext of the title
+ * 		</div>
+ * 		<div class='title'>
+ * 			* main option title
+ * 		</div>
+ * 		<switch-event data-name="color">
+ * 	</div>
  */
-export default class Left_Panel extends Base_Panel {
+class Left_Panel extends Base_Panel {
 
 	/**
 	 * Base template strucutre
@@ -80,3 +81,5 @@ export default class Left_Panel extends Base_Panel {
 
 // Define the custom element
 customElements.define("left-panel", Left_Panel);
+
+export default Left_Panel;

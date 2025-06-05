@@ -11,17 +11,21 @@ import Utils from "/src/utils/utils.js"
  * 
  * - Can switch between **two states** (e.g., ON/OFF, Enabled/Disabled).
  * - Sends an **event notification** whenever the state changes.
+ * 
  * Structure
  * ---------
- *	<div class="switch-container">
- *		<text> *text of the switch
- *		<label>
- *			<input>
- *			<span> 	
- *		</label>
- *	</div>
+ * .. code-block:: html
+ * 
+ * 	<div class="switch-container">
+ * 		<text> *text of the switch
+ * 		<label>
+ * 			<input>
+ * 			<span> 	
+ * 		</label>
+ * 	</div>
+ * 
  */
-export default class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
+class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 
 	/**
 	 * text to be displayed on the left of the Switch
@@ -56,7 +60,7 @@ export default class Switch_Event extends MixHTMLElementWith(Observable, Togglea
 		this.attachShadow({ mode: "open" });
 		Utils.Add_Stylesheet(this.shadowRoot, 'style/switch.css')
 		Utils.Clone_Node_Into(this.shadowRoot,Switch_Event.template);
-		this._handleClick = this._handleClick.bind(this);
+		this._Handle_Click = this._Handle_Click.bind(this);
 	}
 
 	/**
@@ -80,7 +84,7 @@ export default class Switch_Event extends MixHTMLElementWith(Observable, Togglea
 		this.Observable_connectedCallback();
 		this.Toggleable_connectedCallback();
 		const checkbox = this.shadowRoot.querySelector("input[type='checkbox']");
-		checkbox.addEventListener("click", this._handleClick.bind(this));
+		checkbox.addEventListener("click", this._Handle_Click.bind(this));
 	}
 
 	/**
@@ -88,7 +92,7 @@ export default class Switch_Event extends MixHTMLElementWith(Observable, Togglea
 	 */
 	disconnectedCallback() {
 		const checkbox = this.shadowRoot.querySelector("input[type='checkbox']");
-		checkbox.removeEventListener("click", this._handleClick.bind(this));
+		checkbox.removeEventListener("click", this._Handle_Click.bind(this));
 	}
 
 	/**
@@ -104,7 +108,7 @@ export default class Switch_Event extends MixHTMLElementWith(Observable, Togglea
 	 * 
 	 * @param {Event} event 
 	 */
-	_handleClick(event) {
+	_Handle_Click(event) {
 		event.stopPropagation(); // (optionnel) évite que le clic remonte inutilement
 		this.Next_State();
 		this.Emit(this.Get_State());
@@ -113,3 +117,5 @@ export default class Switch_Event extends MixHTMLElementWith(Observable, Togglea
 
 // Define the custom element
 customElements.define("switch-event", Switch_Event);
+
+export default Switch_Event;

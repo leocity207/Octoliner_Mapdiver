@@ -99,6 +99,11 @@ class Utils {
 		return match ? match[0] : input;
 	}
 
+	/**
+	 * Creation a `link` element and add it to the `node`
+	 * @param {Node} node the node where we will add the link element
+	 * @param {String} href the hyper-ref relative to server root of the CSS file 
+	 */
 	static Add_Stylesheet = function(node, href) {
 		const style = document.createElement("link");
 		style.rel = "stylesheet";
@@ -106,12 +111,24 @@ class Utils {
 		node.appendChild(style);
 	}
 
-	static Create_Element_With_Class = function(tag, className) {
+	/**
+	 * Create a element of type `tag` and add it the class `class_name`
+	 * @param {String} tag type of element  
+	 * @param {String} class_name class of the element
+	 * @returns A node element of type `tag` with class `class_name`
+	 */
+	static Create_Element_With_Class = function(tag, class_name) {
 		const node = document.createElement(tag);
-		node.classList.add(className);
+		node.classList.add(class_name);
 		return node;
 	}
 
+	/**
+	 * Get the child that match the `selector` starting from `parent_node`
+	 * @param {Node} parent_node where to start looking children witch matching querry
+	 * @param {String} selector querry selector string 
+	 * @returns `the matchin node (throw an error if not found)
+	 */
 	static Get_Subnode = function(parent_node, selector) {
 		const node = parent_node.querySelector(selector);
 		if (!node) 
@@ -119,16 +136,37 @@ class Utils {
 		return node;
 	}
 
+	/**
+	 * Empty a `node` of all its children
+	 * @param {Node} node the node where we will whipe all the children
+	 */
 	static Empty_Node(node) {
 		while (node.firstChild)
 			node.removeChild(node.firstChild);
 	}
 
+	/**
+	 * clone the `template` node inside the `target node`
+	 * @param {Node} target a node where to copy the `template` into
+	 * @param {Node} template `a template node` to copy frm
+	 * @returns the clone from the template
+	 */
 	static Clone_Node_Into(target, template) {
 		const clone = document.importNode(template.content, true);
 		target.appendChild(clone);
 		return clone;
 	};
+
+	/**
+	 * Format minutes as H:MM or :MM
+	 * @param {int} totalMin an integer representing elapsed minutes
+	 */
+	static Format_Minute(totalMin) {
+		const h = Math.floor(totalMin / 60);
+		const m = totalMin % 60;
+		const mm = m.toString().padStart(2, '0');
+		return h > 0 ? `${h}:${mm}` : `:${mm}`;
+	}
   
 }
 

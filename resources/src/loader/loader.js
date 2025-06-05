@@ -6,9 +6,8 @@ import Displayable from "../utils/displayable.js";
  * You should generaly not use this class by itself as it does only display a white page, but instead create you own Animation inheriting this class
  * 
  * This class create a custome element named "app-loader"
- * 
  */
-export default class Loader extends Displayable {
+class Loader extends Displayable {
 	/**
 	 * Create a Loader Element
 	 * @returns  {Loader} a ready to be use loader
@@ -19,3 +18,5 @@ export default class Loader extends Displayable {
 }
 
 customElements.define("app-loader", Loader);
+
+export default Loader;

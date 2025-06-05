@@ -79,6 +79,7 @@ connectedCallback and disconnectedCallback should be use to render the node (oth
 		connectedCallback() {
 			this.Render();
 		}
+		
 	...
 
 Class organisation

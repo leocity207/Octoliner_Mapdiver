@@ -6,21 +6,17 @@ import Utils from "/src/utils/utils.js";
  * 
  * Structure
  * ---------
- *	<div class='base-panel'> 
- *	</div>
+ * .. code-block:: html
  *
+ * 	<div class='base-panel'> 
+ * 	</div>
  */
-export default class Base_Panel extends HTMLElement {
+class Base_Panel extends HTMLElement {
 
 	/**
 	 * Indicates whether the base panel is currently visible or not.
 	 */
 	panel_visible = false;
-
-	/**
-	 * The DOM element representing the base panel.
-	 */
-	base_panel = null;
 
 	/**
 	 * Base template strucutre
@@ -74,3 +70,5 @@ export default class Base_Panel extends HTMLElement {
 
 // Define the custom element
 customElements.define("base-panel", Base_Panel);
+
+export default Base_Panel;

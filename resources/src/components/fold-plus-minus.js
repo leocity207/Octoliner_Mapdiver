@@ -4,15 +4,18 @@ import Utils from "/src/utils/utils.js"
 
 /**
  * Plus_Minus cycles between "plus" and "minus" states visually.
+ * 
  * Structure
  * ---------
- *	<input>
- *	<div class='circle'>
- *		<div class='horizontal'>
- *		<div class='vertical'>
- *	</div>
+ * .. code-block:: html
+ * 
+ * 	<input>
+ * 	<div class='circle'>
+ * 		<div class='horizontal'>
+ * 		<div class='vertical'>
+ * 	</div>
  */
-export default class Fold_Plus_Minus extends MixHTMLElementWith(Toggleable) {
+class Fold_Plus_Minus extends MixHTMLElementWith(Toggleable) {
 
 	/**
 	 * Base template strucutre
@@ -59,11 +62,17 @@ export default class Fold_Plus_Minus extends MixHTMLElementWith(Toggleable) {
 		this.Toggleable_connectedCallback();
 	}
 
+	/**
+	 * Change the state of the object into a plus or a minus depending on the current state
+	 */
 	Next_State() {
 		super.Next_State();
 		this.Check_Symbole();
 	}
 
+	/**
+	 * Check what should be the current symbole of the fold plus minus
+	 */
 	Check_Symbole() {
 		const symbole = this.shadowRoot.querySelector("div");
 		if (symbole) {
@@ -80,3 +89,5 @@ export default class Fold_Plus_Minus extends MixHTMLElementWith(Toggleable) {
 }
 
 customElements.define("plus-minus", Fold_Plus_Minus);
+
+export default Fold_Plus_Minus;

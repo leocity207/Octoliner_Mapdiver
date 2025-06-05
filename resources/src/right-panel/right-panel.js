@@ -8,11 +8,13 @@ import Utils from "/src/utils/utils.js";
  * 
  * Structure
  * ---------
- *	<div class='base-panel'> 
- *	</div>
+ * .. code-block:: html
+ * 
+ * 	<div class='base-panel'> 
+ * 	</div>
  * 
  */
-export default class Right_Panel extends Base_Panel {
+class Right_Panel extends Base_Panel {
 
 	constructor() {
 		super();
@@ -53,3 +55,5 @@ export default class Right_Panel extends Base_Panel {
 
 // Define the custom element
 customElements.define("right-panel", Right_Panel);
+
+export default Right_Panel;

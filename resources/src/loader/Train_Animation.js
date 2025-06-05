@@ -6,7 +6,7 @@ import Utils from '../utils/utils.js';
  * 
  * This class create a custome element named "train-animation"
  */
-export default class Train_Animation extends Loader {
+class Train_Animation extends Loader {
 
 
 	/**
@@ -40,3 +40,5 @@ export default class Train_Animation extends Loader {
 }
 
 customElements.define("train-animation", Train_Animation);
+
+export default Train_Animation

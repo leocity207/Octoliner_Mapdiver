@@ -4,9 +4,9 @@ import Utils from "/src/utils/utils.js";
 /**
  * Page are displayable element generaly found inside an App, they are gracefull container
  * 
- *  this class create a custome element named "app-page"
+ * This class create a custome element named "app-page"
  */
-export default class Page extends Displayable
+class Page extends Displayable
 {
 	constructor() {
 		super();
@@ -25,3 +25,5 @@ export default class Page extends Displayable
 }
 
 customElements.define("app-page", Page);
+
+export default Page;

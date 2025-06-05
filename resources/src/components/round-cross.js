@@ -7,14 +7,16 @@ import Utils from "/src/utils/utils.js"
  * 
  * Structure
  * ---------
- *	<div class='circle'> 
- *		<div class='left'> 
- *		</div>
- *		<div class='right'> 
- *		</div>
- *	</div>
+ * .. code-block:: html
+ * 
+ * 	<div class='circle'> 
+ * 		<div class='left'> 
+ * 		</div>
+ * 		<div class='right'> 
+ * 		</div>
+ * 	</div>
  */
-export default class Round_Cross extends MixHTMLElementWith(Observable) {
+class Round_Cross extends MixHTMLElementWith(Observable) {
 
 	/**
 	 * Base template strucutre
@@ -72,3 +74,5 @@ export default class Round_Cross extends MixHTMLElementWith(Observable) {
 }
 
 customElements.define("round-cross", Round_Cross);
+
+export default Round_Cross

@@ -11,10 +11,16 @@ import Utils from "/src/utils/utils.js";
  * 
  * Map_App define a custom element named "svg-map-app"
  */
-export default class Map_Page extends Page {
+class Map_Page extends Page {
 
+	/**
+	 * the map object
+	 */
 	map = null;
 
+	/**
+	 * the resizer observer on the map container
+	 */
 	resize_observer = null;
 
 	/**
@@ -76,3 +82,5 @@ export default class Map_Page extends Page {
 }
 
 customElements.define("svg-map-page", Map_Page);
+
+export default Map_Page;

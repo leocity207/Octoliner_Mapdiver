@@ -11,6 +11,6 @@ Public Static Methods
 
 ====================
 
-Protected Members
+Static Attributes
 -----------------
-	.. js:autofunction:: Train_Animation#Init
+	.. js:autoattribute:: Train_Animation#template

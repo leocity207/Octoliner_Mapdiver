@@ -56,6 +56,7 @@ Structure:
 			"default": "#25158B",
 			"easy": "#DD2F1D"
 		},
+		"svg_icon":"<svg viewBox='0 0 33.212 6.35'>..."
 		"timetable_pattern": [
 			{
 				"code": "MY_LINE_A_15",
@@ -125,6 +126,11 @@ Field Reference
 			"default": "#25158B",
 		}
 
+``svg_icon`` (required)
++++++++++++++++++++++++
+- the icon of the line as xml element
+- should begin by a <svg> tags 
+
 ``timetable_pattern`` (required)
 ++++++++++++++++++++++++++++++++
 Array of service patterns that define how trains operate on this line.
@@ -193,7 +199,7 @@ Each stop definition contains:
 	- Example: ``["warning"]``
 
 Example with All Features
-------------------------
+-------------------------
 
 .. code-block:: json
 

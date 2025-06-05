@@ -86,6 +86,9 @@ class App extends Displayable
 		return this.main_page;
 	}
 
+	/**
+	 * Update all the app inside the App
+	 */
 	Render() {
 		Utils.Empty_Node(this.shadowRoot);
 

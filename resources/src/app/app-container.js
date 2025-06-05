@@ -3,37 +3,34 @@ import Utils from '../utils/utils.js';
 
 
 /**
- *  App_container are element that display *Apps*.
- *  
- * 	When more than one *App* is added to the container  it create a left bare side to switch between app.
- *  
- * 	When multiple *App* are being used it is recommended to set the Icon inside the *App* in order to display it inside the left bare side.
- * 
- *  every element contained inside the container is inside a ShadowDom
- * 
- *  this class create a custome element named "app-container"
+ * App_container are element that display *Apps*.
+ * When more than one *App* is added to the container  it create a left bare side to switch between app.
+ * When multiple *App* are being used it is recommended to set the Icon inside the *App* in order to display it inside the left bare side.
+ * Every element contained inside the container is inside a ShadowDom
+ * This class create a custome element named "app-container"
  * 
  * Structure
  * ---------
+ * .. code-block:: html
  * 
- *	<div class='app-window'>
- *		* main app window
- *	</div>
-*	<div class='panel'>
- *		* list of app you can switch on
- *	</div>
+ * 	<div class='app-window'>
+ * 		Main app window
+ * 	</div>
+ * 	<div class='panel'>
+ *  	List of app you can switch on
+ * 	</div>
  */
-export default class App_Container extends HTMLElement
+class App_Container extends HTMLElement
 {
 	/**
 	 * The list of app inside the container
 	 */
-	m_app_list = [];
+	app_list = [];
 
 	/**
 	 * The current `App` being displayed
 	 */
-	m_current_app = undefined;
+	current_app = undefined;
 
 	/**
 	 * the panel node displaying selectable app
@@ -89,7 +86,7 @@ export default class App_Container extends HTMLElement
 	Add_App(new_app) {
 		if(!new_app instanceof App)
 			throw Error("new_app parameter should be an App object");
-		this.m_app_list.push(new_app);
+		this.app_list.push(new_app);
 		this.Render();
 	}
 
@@ -104,12 +101,13 @@ export default class App_Container extends HTMLElement
 		this.panel = Utils.Get_Subnode(this.shadowRoot, '.panel');
 		this.app_window = Utils.Get_Subnode(this.shadowRoot, '.app-window');
 
-		if(this.m_app_list.length > 1)
+		if(this.app_list.length > 1)
 			this.panel.style.display = 'block';
-		for(let app of this.m_app_list)
+		for(let app of this.app_list)
 			this.app_window.appendChild(app);
 	}
 }
 
 customElements.define("app-container", App_Container);
 
+export default App_Container;

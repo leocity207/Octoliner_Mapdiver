@@ -10,7 +10,7 @@ import Round_Cross from "/src/components/round-cross.js";
  * 
  * Map_Page define a custom element named "svg-map-app"
  */
-export default class Network_Map_Page extends Map_Page {
+class Network_Map_Page extends Map_Page {
 
 	/**
 	 * last event that happend in the form  {type: string, detail: Any};
@@ -146,3 +146,5 @@ export default class Network_Map_Page extends Map_Page {
 }
 
 customElements.define("network-map-page", Network_Map_Page);
+
+export default Network_Map_Page;

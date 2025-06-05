@@ -18,14 +18,13 @@ Public Static Methods
 
 ====================
 	
-Protected Methods
------------------
-	.. js:autofunction:: Map_Page#Init
-
-====================
-	
 Attributes
 ----------
-	.. js:autoattribute:: Map_Page#map_container
-	.. js:autoattribute:: Map_Page#map_canvas
-	.. js:autoattribute:: Map_Page#sticky_header
+	.. js:autoattribute:: Map_Page#map
+	.. js:autoattribute:: Map_Page#resize_observer
+
+====================
+
+Static Attributes
+-----------------
+	.. js:autoattribute:: Map_Page#template_base

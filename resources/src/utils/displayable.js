@@ -1,4 +1,8 @@
-export default class Displayable extends HTMLElement {
+/**
+ * Displayable are Element that can be hidden and shown
+ * It work by using the css property `display`
+ */
+class Displayable extends HTMLElement {
 
 	/**
 	 * Show the object
@@ -14,3 +18,5 @@ export default class Displayable extends HTMLElement {
 		this.style.display = 'none';
 	}
 }
+
+export default Displayable;

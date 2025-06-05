@@ -4,22 +4,25 @@ import Utils from "/src/utils/utils.js"
 
 /**
  * Hamburger emits an event when clicked.
+ * 
  * Structure
  * ---------
- *	<div class='hamburger'> 
- *		<div class='bar bar1'>
- *		<div class='bar bar2'>
- *		<div class='bar bar3'>
- *	</div>
+ * .. code-block:: html
+ * 
+ * 	<div class='hamburger'> 
+ * 		<div class='bar bar1'>
+ * 		<div class='bar bar2'>
+ * 		<div class='bar bar3'>
+ * 	</div>
  */
-export default class Hamburger extends MixHTMLElementWith(Observable) {
+class Hamburger extends MixHTMLElementWith(Observable) {
 
 	/**
 	 * Base template strucutre
 	 */
 	static template = (() => {
 		const template = document.createElement('template');
-
+		
 		const hamburger = Utils.Create_Element_With_Class('div','hamburger');
 
 		const bar1 = Utils.Create_Element_With_Class('div','bar');
@@ -76,3 +79,5 @@ export default class Hamburger extends MixHTMLElementWith(Observable) {
 }
 
 customElements.define("hamburger-button", Hamburger);
+
+export default Hamburger;

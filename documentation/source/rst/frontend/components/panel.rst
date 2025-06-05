@@ -13,15 +13,12 @@ Public Members
 
 ====================
 
-
-
-Protected Members
------------------
-	.. js:autofunction:: Base_Panel#Init
-
-====================
-a
 Attributes
 ----------
 	.. js:autoattribute:: Base_Panel#panel_visible
-	.. js:autoattribute:: Base_Panel#left_panel
+
+====================
+
+Static Attributes
+-----------------
+	.. js:autoattribute:: Base_Panel#template

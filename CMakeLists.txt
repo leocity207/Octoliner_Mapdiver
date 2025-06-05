@@ -7,17 +7,17 @@ option(DOWNLOAD_RESOURCES "Download resources if not present" ON)
 set(RESOURCES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/resources/resources-config")
 file(GLOB RESOURCE_CONTENTS "${RESOURCES_DIR}/*")
 if(DOWNLOAD_RESOURCES AND NOT RESOURCE_CONTENTS)
-    message(STATUS "Resources config directory is empty or missing. Will attempt to download data.")
-    file(MAKE_DIRECTORY "${RESOURCES_DIR}")
-    add_custom_target(clone_resources ALL
-        COMMAND ${CMAKE_COMMAND} -E echo "Cloning resources into ${RESOURCES_DIR}"
-        COMMAND ${CMAKE_COMMAND} -E remove_directory "${RESOURCES_DIR}" # In case it's just an empty folder
-        COMMAND git clone https://github.com/leocity207/Mapdiver_NeoBretagne_Data.git "${RESOURCES_DIR}"
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        COMMENT "Cloning Mapdiver_NeoBretagne_Data into resources/resources-config"
-    )
+	message(STATUS "Resources config directory is empty or missing. Will attempt to download data.")
+	file(MAKE_DIRECTORY "${RESOURCES_DIR}")
+	add_custom_target(clone_resources ALL
+		COMMAND ${CMAKE_COMMAND} -E echo "Cloning resources into ${RESOURCES_DIR}"
+		COMMAND ${CMAKE_COMMAND} -E remove_directory "${RESOURCES_DIR}" # In case it's just an empty folder
+		COMMAND git clone https://github.com/leocity207/Mapdiver_NeoBretagne_Data.git "${RESOURCES_DIR}"
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+		COMMENT "Cloning Mapdiver_NeoBretagne_Data into resources/resources-config"
+	)
 else()
-    message(STATUS "Skipping resource download. Either disabled or resources already present.")
+	message(STATUS "Skipping resource download. Either disabled or resources already present.")
 endif()
 
 #-----------------

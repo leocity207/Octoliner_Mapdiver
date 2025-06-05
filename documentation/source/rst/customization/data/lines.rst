@@ -104,13 +104,13 @@ Field Reference
 - Key: language code (e.g., "fr", "en")
 - Value: URL path
 - Example:
-  
-  .. code-block:: json
 
-	  "urls": {
-		  "fr": "/fr/MY_LINE",
-		  "en": "/en/MY_LINE"
-	  }
+	.. code-block:: json
+
+		"urls": {
+			"fr": "/fr/MY_LINE",
+			"en": "/en/MY_LINE"
+		}
 
 ``color`` (required)
 ++++++++++++++++++++
@@ -119,11 +119,11 @@ Field Reference
 - Colors in HEX format (#RRGGBB)
 - Example:
 
-  .. code-block:: json
+	.. code-block:: json
 
-	  "color": {
-		  "default": "#25158B",
-	  }
+		"color": {
+			"default": "#25158B",
+		}
 
 ``timetable_pattern`` (required)
 ++++++++++++++++++++++++++++++++

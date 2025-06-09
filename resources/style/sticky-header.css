@@ -1,21 +1,21 @@
 
 
 .sticky-header {
-    position : sticky;
-    top : 0;
-    z-Index : 1000;
-    background-color : #F5F5F5;
-    padding : 1vh 2vh;
-    display : flex;
-    justify-content : space-between;
-    align-items : center;
-    border-bottom: 1px solid #d9d9d9;
+	position : sticky;
+	top : 0;
+	z-Index : 1000;
+	background-color : #F5F5F5;
+	padding : 1vh 2vh;
+	display : flex;
+	justify-content : space-between;
+	align-items : center;
+	border-bottom: 1px solid #d9d9d9;
 }
 
 /**
  * Logo
 **/
 img {
-    color: black;
-    height: 6vh;
+	color: black;
+	height: 6vh;
 }

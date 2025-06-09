@@ -3,18 +3,18 @@ import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
 import Utils from "/src/utils/utils.js"
 
 /**
- * Search bar can be used to display research help 
- * 
+ * Search bar can be used to display research help
+ *
  * Structure
  * ---------
  * .. code-block:: html
- * 
+ *
  * 	<input class='search-bar'>
  * 	<div class="autocomplete-items">
  * 		<div>
  * 			<strong>
  * 					* for the text that math
- * 			</strong> 
+ * 			</strong>
  * 			* leftover of the text
  * 			<input type="hidden" value="">
  * 		</div>
@@ -44,7 +44,7 @@ class Search_Bar extends MixHTMLElementWith(Observable) {
 
 	/**
 	 * Factory cronstructor of Round_Cross
-	 * @param {Symbol} name 
+	 * @param {Symbol} name
 	 * @returns Round_Cross
 	 */
 	static Create(name) {
@@ -120,7 +120,7 @@ class Search_Bar extends MixHTMLElementWith(Observable) {
 	 * @param {string} val - Current input value.
 	 * @param {HTMLInputElement} search_input - The search input element.
 	 * @returns {HTMLElement}
-    */
+	*/
 	_Create_Suggestion_Element(match, val, search_input) {
 		const suggestion = document.createElement("div");
 
@@ -159,9 +159,9 @@ class Search_Bar extends MixHTMLElementWith(Observable) {
 
 	/**
 	 * Handles key navigation (arrow and enter) on the input.
-     * @param {KeyboardEvent} e
-     * @param {HTMLInputElement} input
-    */
+	 * @param {KeyboardEvent} e
+	 * @param {HTMLInputElement} input
+	*/
 	_On_Key_Down(e, input) {
 		if (!this._autocomplete_container) return;
 
@@ -192,8 +192,8 @@ class Search_Bar extends MixHTMLElementWith(Observable) {
 	}
 
 	/**
-    * Closes the autocomplete suggestion list.
-    */
+	* Closes the autocomplete suggestion list.
+	*/
 	_Close_Autocomplete_List() {
 		if (this._autocomplete_container) {
 			this._autocomplete_container.remove();
@@ -202,10 +202,10 @@ class Search_Bar extends MixHTMLElementWith(Observable) {
 	}
 
 	/**
-    * Handles clicks outside of the shadow DOM to close autocomplete.
-    * @param {MouseEvent} e
-    * @param {HTMLElement} input
-    */
+	* Handles clicks outside of the shadow DOM to close autocomplete.
+	* @param {MouseEvent} e
+	* @param {HTMLElement} input
+	*/
 	_On_Document_Click(e, input) {
 		if (!this.contains(e.target) && !this.shadowRoot.contains(e.target)) {
 			this._Close_Autocomplete_List();

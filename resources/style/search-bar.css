@@ -12,10 +12,10 @@
 .autocomplete-items div {
 	padding: 5px;
 	cursor: pointer;
-    border-bottom-width: 0.5px;
-    border-bottom-style: solid;
-    border-bottom-color: #aaaaaa;
-    
+	border-bottom-width: 0.5px;
+	border-bottom-style: solid;
+	border-bottom-color: #aaaaaa;
+
 }
 
 .autocomplete-items div:hover,
@@ -24,5 +24,5 @@
 }
 
 input {
-    width: 10rem;
+	width: 10rem;
 }

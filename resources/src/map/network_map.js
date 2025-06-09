@@ -18,7 +18,7 @@ class Network_Map extends SVG_Map {
 	lines = {};
 
 	/**
-	 * Object descibing the stations inside the network map 
+	 * Object descibing the stations inside the network map
 	 */
 	stations = {};
 
@@ -96,12 +96,12 @@ class Network_Map extends SVG_Map {
 		for (let obj of to_be_deactivated) {
 			obj.evented = false; // Disable events for the object
 		}
-		
+
 	}
 
-	/** 
+	/**
 	* Change the colore of the 'obj' to 'color' for the 'target' property
-	* @param obj the object you want to change the color 
+	* @param obj the object you want to change the color
 	* @param color the color in hexadecimal like _FFFFFF
 	* @param target the target property of the object you want to change its color (can be 'strock' or 'fill')
 	*/
@@ -118,7 +118,7 @@ class Network_Map extends SVG_Map {
 
 	/**
 	 * Change the color scheme for all lines
-	 * 
+	 *
 	 * @param {String} color the name of the type of color scheme to display ("default/simple...")
 	 */
 	Change_Color = (color) => {
@@ -126,18 +126,18 @@ class Network_Map extends SVG_Map {
 		this.Highlight_Lines(this.highlighted_line_codes);
 	}
 
-	/** 
+	/**
 	* disable all other lines, mark the line with the line color handle labels too
 	* @param line_codes List of line Codes for exmple [LER_BRE01,LGV_BRE03]
 	*/
 	Highlight_Lines = (line_codes) => {
 		this.highlighted_line_codes = line_codes;
 		if (this.config.DEBUG) console.log('Highlight_Lines called');
-	
+
 		// Prepare sets for objects that need to be highlighted
 		const Tracks_to_higlight = new Set(line_codes.map(code => `${this.network_config.TRACK_PREFIX_ID}${code}`));
 		const labels_to_higlight = new Set(line_codes.map(code => `${this.network_config.LINE_LABEL_PREFIX_ID}${code}`));
-	
+
 		// Precompute colors for each line code
 		const line_colors = {};
 		line_codes.forEach(code => {
@@ -149,20 +149,20 @@ class Network_Map extends SVG_Map {
 			else
 				throw Error(`Code was not found inside the list: ${code}`);
 		});
-	
+
 		// Get tracks and labels separately
 		const tracks = this._Find_Map_Objs_By_Id(this.network_config.TRACK_PREFIX_ID, false);
 		const labels = this._Find_Map_Objs_By_Id(this.network_config.LINE_LABEL_PREFIX_ID, false);
-	
+
 		// Process tracks
 		tracks.forEach(track => {
 			const track_id_first_part = Utils.Get_First_Part(track.id)
-			if (Tracks_to_higlight.has(track_id_first_part)) 
+			if (Tracks_to_higlight.has(track_id_first_part))
 				this._Change_Obj_Color(track, line_colors[track_id_first_part]);
-			else 
+			else
 				this._Change_Obj_Color(track, this.network_config.DISABLE_ELEMENT_COLOR);
 		});
-	
+
 		// Process labels
 		labels.forEach(label => {
 			const label_id_first_part = Utils.Get_First_Part(label.id);
@@ -171,7 +171,7 @@ class Network_Map extends SVG_Map {
 			else
 				this._Change_Obj_Color(label, this.network_config.DISABLE_ELEMENT_COLOR, 'fill');
 		});
-		
+
 		this.fabric_canvas.requestRenderAll();
 	};
 
@@ -281,14 +281,14 @@ class Network_Map extends SVG_Map {
 		if (highlight_pos_from_obj !== undefined) {
 			let zoom_box = this.Zoom_Box_For_Objs(highlight_pos_from_obj);
 			this.Animated_Pan_Zoom(zoom_box)
-		} 
+		}
 		else
 			if(this.config.DEBUG) console.warn('Zoom_Not_Visible_Station, cannot find from position object')
 	}
 
 	/**
 	* mark the station with the right circle
-	* @param station_code code of the station 
+	* @param station_code code of the station
 	* @param station_type if it's a from or to station
 	*/
 	Highlight_Station = (station_code, station_type) => {
@@ -367,15 +367,15 @@ class Network_Map extends SVG_Map {
 	* @param event comming from hammer
 	*/
 	_Handle_Mouse_Click_Track = (event) => {
-		if (!event.currentSubTargets.length) 
-			throw new Error("Event target container has nothing inside.");	
-		if (!this._Check_Pointer_In_Range(event.pointer)) 
+		if (!event.currentSubTargets.length)
+			throw new Error("Event target container has nothing inside.");
+		if (!this._Check_Pointer_In_Range(event.pointer))
 			return this.config.DEBUG ? console.log("mouse click pointer is not in range") : undefined;
 		const target_id = event.currentSubTargets[0].id
-		if (!target_id.length) 
+		if (!target_id.length)
 			throw new Error("The target id is empty.");
 		const track_code = this._Find_Track_Code_In_Id(target_id);
-		if (!track_code) 
+		if (!track_code)
 			throw new Error("Track code not found.");
 		history.pushState({ line: track_code }, "", track_code);
 		document.dispatchEvent(new CustomEvent('line-click', { detail: track_code, type: "line"}));
@@ -386,15 +386,15 @@ class Network_Map extends SVG_Map {
 	* @param event pointing to the station
 	*/
 	_Handle_Mouse_Click_Station = (event) => {
-		if (!event.currentSubTargets.length) 
-			throw new Error("Event target container has nothing inside.");	
+		if (!event.currentSubTargets.length)
+			throw new Error("Event target container has nothing inside.");
 		if (!this._Check_Pointer_In_Range(event.pointer))  // only if on same position
 			return this.config.DEBUG ? console.log("mouse click pointer is not in range") : undefined;
 		const target_id = event.currentSubTargets[0].id
-		if (!target_id.length) 
+		if (!target_id.length)
 			throw new Error("The target id is empty.");
 		const station_code = this._Find_Station_Code_In_Id(target_id);
-		if (!station_code) 
+		if (!station_code)
 			throw new Error("Station code not found.");
 		history.pushState({ station: station_code }, "", station_code);
 		document.dispatchEvent(new CustomEvent('station-click', { detail: station_code, type: "station"}));
@@ -421,10 +421,10 @@ class Network_Map extends SVG_Map {
 		let ID_parts  = id.split('-')
 		if(ID_parts.length < 2)
 			throw Error("Station id length too short, Id was : " + id);
-		return  ID_parts[1];	
+		return  ID_parts[1];
 	}
 
-	/** 
+	/**
 	 * find the line json object in all lines
 	 */
 	_Find_Line_Data_By_Id = (code) => {
@@ -438,10 +438,13 @@ class Network_Map extends SVG_Map {
 		return this.all_stations_json.find(x => x.code === code);
 	}
 
+	/**
+	 * Give back the line data from the line_ID
+	 * @param {String} line_ID the ID of the line to get the line data from
+	 */
 	Get_Line_Data = function(line_ID) {
 		return {"lines": this.lines[line_ID], "stations": this.stations,};
 	}
 }
 
 export default Network_Map;
- 

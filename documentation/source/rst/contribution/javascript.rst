@@ -9,7 +9,7 @@ Naming
 ------
 
 variable should be named using `snake_case`
-function and class should be named using `Snake_Case` 
+function and class should be named using `Snake_Case`
 
 
 comments
@@ -21,7 +21,7 @@ comment should be done the same way as jsdoc
 
 		/**
 		 * Base documentation
-	     * @param {Type} param documentation
+		 * @param {Type} param documentation
 		 * @return return documentation
 		 */
 		...
@@ -35,7 +35,7 @@ Indentation
 Node class
 ----------
 class that extend a HtmlElement should follow some rules
-everything that can be reused should be place inside template 
+everything that can be reused should be place inside template
 
 	.. code-block:: javascript
 
@@ -48,7 +48,7 @@ everything that can be reused should be place inside template
 		...
 
 All those class should have a factory to create them and initialize attributes
-	
+
 	.. code-block:: javascript
 
 		static Create(arg) {
@@ -79,17 +79,16 @@ connectedCallback and disconnectedCallback should be use to render the node (oth
 		connectedCallback() {
 			this.Render();
 		}
-		
+
 	...
 
 Class organisation
 ------------------
 
 classes should be ordered as follow:
-  * attributes
-  * static attributes
-  * constructor
-  * static factory
-  * members
-  * static members
- 
+	* attributes
+	* static attributes
+	* constructor
+	* static factory
+	* members
+	* static members

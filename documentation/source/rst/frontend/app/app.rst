@@ -8,23 +8,17 @@ App
 
 Public Members
 --------------
-	.. js:autofunction:: App#Show
-	.. js:autofunction:: App#Hide
 	.. js:autofunction:: App#Loaded
 	.. js:autofunction:: App#Loading
 	.. js:autofunction:: App#Page
+	.. js:autofunction:: App#connectedCallback
+	.. js:autofunction:: App#Render
 
 ====================
 
 Public Static Methods
 ---------------------
 	.. js:autofunction:: App.Create
-
-====================
-
-Protected Members
------------------
-	.. js:autofunction:: App#Init
 
 ====================
 

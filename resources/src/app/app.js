@@ -1,5 +1,7 @@
 import Loader from '../loader/loader.js';
 import Page from '../page/page.js'; 
+import Displayable from '../utils/displayable.js';
+import Utils from '../utils/utils.js';
 
 
 /**
@@ -13,7 +15,7 @@ import Page from '../page/page.js';
  * 
  * App define a custom element named "app-app"
 */
-class App extends HTMLElement
+class App extends Displayable
 {
 	/**
 	 * The loader node that can be display when the page is loading
@@ -34,41 +36,29 @@ class App extends HTMLElement
 	/// CTOR
 	constructor() {
 		super();
-	}
-
-	////////////
-	/// METHOD
-	////////////
-
-	/**
-	* Initialize an App object after it has been instantiated
-	* @protected
-	*/
-	Init(loader, main_page, icon) {
-		this.loader = loader;
-		this.main_page = main_page;
-		this.icon = icon;
-		let shadow = this.attachShadow({ mode: "open" });
-		const link = document.createElement('link');
-		link.setAttribute('rel', 'stylesheet');
-		link.setAttribute('href', 'style/app.css');
-		shadow.appendChild(link);
-		shadow.appendChild(this.loader);
-		shadow.appendChild(this.main_page);
+		this.attachShadow({ mode: "open" });
 	}
 
 	/**
-	 * Show the App
+	 * create an App object and initialize it
+	 * @param {Loader} loader 
+	 * @param {Page} main_page 
+	 * @param {Icon} icon 
+	 * @returns {App} a new instance App (it should be added to the dom via an App_Container object)
 	 */
-	Show() {
-		this.style.display = 'block';
+	static Create(loader, main_page, icon) {
+		let elt = document.createElement("app-app");
+		elt.loader = loader;
+		elt.main_page = main_page;
+		elt.icon = icon;
+		return elt;
 	}
 
 	/**
-	 * Hide the App
+	 * Called when node is connected to the dom
 	 */
-	Hide() {
-		this.style.display = 'none';
+	connectedCallback() {
+		this.Render();
 	}
 
 	/**
@@ -96,23 +86,16 @@ class App extends HTMLElement
 		return this.main_page;
 	}
 
-	//////////////////
-	/// STATIC METHODS
-	//////////////////
-
 	/**
-	 * create an App object and initialize it
-	 * @param {Loader} loader 
-	 * @param {Page} main_page 
-	 * @param {Icon} icon 
-	 * @returns {App} a new instance App (it should be added to the dom via an App_Container object)
+	 * Update all the app inside the App
 	 */
-	static Create(loader, main_page, icon) {
-		let elt = document.createElement("app-app");
-		elt.Init(loader, main_page, icon);
-		return elt;
-	}
+	Render() {
+		Utils.Empty_Node(this.shadowRoot);
 
+		Utils.Add_Stylesheet(this.shadowRoot,"style/app.css")
+		this.shadowRoot.appendChild(this.loader);
+		this.shadowRoot.appendChild(this.main_page);
+	}
 }
 
 customElements.define("app-app", App);

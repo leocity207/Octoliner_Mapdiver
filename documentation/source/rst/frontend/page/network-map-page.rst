@@ -26,4 +26,3 @@ Attributes
 	.. js:autoattribute:: Network_Map_Page#prev_event
 	.. js:autoattribute:: Network_Map_Page#panel_detail_is_open
 	.. js:autoattribute:: Network_Map_Page#network_data
-	.. js:autoattribute:: Network_Map_Page#map 

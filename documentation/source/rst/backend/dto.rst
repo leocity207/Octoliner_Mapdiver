@@ -22,6 +22,7 @@ Network DTO
 The **Network DTO** aggregates all station and line data into a single object for the frontend. The returned JSON structure is as follows:
 
 .. code-block:: json
+
 	{
 		"Lines": [...],
 		"Stations": [...]

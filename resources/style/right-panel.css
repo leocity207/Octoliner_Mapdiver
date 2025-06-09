@@ -1,5 +1,5 @@
 .base-panel.right {
-	right: -250px;
+	right: -18.75em;
 	transition: right 0.3s ease;
 }
 
@@ -22,4 +22,17 @@ switch-event {
 
 .open.right {
 	right: 0;
+	height: 92vh;
+}
+
+.base-panel.right.open::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -6px;
+	width: 6px;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.1);
+	pointer-events: none;
+	z-index: 1;
 }

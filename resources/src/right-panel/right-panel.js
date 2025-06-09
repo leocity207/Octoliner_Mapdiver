@@ -1,5 +1,6 @@
-import Base_Panel from "../components/panel.js";
-import Round_Cross from "../components/round-cross.js";
+import Base_Panel from "/src/components/panel.js";
+import Line_Info from "./line_info.js"
+import Utils from "/src/utils/utils.js";
 
 /**
  * The **Right Panel** is a user interface element that remains fixed on the right side of the screen.  
@@ -7,15 +8,18 @@ import Round_Cross from "../components/round-cross.js";
  * 
  * Structure
  * ---------
+ * .. code-block:: html
  * 
- * The right panel consists of two main components:
+ * 	<div class='base-panel'> 
+ * 	</div>
  * 
- * - **Title and Subtitle**: Provides instructions or context for users.
- * - **Options**: Allows users to modify characteristics of the map.
  */
 class Right_Panel extends Base_Panel {
+
 	constructor() {
 		super();
+		Utils.Add_Stylesheet(this.shadowRoot, "style/right-panel.css");
+		Utils.Get_Subnode(this.shadowRoot,".base-panel").classList.add("right");
 	}
 
 	/**
@@ -23,26 +27,7 @@ class Right_Panel extends Base_Panel {
 	 * @returns {Right_Panel} A new instance of Right_Panel.
 	 */
 	static Create() {
-		const Right_panel = document.createElement("right-panel");
-		Right_panel.Init();
-		return Right_panel;
-	}
-
-	/**
-	 * Initializes the right panel and its elements.
-	 */
-	Init() {
-		super.Init()
-
-		const style_link = document.createElement("link");
-		style_link.setAttribute("rel", "stylesheet");
-		style_link.setAttribute("href", "style/right-panel.css");
-
-		this.base_panel.classList.add("right");
-
-		this.shadowRoot.appendChild(style_link);
-
-		this.base_panel.appendChild(Round_Cross.Create("right-panel-cross"));
+		return document.createElement("right-panel");
 	}
 
 	/**
@@ -50,8 +35,12 @@ class Right_Panel extends Base_Panel {
 	 * 
 	 * @param {String} line_ID the Id of the line
 	 */
-	Open_Line_Info(line_ID) {
+	Open_Line_Info = async function(line_data) {
 		this.Open();
+		let base_panel = Utils.Get_Subnode(this.shadowRoot,".base-panel")
+		while (base_panel.firstChild)
+			base_panel.removeChild(base_panel.firstChild);
+		base_panel.appendChild(Line_Info.Create(line_data));
 	}
 
 	/**

@@ -1,4 +1,5 @@
 import Loader from './loader.js';
+import Utils from '../utils/utils.js';
 
 /**
  * A simple Train Animation that implement a Loader
@@ -7,22 +8,26 @@ import Loader from './loader.js';
  */
 class Train_Animation extends Loader {
 
-	constructor() {
-		super();
-	}
 
 	/**
-	* Initialize an the train animation to be the right size object after it has been instantiated
-	* you should not need to use this function
-	* @protected
-	*/
-	Init() {
+	 * Base template for panel and main app
+	 */
+	static template = (() => {
+		const template = document.createElement('template');
+
 		let iframe = document.createElement("iframe");
 		iframe.src = 'resources-config/image/train-animation.svg';
 		iframe.width = '100%';
 		iframe.height = '100%';
-		let shadow = this.attachShadow({ mode: "open" });
-		shadow.appendChild(iframe);
+
+		template.content.appendChild(iframe);
+		return template;
+	})();
+
+	constructor() {
+		super();
+		this.attachShadow({ mode: "open" });
+		Utils.Clone_Node_Into(this.shadowRoot, Train_Animation.template);
 	}
 
 	/**
@@ -30,12 +35,10 @@ class Train_Animation extends Loader {
 	 * @returns {Train_Animation} A ready to be used Train animation.
 	 */
 	static Create() {
-		let elt = document.createElement("train-animation");
-		elt.Init();
-		return elt;
+		return document.createElement("train-animation");
 	}
 }
 
 customElements.define("train-animation", Train_Animation);
 
-export default Train_Animation;
+export default Train_Animation

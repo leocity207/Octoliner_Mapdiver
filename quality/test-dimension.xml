@@ -33,6 +33,11 @@
 		<Choice-div name="finger Scrolling">Scrolling in and out with the user finger.</Choice-div>
 	</Dimension-div>
 
+	<Dimension-div type="opening type">
+		<Choice-div name="search bar">open info using the search bar</Choice-div>
+		<Choice-div name="direct click">open info by directly clicking on the object</Choice-div>
+	</Dimension-div>
+
 	<Dimension-div type="screen-ratio">
 		<Choice-div name="3840x2160"/>
 		<Choice-div name="412x915"/>

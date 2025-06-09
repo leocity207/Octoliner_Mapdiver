@@ -20,7 +20,7 @@ std::optional<oatpp::Object<T>> NetworkDataHandler::Parse_Json(const oatpp::Stri
 		return mapper.readFromString<oatpp::Object<T>>(json);
 	}
 	catch (const std::exception& e) {
-		OATPP_LOGi("[error]", "Failed to parse JSON: %s", e.what());
+		OATPP_LOGi("[error]", "Failed to parse JSON:" + std::string(e.what()));
 		return std::nullopt;
 	}
 }

@@ -774,7 +774,6 @@ class SVG_Map {
 		this.fabric_canvas.requestRenderAll();
 
 	}
-
 }
 
 export default SVG_Map;

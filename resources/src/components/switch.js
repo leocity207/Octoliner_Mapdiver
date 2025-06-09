@@ -1,4 +1,7 @@
-import { Subject, filter } from "../../libraries/RxJS_wrapper.js";
+import Observable from "/src/utils/observable.js";
+import Toggleable from "/src/utils/toggleable.js";
+import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
+import Utils from "/src/utils/utils.js"
 
 /**
  * The **Switch_Event** is a UI component that can hold two states and triggers an event when toggled by the user.
@@ -8,21 +11,56 @@ import { Subject, filter } from "../../libraries/RxJS_wrapper.js";
  * 
  * - Can switch between **two states** (e.g., ON/OFF, Enabled/Disabled).
  * - Sends an **event notification** whenever the state changes.
+ * 
+ * Structure
+ * ---------
+ * .. code-block:: html
+ * 
+ * 	<div class="switch-container">
+ * 		<text> *text of the switch
+ * 		<label>
+ * 			<input>
+ * 			<span> 	
+ * 		</label>
+ * 	</div>
+ * 
  */
-class Switch_Event extends HTMLElement {
+class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 
 	/**
-	 * the observable that listen for switch events
+	 * text to be displayed on the left of the Switch
 	 */
-	static switch_event_subject = new Subject();
+	m_text
 
 	/**
-	 * Name identifier of the switch (this is the name to use when you want to subscribe to the event of the switch).
+	 * Base template for the round cross wich contain the circle and the cross
 	 */
-	name;
+	static template = (() => {
+		const template = document.createElement('template');
+
+		const master_switch = Utils.Create_Element_With_Class('div', 'switch-container');
+
+		const text_elt = document.createElement("text");
+		const label_switch = Utils.Create_Element_With_Class('label','switch');
+
+		const input_checkbox = document.createElement("input");
+		input_checkbox.setAttribute("type", "checkbox");
+		const span_checkbox = Utils.Create_Element_With_Class('span','slider');
+		label_switch.append(input_checkbox, span_checkbox);
+		
+		master_switch.append(text_elt, label_switch);
+		template.content.appendChild(master_switch);
+		return template;
+	})();
 
 	constructor() {
 		super();
+
+		this.m_text = "";
+		this.attachShadow({ mode: "open" });
+		Utils.Add_Stylesheet(this.shadowRoot, 'style/switch.css')
+		Utils.Clone_Node_Into(this.shadowRoot,Switch_Event.template);
+		this._Handle_Click = this._Handle_Click.bind(this);
 	}
 
 	/**
@@ -32,67 +70,48 @@ class Switch_Event extends HTMLElement {
 	 * @returns {Switch_Event} A new instance of Switch_Event.
 	 */
 	static Create(name, text) {
-		const switch_event = document.createElement("switch-event");
-		switch_event.Init(name, text);
-		return switch_event;
+		const elt = document.createElement("switch-event");
+		elt.Observable_Init(name);
+		elt.Toggleable_Init([false,true],false);
+		elt.text = text;
+		return elt;
 	}
 
 	/**
-	 * #PROTECTED#
-	 * 
-	 * Initializes the switch component.
-	 * @param {string} name - The identifier for the switch.
-	 * @param {string} text - The label text for the switch.
-	 */
-	Init(name, text) {
-		this.name = name;
-		this.attachShadow({ mode: "open" });
-
-		const style_link = document.createElement("link");
-		style_link.setAttribute("rel", "stylesheet");
-		style_link.setAttribute("href", "style/switch.css");
-		this.shadowRoot.appendChild(style_link);
-
-		const master_switch = document.createElement("div");
-		master_switch.classList.add("switch-container");
-
-		const text_elt = document.createElement("text");
-		text_elt.innerHTML = text;
-
-		const label_switch = document.createElement("label");
-		label_switch.classList.add("switch");
-
-		const input_checkbox = document.createElement("input");
-		input_checkbox.setAttribute("type", "checkbox");
-
-		const span_checkbox = document.createElement("span");
-		span_checkbox.classList.add("slider");
-
-		label_switch.appendChild(input_checkbox);
-		label_switch.appendChild(span_checkbox);
-		master_switch.appendChild(text_elt);
-		master_switch.appendChild(label_switch);
-
-		span_checkbox.addEventListener("click", () => {
-			Switch_Event.switch_event_subject.next({ name: this.name, state: !input_checkbox.checked });
-		});
-
-		this.shadowRoot.appendChild(master_switch);
+	* Called when node is connected to the dom
+	*/
+	connectedCallback() {
+		this.Observable_connectedCallback();
+		this.Toggleable_connectedCallback();
+		const checkbox = this.shadowRoot.querySelector("input[type='checkbox']");
+		checkbox.addEventListener("click", this._Handle_Click.bind(this));
 	}
 
 	/**
-	 * Returns an observable that listens for switch events with the specified name.
-	 * @param {string} name - The identifier for the switch.
-	 * @returns {Observable} An RxJS observable for the switch events. the observable return a dictionary containing the 'name' and 'state' of the switch
-	 * 
-	 * @example
-	 * Switch.Get_Observable('mySwitch')subscribe(event => {
-	 *    console.log(`Switch toggled: ${event.name} - ${event.state}`);
-	 * });
-	 * 
+	 * Called when node disapear from the dom
 	 */
-	static Get_Observable(name) {
-		return Switch_Event.switch_event_subject.pipe(filter((event) => event.name === name));
+	disconnectedCallback() {
+		const checkbox = this.shadowRoot.querySelector("input[type='checkbox']");
+		checkbox.removeEventListener("click", this._Handle_Click.bind(this));
+	}
+
+	/**
+	 * Render the node add styles and 
+	 */
+	Render() {
+		const text_elt = Utils.Get_Subnode(this.shadowRoot,'text');
+		text_elt.textContent = this.text;
+	}
+
+	/**
+	 * Handle the event 
+	 * 
+	 * @param {Event} event 
+	 */
+	_Handle_Click(event) {
+		event.stopPropagation(); // (optionnel) évite que le clic remonte inutilement
+		this.Next_State();
+		this.Emit(this.Get_State());
 	}
 }
 

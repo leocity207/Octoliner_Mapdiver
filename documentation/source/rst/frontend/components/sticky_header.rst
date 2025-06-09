@@ -11,15 +11,6 @@ Public Members
 
 ====================
 
-Public Static Members
-----------------------
-	.. js:autofunction:: Sticky_Header.On_Hamburger_Clicked
-
-====================
-
-Private Members
----------------
-	.. js:autofunction:: Sticky_Header#Init
-	.. js:autofunction:: Sticky_Header#Remove_Active_Items
-	.. js:autofunction:: Sticky_Header#Add_Active_Item
-	.. js:autofunction:: Sticky_Header#Close_All_Lists
+Static Attributes
+-----------------
+	.. js:autoattribute:: Sticky_Header#template

@@ -11,8 +11,13 @@ Public Static Methods
 
 ====================
 
-Protected Members
------------------
-	.. js:autofunction:: Left_Panel#Init
+Public Members
+--------------
+	.. js:autofunction:: Left_Panel#connectedCallback
+	.. js:autofunction:: Left_Panel#disconnectedCallback
 
 ====================
+
+Static Attributes
+-----------------
+	.. js:autoattribute:: Left_Panel#template

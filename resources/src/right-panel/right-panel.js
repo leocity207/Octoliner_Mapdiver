@@ -1,5 +1,6 @@
 import Base_Panel from "/src/components/panel.js";
 import Line_Info from "./line_info.js"
+import Station_Info from "./station-info.js";
 import Utils from "/src/utils/utils.js";
 
 /**
@@ -33,7 +34,9 @@ class Right_Panel extends Base_Panel {
 	/**
 	 * Display the info a line
 	 * 
-	 * @param {String} line_ID the Id of the line
+	 * @param {object} line_ID object containing data about the line
+	 * 		- stations: list of all station on the map
+	 * 		- line: line that is being displayed
 	 */
 	Open_Line_Info = async function(line_data) {
 		this.Open();
@@ -46,10 +49,17 @@ class Right_Panel extends Base_Panel {
 	/**
 	 * Show the info of a station
 	 * 
-	 * @param {String} Station_ID 
+	 * @param {object} Station_ID objct containig data about the station
+	 * 		- stations: list of all station
+	 * 		- station: the station that should be displayed
+	 * 		- lines: list of all the lines 
 	 */
-	Open_Station_Info(Station_ID) {
+	Open_Station_Info(station_data) {
 		this.Open();
+		let base_panel = Utils.Get_Subnode(this.shadowRoot,".base-panel")
+		while (base_panel.firstChild)
+			base_panel.removeChild(base_panel.firstChild);
+		base_panel.appendChild(Station_Info.Create(station_data));
 	}
 }
 

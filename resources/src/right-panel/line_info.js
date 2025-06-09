@@ -90,30 +90,29 @@ class Line_Info extends HTMLElement {
 	 * Change the name and the logo of the line info.
 	 * Add message if needed.
 	 * Change the schedules
-	 * 
-	*/
+	 */
 	Render() {
 		const line_logo = Utils.Get_Subnode(this.shadowRoot, ".line-logo");
 		const line_text = Utils.Get_Subnode(this.shadowRoot, ".line-title");
 
 		// Update line logo
-		line_logo.innerHTML = this.line_data.lines.svg_icon;
+		line_logo.innerHTML = this.line_data.line.svg_icon;
 		const rect = line_logo.querySelector('rect');
 		if (rect) 
-			rect.setAttribute('fill', this.line_data.lines.color.default);
+			rect.setAttribute('fill', this.line_data.line.color.default);
 		else 
 			console.warn('No <rect> element found in SVG.');
 
 		// Update line text
-		line_text.textContent = "Ligne " + this.line_data.lines.label;
+		line_text.textContent = "Ligne " + this.line_data.line.label;
 
 		// Render message node if needed
 
 		const message_node = Utils.Get_Subnode(this.shadowRoot, ".line-infomessages");
 		message_node.style.display = 'none';
 		Utils.Empty_Node(message_node);
-		if(this.line_data.lines.infomessages) {
-			this.line_data.lines.infomessages.forEach(msg => {
+		if(this.line_data.line.infomessages) {
+			this.line_data.line.infomessages.forEach(msg => {
 				const p = document.createElement('p');
 				p.classList.add('infomessage');
 				p.textContent = msg.text.fr;
@@ -126,8 +125,8 @@ class Line_Info extends HTMLElement {
 		// Render schedule
 		const schedules_node = Utils.Get_Subnode(this.shadowRoot, ".schedules");
 		Utils.Empty_Node(schedules_node);
-		this.line_data.lines.timetable_pattern.forEach(schedule => {
-			schedule.parent = this.line_data.lines;
+		this.line_data.line.timetable_pattern.forEach(schedule => {
+			schedule.parent = this.line_data.line;
 			schedules_node.appendChild(Line_Schedule.Create(schedule, this.line_data.stations));
 		});
 	}

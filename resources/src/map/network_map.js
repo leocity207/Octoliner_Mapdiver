@@ -441,9 +441,19 @@ class Network_Map extends SVG_Map {
 	/**
 	 * Give back the line data from the line_ID
 	 * @param {String} line_ID the ID of the line to get the line data from
+	 * @return a dictionary object containing the line data and all the station data
 	 */
-	Get_Line_Data = function(line_ID) {
-		return {"lines": this.lines[line_ID], "stations": this.stations,};
+	Get_Line_Data(line_ID) {
+		return {"line": this.lines[line_ID], "stations": this.stations};
+	}
+
+	/**
+	 * Give 
+	 * @param {String} station_ID 
+	 * @returns a dictionary object containing the station data and all the line data
+	 */
+	Get_Station_Data(station_ID) {
+		return {"lines": this.lines, "station": this.stations[station_ID], "stations": this.stations};
 	}
 }
 

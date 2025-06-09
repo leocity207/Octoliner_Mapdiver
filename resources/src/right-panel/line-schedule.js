@@ -33,6 +33,11 @@ class Line_Schedule extends HTMLElement {
 	 */
 	stations_data = null;
 
+	/**
+	 * the station of reference if null the first station is the reference station
+	 */
+	reference_station = null;
+
 
 	/**
 	 * Base template strucutre
@@ -103,10 +108,11 @@ class Line_Schedule extends HTMLElement {
 	 * @param {Object} stations_data  information about all stations
 	 * @returns instance of Line_Schedule
 	 */
-	static Create(schedule_data, stations_data) {
+	static Create(schedule_data, stations_data, starting_station) {
 		const object = document.createElement('line-schedule');
 		object.schedule_data = schedule_data;
 		object.stations_data = stations_data;
+		object.starting_station = starting_station;
 		return object;
 	}
 

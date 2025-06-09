@@ -34,7 +34,7 @@ class Network_Map_Page extends Map_Page {
 	 */
 	On_Station_CLicked(event) {
 		this.map.Highlight_All_Lines_At_Station(event.detail);
-		Utils.Get_Subnode(this.shadowRoot, 'right-panel').Open_Station_Info(event.detail);
+		Utils.Get_Subnode(this.shadowRoot, 'right-panel').Open_Station_Info(this.map.Get_Station_Data(event.detail));
 		this.map.Zoom_Highlighted_Stations(event.detail);
 		this.prev_event = {type: "station", detail: event.detail};
 	}

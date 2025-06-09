@@ -49,19 +49,38 @@
 			Verify that users can change the color via the left panel menue.
 		</Test-div>
 
-		<Test-div id="T10" name="Opening of The Right panel for station" req="R4 R21">
+		<Test-div id="T10" name="Opening of The Right panel for station" req="">
 			<Dimension-div type="object-type">
 				<Choice-div name="station-label"/>
 				<Choice-div name="station"/>
 			</Dimension-div>
 			when clicking on the Station object the right panel should open and siplay the right information for the station for now a blank page.
 		</Test-div>
-		<Test-div id="T11" name="Opening of The Right panel for station" req="R4 R21">
+		<Test-div id="T11" name="Opening of The Right panel for line" req="R25">
 			<Dimension-div type="object-type">
 				<Choice-div name="track-line"/>
 				<Choice-div name="track-label"/>
 			</Dimension-div>
-			when clicking on the Line object the right panel should open and siplay the right information for the line for now a blank page.
+			<Dimension-div type="opening type">
+				<Choice-div name="search bar"/>
+				<Choice-div name="direct click"/>
+			</Dimension-div>
+			when clicking on the Line object the right panel should open and display information about the line.
+			There should be at the top the name of the line and the icon on the line.
+			Under that there should be a list of schedule.
+		</Test-div>
+		<Test-div id="T14" name="display schedule information" req="R25">
+			The header of schedule should display:
+				- Service type as an icon
+				- Eventiualy an 'i' icon 
+				- The name of the schedule 
+				- Plus_minus icons
+			When clicking the object it should extend itself to display all the station in the schedule and the information:
+			For each displayed station there should be from left to right:
+				- The elapsed time from the start
+				- The start and stop time at the station
+				- An icon of the station (rounded top or bottom for both end of the station and continuous for the other with a circle at the center)
+				- The name of the station
 		</Test-div>
 		<Test-div id="T12" name="closing the right panel" req="R4 R21">
 			when clicking the cross inside the right panel the right panel shoudl close and all the lines are higlighted again.
@@ -69,8 +88,6 @@
 		<Test-div id="T13" name="changing size of the windows" req="R24">
 			when resizing the windows on the right the canvas should adapt, when resizing the windows from the top the canvas should also adapt
 		</Test-div>
-
-
 	</Folder-div>
 
 	<Folder-div id="T7" name="Accessibility Requirements" req="R16 R21">

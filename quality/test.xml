@@ -1,7 +1,7 @@
 
 <History-div>
 	<Campaign-div date="23-03-25" commit="1e9899bdb75d27e9326f5d1a932a8c9cb16b6e6f" tester="leo">
-		<Test-div id="T1">
+		<Test-div ref="T1">
 			<Dimension-div type="result">
 				<Choice-div name="failed"/>
 			</Dimension-div>
@@ -10,7 +10,7 @@
 			</Dimension-div>
 		</Test-divs>
 
-		<Test-div id="T2">
+		<Test-div ref="T2">
 			<Dimension-div type="text-type">
 				<Choice-div name="station-label"/>
 				<Choice-div name="track-label"/>
@@ -25,13 +25,13 @@
 			</Dimension-div>
 		</Test-divs>
 
-		<Test-div id="T3">
+		<Test-div ref="T3">
 			<Dimension-div type="result">
 				<Choice-div name="success"/>
 			</Dimension-div>
 		</Test-divs>
 
-		<Test-div id="T4">
+		<Test-div ref="T4">
 			<Dimension-div type="object-type">
 				<Choice-div name="station-label"/>
 				<Choice-div name="station"/>
@@ -43,7 +43,7 @@
 			</Dimension-div>
 		</Test-divs>
 
-		<Test-div id="T5">
+		<Test-div ref="T5">
 			<Dimension-div type="gesture">
 				<Choice-div name="mousse drag"/>
 				<Choice-div name="mousse Scrolling"/>
@@ -66,7 +66,7 @@
 			</Dimension-div>
 		</Test-divs>
 
-		<Test-div id="T7">
+		<Test-div ref="T7">
 			<Dimension-div type="screen-ratio">
 				<Choice-div name="3840x2160"/>
 				<Choice-div name="412x915"/>
@@ -81,13 +81,13 @@
 			</Dimension-div>
 		</Test-divs>
 
-		<Test-div id="T8">
+		<Test-div ref="T8">
 			<Dimension-div type="result">
 				<Choice-div name="success"/>
 			</Dimension-div>
 		</Test-divs>s
 
-		<Test-div id="T9">s
+		<Test-div ref="T9">s
 			<Dimension-div type="result">
 				<Choice-div name="success"/>
 			</Dimension-div>
@@ -95,7 +95,7 @@
 	</Campaign-div>
 
 	<Campaign-div date="29-03-25" commit="7dbe7e080cfddd1c299a65252d7e63e6a7c876e7" tester="leo">
-		<Test-div id="T1">
+		<Test-div ref="T1">
 			<Dimension-div type="result">
 				<Choice-div name="success"/>
 			</Dimension-div>
@@ -103,7 +103,7 @@
 	</Campaign-div>
 
 	<Campaign-div date="10-04-25" commit="5957ceaf75441d4d09ce8e6b76955b9a7a60d838" tester="leo">
-		<Test-div id="T10">
+		<Test-div ref="T10">
 			<Dimension-div type="result">
 				<Choice-div name="success"/>
 			</Dimension-div>
@@ -112,7 +112,7 @@
 				<Choice-div name="station"/>
 			</Dimension-div>
 		</Test-divs>
-		<Test-div id="T11">
+		<Test-div ref="T11">
 			<Dimension-div type="object-type">
 				<Choice-div name="track-line"/>
 				<Choice-div name="track-label"/>
@@ -121,7 +121,7 @@
 				<Choice-div name="success"/>
 			</Dimension-div>
 		</Test-divs>
-		<Test-div id="T12">
+		<Test-div ref="T12">
 			<Dimension-div type="result">
 				<Choice-div name="success"/>
 			</Dimension-div>
@@ -129,7 +129,7 @@
 	</Campaign-div>
 
 	<Campaign-div date="30-04-25" commit="0322e5be9052836e680d5159d5332d7b1ae48b7a" tester="leo">
-		<Test-div id="T13">
+		<Test-div ref="T13">
 			<Dimension-div type="result">
 				<Choice-div name="success"/>
 			</Dimension-div>
@@ -137,7 +137,7 @@
 	</Campaign-div>
 
 	<Campaign-div date="03-05-25" commit="0322e5be9052836e680d5159d5332d7b1ae48b7a" tester="leo">
-		<Test-div id="T4">
+		<Test-div ref="T4">
 			<Dimension-div type="object-type">
 				<Choice-div name="station-label"/>
 				<Choice-div name="station"/>
@@ -149,7 +149,7 @@
 			</Dimension-div>
 		</Test-divs>
 
-				<Test-div id="T2">
+		<Test-div ref="T2">
 			<Dimension-div type="text-type">
 				<Choice-div name="station-label"/>
 				<Choice-div name="track-label"/>
@@ -174,5 +174,57 @@
 			</Dimension-div>
 		</Test-divs>
 	</Campaign-div>
+
+	<Campaign-div date="09-06-25" commit="4c14fcfb4c560880975913a00495fa71d83a84f8" tester="leo">
+		<Test-div ref="T11">
+			<Dimension-div type="object-type">
+				<Choice-div name="track-line"/>
+				<Choice-div name="track-label"/>
+			</Dimension-div>
+			<Dimension-div type="opening type">
+				<Choice-div name="search bar"/>
+				<Choice-div name="direct click"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-div>
+
+		<Test-div ref="T14">
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-div>
+
+		<Test-div ref="T6" >
+			<Dimension-div type="color-mode">
+				<Choice-div name="default"/>
+				<Choice-div name="easy"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
+
+		<Test-div ref="T2">
+			<Dimension-div type="text-type">
+				<Choice-div name="station-label"/>
+				<Choice-div name="track-label"/>
+			</Dimension-div>
+			<Dimension-div type="search-Input">
+				<Choice-div name="valid-station-name"/>
+				<Choice-div name="valid-line-name"/>
+				<Choice-div name="invalid-input"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
+
+		<Test-div ref="T3">
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
 
 </History-div>

@@ -15,93 +15,60 @@ public:
 
 static std::string json_line_test = R"(
 {
-	"Lines": {
-		"LER-BRE0":{
-			"label" : "LER BRE0",
-			"urls" : {},
-			"color" : {
-				"default": "#25158B",
-				"easy" : "#DD2F1D"
-			},
-			"stations" : {
-				"default-a": [
-					"FR_29019_0",
-					"FR_29103_0",
-					"FR_29105_0",
-					"FR_29265_0",
-					"FR_29151_0",
-					"FR_22207_0",
-					"FR_22070_0",
-					"FR_22278_0",
-					"FR_22093_0",
-					"FR_35184_0",
-					"FR_35238_0",
-					"FR_35360_0",
-					"FR_53130_0",
-					"FR_53097_0",
-					"FR_72181_0"],
-				"default-r": "~default-a"
-			}
-		},
-		"LER-BRE1":{
-			"label" : "LER BRE1",
-				"urls" : {},
-				"color" : {
-					"default": "#4D84B8",
-					"easy" : "#9184BE"
-			},
-			"stations" : {
-				"default-a": [
-					"FR_29019_0",
-					"FR_29080_0",
-					"FR_29302_0",
-					"FR_29232_0",
-					"FR_29233_0",
-					"FR_56121_0",
-					"FR_56098_0",
-					"FR_56007_0",
-					"FR_56260_0",
-					"FR_56206_0",
-					"FR_56184_0",
-					"FR_35236_0",
-					"FR_44129_0",
-					"FR_44195_0",
-					"FR_44109_0",
-					"FR_44003_0",
-					"FR_49007_0",
-					"FR_49328_0",
-					"FR_37261_0"],
-				"default-r": "~default-a"
-			}
-		},
-		"LER-BRE2":{
-			"label" : "LER BRE2",
-				"urls" : {},
-				"color" : {
-					"default": "#7065B2",
-					"easy" : "#008B39"
-			},
-			"stations" : {
-				"default-a": [
-					"FR_29232_0",
-					"FR_29233_0",
-					"FR_56121_0",
-					"FR_56098_0",
-					"FR_56007_0",
-					"FR_56260_0",
-					"FR_56206_0",
-					"FR_56184_0",
-					"FR_35236_0",
-					"FR_44007_0",
-					"FR_35176_0",
-					"FR_35238_0"],
-				"default-r": "~default-a"
-			}
+	"code": "EXPRESS_1",
+	"label": "Express Line 1",
+	"urls": {
+		"fr": "/fr/express1",
+		"en": "/en/express1"
+	},
+	"color": {
+		"default": "#FF0000",
+		"night": "#880000"
+	},
+	"timetable_pattern": [
+		{
+			"code": "EXPRESS_1_A_00",
+			"label": "North Terminal → South Terminal",
+			"interval_minutes": 30,
+			"departure_minute": 0,
+			"first_departure": "5:00:00",
+			"last_departure": "23:00:00",
+			"service": "express",
+			"infomessages": [],
+			"lineflowstops": [
+				{
+					"station_ID": "NORTH_TERMINAL",
+					"departure_minute": 0
+				},
+				{
+					"station_ID": "CENTER_CITY",
+					"arrival_minute": 15,
+					"departure_minute": 16,
+					"flags": ["warning"]
+				},
+				{
+					"station_ID": "SOUTH_TERMINAL",
+					"arrival_minute": 30
+				}
+			]
 		}
-	}
-})";
+	]
+}
+)";
 
-static std::string serialization_line_res = "{\"Lines\":{\"LER-BRE0\":{\"label\":\"LER BRE0\",\"color\":{\"default\":\"#25158B\",\"easy\":\"#DD2F1D\"},\"urls\":{},\"stations\":{\"default-a\":[\"FR_29019_0\",\"FR_29103_0\",\"FR_29105_0\",\"FR_29265_0\",\"FR_29151_0\",\"FR_22207_0\",\"FR_22070_0\",\"FR_22278_0\",\"FR_22093_0\",\"FR_35184_0\",\"FR_35238_0\",\"FR_35360_0\",\"FR_53130_0\",\"FR_53097_0\",\"FR_72181_0\"],\"default-r\":\"~default-a\"}},\"LER-BRE1\":{\"label\":\"LER BRE1\",\"color\":{\"default\":\"#4D84B8\",\"easy\":\"#9184BE\"},\"urls\":{},\"stations\":{\"default-a\":[\"FR_29019_0\",\"FR_29080_0\",\"FR_29302_0\",\"FR_29232_0\",\"FR_29233_0\",\"FR_56121_0\",\"FR_56098_0\",\"FR_56007_0\",\"FR_56260_0\",\"FR_56206_0\",\"FR_56184_0\",\"FR_35236_0\",\"FR_44129_0\",\"FR_44195_0\",\"FR_44109_0\",\"FR_44003_0\",\"FR_49007_0\",\"FR_49328_0\",\"FR_37261_0\"],\"default-r\":\"~default-a\"}},\"LER-BRE2\":{\"label\":\"LER BRE2\",\"color\":{\"default\":\"#7065B2\",\"easy\":\"#008B39\"},\"urls\":{},\"stations\":{\"default-a\":[\"FR_29232_0\",\"FR_29233_0\",\"FR_56121_0\",\"FR_56098_0\",\"FR_56007_0\",\"FR_56260_0\",\"FR_56206_0\",\"FR_56184_0\",\"FR_35236_0\",\"FR_44007_0\",\"FR_35176_0\",\"FR_35238_0\"],\"default-r\":\"~default-a\"}}}}";
+static std::string json_line_test_serialized = R"({"code":"LER_BRE0","label":"LER BRE0","urls":{"fr":"\/fr\/BRE0","en":"\/en\/BRE0"},"color":{"default":"#25158B","easy":"#DD2F1D"},"timetable_pattern":[{"code":"code_1","label":"a - b","interval_minutes":60,"departure_minute":22,"first_departure":"4:22:00","last_departure":"23:22:00","service":"local","infomessages":[],"lineflowstops":[{"station_ID":"Station_1","arrival_minute":null,"departure_minute":14,"flags":null},{"station_ID":"Station_2","arrival_minute":null,"departure_minute":24,"flags":["warning"]}]}]})";
 
+static std::string json_lines_test = R"(
+{
+	"lines": [
+		"LER_BRE0",
+		"LER_BRE1",
+		"LER_BRE2",
+		"LER_BRE3"
+	]
+}
+)";
+
+static std::string json_lines_test_serialized = R"({"lines":["LINE_1","LINE_2","LINE_3"]})";
 
 #endif //LINE_DTO_TEST_H

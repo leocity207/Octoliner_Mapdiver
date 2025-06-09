@@ -86,10 +86,10 @@ class Network_Map_Page extends Map_Page {
 	 * @param {Object} label 
 	 */
 	On_Selected_By_Label(label) {
-		let solutionKey = Object.keys(this.network_data.Stations).find(key => this.network_data.Stations[key].label === label);
+		let solutionKey = Object.keys(this.network_data.stations).find(key => this.network_data.stations[key].label === label);
 		if(solutionKey)
 			return this.On_Station_CLicked({type: 'station', detail: solutionKey});
-		solutionKey = Object.keys(this.network_data.Lines).find(key => this.network_data.Lines[key].label === label);
+		solutionKey = Object.keys(this.network_data.lines).find(key => this.network_data.lines[key].label === label);
 		if(solutionKey)
 			return this.On_Line_CLicked({type: 'line', detail: solutionKey})
 		if(!solutionKey)
@@ -116,9 +116,9 @@ class Network_Map_Page extends Map_Page {
 		this.map = new Network_Map("Desktop", "resources-config/image/map.svg", Config, Network_Config);
 		await this.map.Setup("Fr", this.map_canvas);
 		this.network_data = await Utils.Fetch_Resource("dyn/network_data")
-		this.map.Setup_Mouse_Handlers(this.network_data.Lines, this.network_data.Stations);
+		this.map.Setup_Mouse_Handlers(this.network_data.lines, this.network_data.stations);
 
-		const labels = Object.values(this.network_data.Lines).map(line => line.label).concat(Object.values(this.network_data.Stations).map(station => station.label));
+		const labels = Object.values(this.network_data.lines).map(line => line.label).concat(Object.values(this.network_data.stations).map(station => station.label));
 		this.sticky_header.Set_Autocomplete_List(labels).subscribe(label => this.On_Selected_By_Label(label));
 		Switch_Event.Get_Observable("color").subscribe((event) => {
 			if(event.state)

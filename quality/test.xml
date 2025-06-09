@@ -135,4 +135,44 @@
 			</Dimension-div>
 		</Test-divs>
 	</Campaign-div>
+
+	<Campaign-div date="03-05-25" commit="0322e5be9052836e680d5159d5332d7b1ae48b7a" tester="leo">
+		<Test-div id="T4">
+			<Dimension-div type="object-type">
+				<Choice-div name="station-label"/>
+				<Choice-div name="station"/>
+				<Choice-div name="track-line"/>
+				<Choice-div name="track-label"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
+
+				<Test-div id="T2">
+			<Dimension-div type="text-type">
+				<Choice-div name="station-label"/>
+				<Choice-div name="track-label"/>
+			</Dimension-div>
+			<Dimension-div type="search-Input">
+				<Choice-div name="valid-station-name"/>
+				<Choice-div name="valid-line-name"/>
+				<Choice-div name="invalid-input"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
+
+		<Test-div ref="T6" >
+			<Dimension-div type="color-mode">
+				<Choice-div name="default"/>
+				<Choice-div name="easy"/>
+			</Dimension-div>
+			<Dimension-div type="result">
+				<Choice-div name="success"/>
+			</Dimension-div>
+		</Test-divs>
+	</Campaign-div>
+
 </History-div>

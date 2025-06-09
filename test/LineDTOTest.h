@@ -56,8 +56,7 @@ static std::string json_line_test = R"(
 }
 )";
 
-static std::string json_line_test_serialized = R"({"code":"LER_BRE0","label":"LER BRE0","urls":{"fr":"\/fr\/BRE0","en":"\/en\/BRE0"},"color":{"default":"#25158B","easy":"#DD2F1D"},"timetable_pattern":[{"code":"code_1","label":"a - b","interval_minutes":60,"departure_minute":22,"first_departure":"4:22:00","last_departure":"23:22:00","service":"local","infomessages":[],"lineflowstops":[{"station_ID":"Station_1","arrival_minute":null,"departure_minute":14,"flags":null},{"station_ID":"Station_2","arrival_minute":null,"departure_minute":24,"flags":["warning"]}]}]})";
-
+static std::string json_line_test_serialized = R"({"code":"LER_BRE0","label":"LER BRE0","urls":{"fr":"\/fr\/BRE0","en":"\/en\/BRE0"},"color":{"default":"#25158B","easy":"#DD2F1D"},"svg_icon":"<svg>","timetable_pattern":[{"code":"code_1","label":"a - b","interval_minutes":60,"departure_minute":22,"first_departure":"4:22:00","last_departure":"23:22:00","service":"local","infomessages":[],"lineflowstops":[{"station_ID":"Station_1","arrival_minute":null,"departure_minute":14,"flags":null},{"station_ID":"Station_2","arrival_minute":null,"departure_minute":24,"flags":["warning"]}]}]})";
 static std::string json_lines_test = R"(
 {
 	"lines": [

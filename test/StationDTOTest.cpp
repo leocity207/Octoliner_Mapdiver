@@ -16,6 +16,7 @@ static void Serialize_Line_Test()
 
 	station_DTO->label = "STATION";
 	station_DTO->linked_lines = {};
+	station_DTO->code = "FR_03190_0";
 	station_DTO->linked_lines->emplace_back("LINE_1");
 	station_DTO->linked_lines->emplace_back("LINE_2");
 	station_DTO->linked_lines->emplace_back("LINE_3");
@@ -34,6 +35,7 @@ static void Deserialize_Line_Test()
 
 	std::vector<oatpp::String> expected_station_rennes = { "LER_BRE0","LER_NOR3","LER_BRE2","LER_BRE3","LGV_BRE0","LER_BRE4","LGV_FR4" };
 	OATPP_ASSERT(object->label == "Rennes");
+	OATPP_ASSERT(object->code == "FR_03190_0");
 	OATPP_ASSERT(object->linked_lines->size() == 7);
 	for (const auto& line_name : *(object->linked_lines))
 		OATPP_ASSERT(std::find(expected_station_rennes.begin(), expected_station_rennes.end(), line_name) != expected_station_rennes.end());

@@ -14,11 +14,12 @@ public:
 static std::string json_station_test = R"(
 {
 	"label": "Rennes",
+	"code": "FR_03190_0"
 	"lines" : ["LER_BRE0","LER_NOR3","LER_BRE2","LER_BRE3","LGV_BRE0","LER_BRE4","LGV_FR4"]
 }
 )";
 
-static std::string json_station_test_serialized = R"({"label":"STATION","lines":["LINE_1","LINE_2","LINE_3"]})";
+static std::string json_station_test_serialized = R"({"label":"STATION","code":"FR_03190_0","lines":["LINE_1","LINE_2","LINE_3"]})";
 
 static std::string json_stations_test = R"(
 {

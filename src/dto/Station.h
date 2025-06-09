@@ -12,7 +12,8 @@ class Station_DTO : public oatpp::DTO {
 public:
 	DTO_INIT(Station_DTO, DTO)
 
-		DTO_FIELD(String, label, "label");
+	DTO_FIELD(String, label, "label");
+	DTO_FIELD(String, code, "code");
 	DTO_FIELD(List<String>, linked_lines, "lines");
 };
 

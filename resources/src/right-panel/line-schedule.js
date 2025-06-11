@@ -108,11 +108,11 @@ class Line_Schedule extends HTMLElement {
 	 * @param {Object} stations_data  information about all stations
 	 * @returns instance of Line_Schedule
 	 */
-	static Create(schedule_data, stations_data, starting_station) {
+	static Create(schedule_data, stations_data, reference_station) {
 		const object = document.createElement('line-schedule');
 		object.schedule_data = schedule_data;
 		object.stations_data = stations_data;
-		object.starting_station = starting_station;
+		object.reference_station = reference_station;
 		return object;
 	}
 
@@ -157,9 +157,43 @@ class Line_Schedule extends HTMLElement {
 			.then(icon => icon.text())
 			.then(svg => header_left_icon.innerHTML = svg);
 
-		this.schedule_data.lineflowstops.forEach(stop_object => {
-			stop_object.parent = this.schedule_data;
-			details.appendChild(Line_Station.Create(stop_object,this.stations_data));
+		const stops = this.schedule_data.lineflowstops;
+		let referenceIndex = stops.findIndex(stop => stop.station_ID === this.reference_station);
+
+		// Reference station not found – fallback to index 0
+		if (referenceIndex === -1)
+			referenceIndex = 0;
+
+		const baseMinute = stops[referenceIndex].arrival_minute;
+
+		// Add the first station as Gray_Station if it's not the reference
+		if (referenceIndex > 0) {
+			const firstStop= {
+				...stops[0],
+				departure_minute: stops[0].departure_minute - baseMinute,
+				flags: [...(stops[0].flags || [])],
+				parent: this.schedule_data
+			};
+			firstStop.flags.push("gray")
+			const gray = Line_Station.Create(firstStop, this.stations_data);
+			details.appendChild(gray);
+		}
+
+		//if (referenceIndex > 1) {
+		//	details.appendChild(Blank_Station.Create());
+		//}
+
+		// Add visible stations from reference onward
+		stops.slice(referenceIndex).forEach(originalStop => {
+			const stop_object = {
+				...originalStop,
+				flags: [...(originalStop.flags || [])],
+				arrival_minute: originalStop.arrival_minute !== null ? originalStop.arrival_minute - baseMinute : null,
+				departure_minute: originalStop.departure_minute !== null ? originalStop.departure_minute - baseMinute : null,
+				parent: this.schedule_data
+			};
+
+			details.appendChild(Line_Station.Create(stop_object, this.stations_data));
 		});
 	}
 }

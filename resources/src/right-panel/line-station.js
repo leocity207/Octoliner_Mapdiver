@@ -131,8 +131,10 @@ class Line_Station extends HTMLElement {
 		const cadenceDep = Utils.Get_Subnode(this.shadowRoot,'.cadence-departure');
 
 		// set icon style & shape
-		const color = this.station_data.parent.parent.color.default;
-		path.setAttribute("style", `fill: ${color};`);
+		if(this.station_data.flags.includes("gray"))
+			path.setAttribute("style", `fill:rgb(161, 161, 161);`);
+		else
+			path.setAttribute("style", `fill: ${this.station_data.parent.parent.color.default};`);
 		const { arrival_minute, departure_minute } = this.station_data;
 
 		const hasArrival = arrival_minute != null;

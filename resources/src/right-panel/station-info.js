@@ -92,8 +92,10 @@ class Station_Info extends HTMLElement {
 		Utils.Empty_Node(schedules_node);
 		this.station_data.station.lines.forEach(line_ID => {
 			this.station_data.lines[line_ID].timetable_pattern.forEach(schedule => {
-				schedule.parent = this.station_data.lines[line_ID];
-				schedules_node.appendChild(Line_Schedule.Create(schedule, this.station_data.stations, this.station_data.station.code));
+				if(schedule.lineflowstops.at(-1).station_ID !== this.station_data.station.code) { // if we are the last station of the schedule don't add yourself
+					schedule.parent = this.station_data.lines[line_ID];
+					schedules_node.appendChild(Line_Schedule.Create(schedule, this.station_data.stations, this.station_data.station.code));
+				}
 			})
 		});
 	}

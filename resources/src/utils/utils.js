@@ -159,13 +159,18 @@ class Utils {
 
 	/**
 	 * Format minutes as H:MM or :MM
-	 * @param {int} totalMin an integer representing elapsed minutes
+	 * @param {int} total_minutes an integer representing elapsed minutes
 	 */
-	static Format_Minute(totalMin) {
-		const h = Math.floor(totalMin / 60);
-		const m = totalMin % 60;
+	static Format_Minute(total_minutes) {
+		let negative = '';
+		if(total_minutes < 0) {
+			negative = '-';
+			total_minutes = -total_minutes;
+		}
+		const h = Math.floor(total_minutes / 60);
+		const m = total_minutes % 60;
 		const mm = m.toString().padStart(2, '0');
-		return h > 0 ? `${h}:${mm}` : `:${mm}`;
+		return negative + (h > 0 ? `${h}:${mm}` : `:${mm}`);
 	}
   
 }

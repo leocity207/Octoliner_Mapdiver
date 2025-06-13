@@ -164,32 +164,44 @@ class Line_Schedule extends HTMLElement {
 		if (referenceIndex === -1)
 			referenceIndex = 0;
 
-		const baseMinute = stops[referenceIndex].arrival_minute;
+		const reference_minute = stops[referenceIndex].arrival_minute;
+
+		const refStation_stop = {
+			...stops[referenceIndex],
+			reference_minute: reference_minute,
+			flags: [...(stops[referenceIndex].flags || [])],
+			parent: this.schedule_data
+		};
 
 		// Add the first station as Gray_Station if it's not the reference
 		if (referenceIndex > 0) {
 			const firstStop= {
 				...stops[0],
-				departure_minute: stops[0].departure_minute - baseMinute,
+				reference_minute: reference_minute,
 				flags: [...(stops[0].flags || [])],
 				parent: this.schedule_data
 			};
-			firstStop.flags.push("gray")
-			const gray = Line_Station.Create(firstStop, this.stations_data);
-			details.appendChild(gray);
+			firstStop.flags.push("gray");
+			details.appendChild(Line_Station.Create(firstStop, this.stations_data));
+			refStation_stop.flags.push("half-grayed");
 		}
 
-		//if (referenceIndex > 1) {
-		//	details.appendChild(Blank_Station.Create());
-		//}
+		if (referenceIndex > 1) {
+			const blank = {
+				flags: ["blank"]
+			};
+			details.appendChild(Line_Station.Create(blank, this.stations_data));
+		}
+			
+		details.appendChild(Line_Station.Create(refStation_stop, this.stations_data));
+
 
 		// Add visible stations from reference onward
-		stops.slice(referenceIndex).forEach(originalStop => {
+		stops.slice(referenceIndex + 1).forEach(originalStop => {
 			const stop_object = {
 				...originalStop,
+				reference_minute: reference_minute,
 				flags: [...(originalStop.flags || [])],
-				arrival_minute: originalStop.arrival_minute !== null ? originalStop.arrival_minute - baseMinute : null,
-				departure_minute: originalStop.departure_minute !== null ? originalStop.departure_minute - baseMinute : null,
 				parent: this.schedule_data
 			};
 

@@ -54,8 +54,7 @@ class Station_Info extends HTMLElement {
 	})();
 
 	/**
-	 * Returns a direction group header element template
-	 * @returns {HTMLTemplateElement}
+	 * A direction group header element template
 	 */
 	static direction_header_template = (() => {
 		const template = document.createElement('template');

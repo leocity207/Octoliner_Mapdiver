@@ -99,6 +99,9 @@ class Line_Station extends HTMLElement {
 		return wrap;
 	}
 
+	/**
+	 * Base template for Line Station
+	 */
 	static base_template =(() =>{
 		const template = document.createElement('template');
 		const container = Utils.Create_Element_With_Class('div', 'station-row');
@@ -161,6 +164,9 @@ class Line_Station extends HTMLElement {
 		return object;
 	}
 
+	/**
+	 * Called when the Line_Station is connected to the DOM
+	 */
 	connectedCallback() {
 		this.Render();
 	}

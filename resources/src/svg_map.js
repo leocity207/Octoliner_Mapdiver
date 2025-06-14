@@ -13,8 +13,7 @@ class SVGMap {
 		where.appendChild(this.div)
 	}
 
-	Get_SVG_Element()
-	{
+	Get_SVG_Element() {
 		return this.div.firstChild;
 	}
 }

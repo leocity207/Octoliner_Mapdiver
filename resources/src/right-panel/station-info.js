@@ -53,6 +53,19 @@ class Station_Info extends HTMLElement {
 		return template;
 	})();
 
+	/**
+	 * Returns a direction group header element template
+	 * @returns {HTMLTemplateElement}
+	 */
+	static direction_header_template = (() => {
+		const template = document.createElement('template');
+		const wrapper = Utils.Create_Element_With_Class('div', 'schedule-direction-header');
+		const label = Utils.Create_Element_With_Class('span', 'direction-label');
+		wrapper.appendChild(label);
+		template.content.append(wrapper);
+		return template;
+	})();
+
 	constructor() {
 		super();
 		this.attachShadow({ mode: 'open' });
@@ -88,16 +101,43 @@ class Station_Info extends HTMLElement {
 		const subtitle_node = Utils.Get_Subnode(this.shadowRoot, '.station-subtitle');
 		subtitle_node.textContent = `Liaisons grandes lignes directes\n${this.station_data.station.label} → Toutes les directions`;
 
-		const schedules_node = Utils.Get_Subnode(this.shadowRoot, '.schedules');
-		Utils.Empty_Node(schedules_node);
+		const schedules_node = Utils.Get_Subnode(this.shadowRoot, '.schedules')
+		Utils.Empty_Node(schedules_node)
+
+		const direction_map = new Map()
+
+		// Group schedules by direction destination station
 		this.station_data.station.lines.forEach(line_ID => {
-			this.station_data.lines[line_ID].timetable_pattern.forEach(schedule => {
-				if(schedule.lineflowstops.at(-1).station_ID !== this.station_data.station.code) { // if we are the last station of the schedule don't add yourself
-					schedule.parent = this.station_data.lines[line_ID];
-					schedules_node.appendChild(Line_Schedule.Create(schedule, this.station_data.stations, this.station_data.station.code));
-				}
+			const line = this.station_data.lines[line_ID]
+
+			line.timetable_pattern.forEach(schedule => {
+				const last_stop = schedule.lineflowstops.at(-1)
+				if (last_stop.station_ID === this.station_data.station.code)
+					return // skip if this station is the last
+
+				schedule.parent = line
+
+				const direction_code = this.station_data.station.direction[schedule.code]
+				if (!direction_map.has(direction_code))
+					direction_map.set(direction_code, [])
+
+				direction_map.get(direction_code).push(schedule)
 			})
-		});
+		})
+
+		// Render schedules grouped by direction
+		for (const [direction_code, schedules] of direction_map.entries()) {
+			const station_label = this.station_data.stations[direction_code]?.label || direction_code
+
+			const group_header = Station_Info.direction_header_template.content.cloneNode(true)
+			group_header.querySelector('.direction-label').textContent = "Direction: " + station_label
+			schedules_node.appendChild(group_header)
+
+			schedules.forEach(schedule => {
+				const schedule_node = Line_Schedule.Create(schedule, this.station_data.stations, this.station_data.station.code)
+				schedules_node.appendChild(schedule_node)
+			})
+		}
 	}
 }
 

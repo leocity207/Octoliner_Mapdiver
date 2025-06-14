@@ -7,7 +7,7 @@ const SVG_NS = 'http://www.w3.org/2000/svg'
  * Structure
  * ---------
  * .. code-block:: html
- * 
+ *
  * 	<div class='station-row'>
  * 		<div class='times-origin'>
  * 			<span class='origin-time'/>
@@ -186,11 +186,11 @@ class Line_Station extends HTMLElement {
 
 	/**
 	 * Set the path's fill based on whether it's grayed
-	 * @param {SVGPathElement} path 
-	 * @param {string} color 
+	 * @param {SVGPathElement} path
+	 * @param {string} color
 	 */
 	_Render_Icon(path, color) {
-		if (this.station_data.flags.includes('gray')) 
+		if (this.station_data.flags.includes('gray'))
 			path.setAttribute('fill', '#888888');
 		else if(this.station_data.flags.includes('blank')) {
 			const circle = Utils.Get_Subnode(this.shadowRoot, 'circle');
@@ -208,7 +208,7 @@ class Line_Station extends HTMLElement {
 
 	/**
 	 * Choose the shape of the path depending on arrival/departure state
-	 * @param {SVGPathElement} path 
+	 * @param {SVGPathElement} path
 	 */
 	_Render_Path_Shape(path) {
 		const { arrival_minute, departure_minute } = this.station_data;
@@ -227,16 +227,16 @@ class Line_Station extends HTMLElement {
 
 	/**
 	 * Render arrival, departure and relative origin time
-	 * @param {HTMLElement} origin_time 
-	 * @param {HTMLElement} cadence_arrival 
-	 * @param {HTMLElement} cadence_departure 
+	 * @param {HTMLElement} origin_time
+	 * @param {HTMLElement} cadence_arrival
+	 * @param {HTMLElement} cadence_departure
 	 */
 	_Render_Times(origin_time, cadence_arrival, cadence_departure) {
 		if(this.station_data.flags.includes('blank')) return;
 		const { arrival_minute, departure_minute, reference_minute} = this.station_data;
 		const base = this.station_data.parent.departure_minute;
 
-	
+
 		origin_time.textContent = Utils.Format_Minute(arrival_minute - reference_minute);
 
 		const hours_to_remove = Math.floor((base + reference_minute) / 60)*60;

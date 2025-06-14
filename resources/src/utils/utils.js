@@ -5,9 +5,9 @@
 class Utils {
 
 	/**
-	 * Transform a RGBA color into a HexString 
-	 * 
-	 * @param {String} rgba rgba code like "#1234FE" 
+	 * Transform a RGBA color into a HexString
+	 *
+	 * @param {String} rgba rgba code like "#1234FE"
 	 * @param {Boolean} with_alpha if there are digit for the alpha canal and if it should be transcribed
 	 * @returns {String} the hex string of the color
 	 */
@@ -24,7 +24,7 @@ class Utils {
 
 	/**
 	 * check the bound of the value and put it in bound if needed
-	 * 
+	 *
 	 * @param {Float} value The value to check if in bound
 	 * @param {Float} min the min value
 	 * @param {Float} max the max value
@@ -36,12 +36,12 @@ class Utils {
 
 	/**
 	 * Timout function to create delay
-	 * 
+	 *
 	 * @param {Floa} t milisecond to wait
 	 * @returns a promise resoved when the timout ends
 	 */
 	static Wait = async (t) =>
-	{ 
+	{
 		return new Promise((resolve, reject) => setTimeout(resolve, t))
 	}
 
@@ -102,7 +102,7 @@ class Utils {
 	/**
 	 * Creation a `link` element and add it to the `node`
 	 * @param {Node} node the node where we will add the link element
-	 * @param {String} href the hyper-ref relative to server root of the CSS file 
+	 * @param {String} href the hyper-ref relative to server root of the CSS file
 	 */
 	static Add_Stylesheet = function(node, href) {
 		const style = document.createElement("link");
@@ -113,7 +113,7 @@ class Utils {
 
 	/**
 	 * Create a element of type `tag` and add it the class `class_name`
-	 * @param {String} tag type of element  
+	 * @param {String} tag type of element
 	 * @param {String} class_name class of the element
 	 * @returns A node element of type `tag` with class `class_name`
 	 */
@@ -126,12 +126,12 @@ class Utils {
 	/**
 	 * Get the child that match the `selector` starting from `parent_node`
 	 * @param {Node} parent_node where to start looking children witch matching querry
-	 * @param {String} selector querry selector string 
+	 * @param {String} selector querry selector string
 	 * @returns `the matchin node (throw an error if not found)
 	 */
 	static Get_Subnode = function(parent_node, selector) {
 		const node = parent_node.querySelector(selector);
-		if (!node) 
+		if (!node)
 			throw new Error(`Subnode not found for selector: '${selector}'`);
 		return node;
 	}
@@ -172,7 +172,7 @@ class Utils {
 		const mm = m.toString().padStart(2, '0');
 		return negative + (h > 0 ? `${h}:${mm}` : `:${mm}`);
 	}
-  
+
 }
 
 export default Utils

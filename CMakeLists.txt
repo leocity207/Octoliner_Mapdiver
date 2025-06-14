@@ -52,11 +52,11 @@ FILE(GLOB APP_SRC src/*.cpp*)
 FILE(GLOB APP_H src/*.h*)
 
 add_library(${project_name}-lib
-    ${DTO_H}
-    ${APP_H}
-    ${CONTROLER_H}
-    ${CONTROLER_SRC}
-    ${DTO_SRC}
+	${DTO_H}
+	${APP_H}
+	${CONTROLER_H}
+	${CONTROLER_SRC}
+	${DTO_SRC}
 )
 
 ## link libs
@@ -65,8 +65,8 @@ add_subdirectory(externals/oatpp)
 
 
 target_link_libraries(${project_name}-lib
-        PUBLIC oatpp
-        PUBLIC oatpp-test
+	PUBLIC oatpp
+	PUBLIC oatpp-test
 )
 
 target_include_directories(${project_name}-lib PUBLIC src)
@@ -74,7 +74,7 @@ target_include_directories(${project_name}-lib PUBLIC src)
 ## add executables
 
 add_executable(${project_name}-exe
-       ${APP_SRC}
+	${APP_SRC}
 )
 target_link_libraries(${project_name}-exe ${project_name}-lib)
 add_dependencies(${project_name}-exe ${project_name}-lib)
@@ -84,18 +84,18 @@ FILE(GLOB TEST_H test/*.h*)
 FILE(GLOB TEST_SRC test/*.cpp)
 
 add_executable(${project_name}-test
-        ${TEST_APP_H}
-        ${TEST_APP_H}
-        ${TEST_SRC}
+	${TEST_APP_H}
+	${TEST_APP_H}
+	${TEST_SRC}
 )
 
 target_link_libraries(${project_name}-test ${project_name}-lib)
 add_dependencies(${project_name}-test ${project_name}-lib)
 
 set_target_properties(${project_name}-lib ${project_name}-exe ${project_name}-test PROPERTIES
-        CXX_STANDARD 20
-        CXX_EXTENSIONS OFF
-        CXX_STANDARD_REQUIRED ON
+	CXX_STANDARD 20
+	CXX_EXTENSIONS OFF
+	CXX_STANDARD_REQUIRED ON
 )
 
 enable_testing()

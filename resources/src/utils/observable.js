@@ -2,7 +2,7 @@ import { Subject, filter } from "../../libraries/RxJS_wrapper.js";
 
 /**
  * Observable enables event-based communication using RxJS.
- * you can inherit this class to send Event 
+ * you can inherit this class to send Event
  * you can use the class to listen to Event comming from Observable object
  */
 class Observable {
@@ -22,7 +22,7 @@ class Observable {
 	 * Initialize the observable should be called when the parent is initalized
 	 * @param {Symbole} name - name of the observable
 	 */
-	Observable_Init(name) 
+	Observable_Init(name)
 	{
 		this.name = name;
 		this.setAttribute("data-name", this.name)

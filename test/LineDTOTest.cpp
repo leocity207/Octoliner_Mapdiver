@@ -41,7 +41,7 @@ static void Serialize_Line_Test()
 	line->urls = {{"fr","/fr/BRE0"},{"en","/en/BRE0"}};
 	line->timetable_pattern = {timetable_pattern};
 	line->svg_icon = "<svg>";
-	
+
 	auto jsonObjectMapper = oatpp::json::ObjectMapper();
 	auto serializedJson = jsonObjectMapper.writeToString(line);
 

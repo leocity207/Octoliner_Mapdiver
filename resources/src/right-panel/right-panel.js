@@ -4,16 +4,16 @@ import Station_Info from "./station-info.js";
 import Utils from "/src/utils/utils.js";
 
 /**
- * The **Right Panel** is a user interface element that remains fixed on the right side of the screen.  
+ * The **Right Panel** is a user interface element that remains fixed on the right side of the screen.
  * It can be toggled on or off to show or hide its contents and provides various interactive options.
- * 
+ *
  * Structure
  * ---------
  * .. code-block:: html
- * 
- * 	<div class='base-panel'> 
+ *
+ * 	<div class='base-panel'>
  * 	</div>
- * 
+ *
  */
 class Right_Panel extends Base_Panel {
 
@@ -33,7 +33,7 @@ class Right_Panel extends Base_Panel {
 
 	/**
 	 * Display the info a line
-	 * 
+	 *
 	 * @param {object} line_ID object containing data about the line
 	 * 		- stations: list of all station on the map
 	 * 		- line: line that is being displayed
@@ -48,11 +48,11 @@ class Right_Panel extends Base_Panel {
 
 	/**
 	 * Show the info of a station
-	 * 
+	 *
 	 * @param {object} Station_ID objct containig data about the station
 	 * 		- stations: list of all station
 	 * 		- station: the station that should be displayed
-	 * 		- lines: list of all the lines 
+	 * 		- lines: list of all the lines
 	 */
 	Open_Station_Info(station_data) {
 		this.Open();

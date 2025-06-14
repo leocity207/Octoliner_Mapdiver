@@ -18,11 +18,11 @@ Config_Map
 	.. js:autoattribute:: MIN_MAP_ANIMATION_TIME_DESKTOP
 
 	.. js:autoattribute:: MAX_MAP_ANIMATION_TIME_DESKTOP
- 
-	.. js:autoattribute:: INITIAL_ZOOM_MOVE_DELAY 
+
+	.. js:autoattribute:: INITIAL_ZOOM_MOVE_DELAY
 
 	.. js:autoattribute:: INITIAL_ZOOM_MOVE_TIME_DESKTOP
- 
+
 	.. js:autoattribute:: INITIAL_ZOOM_MOVE_STEP_DESKTOP
 
 	.. js:autoattribute:: ADDITIONAL_SINGLE_BOUND_ZOOM_SPACE_DESKTOP

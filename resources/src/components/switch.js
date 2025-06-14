@@ -5,25 +5,25 @@ import Utils from "/src/utils/utils.js"
 
 /**
  * The **Switch_Event** is a UI component that can hold two states and triggers an event when toggled by the user.
- * 
+ *
  * Functionality
  * -------------
- * 
+ *
  * - Can switch between **two states** (e.g., ON/OFF, Enabled/Disabled).
  * - Sends an **event notification** whenever the state changes.
- * 
+ *
  * Structure
  * ---------
  * .. code-block:: html
- * 
+ *
  * 	<div class="switch-container">
  * 		<text> *text of the switch
  * 		<label>
  * 			<input>
- * 			<span> 	
+ * 			<span>
  * 		</label>
  * 	</div>
- * 
+ *
  */
 class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 
@@ -47,7 +47,7 @@ class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 		input_checkbox.setAttribute("type", "checkbox");
 		const span_checkbox = Utils.Create_Element_With_Class('span','slider');
 		label_switch.append(input_checkbox, span_checkbox);
-		
+
 		master_switch.append(text_elt, label_switch);
 		template.content.appendChild(master_switch);
 		return template;
@@ -96,7 +96,7 @@ class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 	}
 
 	/**
-	 * Render the node add styles and 
+	 * Render the node add styles and
 	 */
 	Render() {
 		const text_elt = Utils.Get_Subnode(this.shadowRoot,'text');
@@ -104,9 +104,9 @@ class Switch_Event extends MixHTMLElementWith(Observable, Toggleable) {
 	}
 
 	/**
-	 * Handle the event 
-	 * 
-	 * @param {Event} event 
+	 * Handle the event
+	 *
+	 * @param {Event} event
 	 */
 	_Handle_Click(event) {
 		event.stopPropagation(); // (optionnel) évite que le clic remonte inutilement

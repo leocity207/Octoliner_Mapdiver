@@ -5,13 +5,13 @@ import Utils from "/src/utils/utils.js";
 
 
 /**
- * The **Left Panel** is a user interface element that remains fixed on the left side of the screen.  
+ * The **Left Panel** is a user interface element that remains fixed on the left side of the screen.
  * It can be toggled on or off to show or hide its contents and provides various interactive options.
- * 
+ *
  * Structure
  * ---------
  * .. code-block:: html
- * 
+ *
  * 	<div class='base-panel'>
  * 		<div class='title'>
  * 			* main title

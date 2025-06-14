@@ -1,16 +1,16 @@
 // line-info.js
 import Line_Schedule from './line-schedule.js';
 import Round_Cross from '../components/round-cross.js';
-import Utils from "/src/utils/utils.js" 
+import Utils from "/src/utils/utils.js"
 import Switch_Event from "/src/components/switch.js";
 
 /**
  * The **Ligne info** is an object used to display line information.
- * 
+ *
  * Structure
  * ---------
  * .. code-block:: html
- * 
+ *
  * 	<div class='line-info'>
  * 		<div class='line-header'>
  * 			<div class='line-logo'>
@@ -98,9 +98,9 @@ class Line_Info extends HTMLElement {
 		// Update line logo
 		line_logo.innerHTML = this.line_data.line.svg_icon;
 		const rect = line_logo.querySelector('rect');
-		if (rect) 
+		if (rect)
 			rect.setAttribute('fill', this.line_data.line.color.default);
-		else 
+		else
 			console.warn('No <rect> element found in SVG.');
 
 		// Update line text

@@ -4,12 +4,12 @@ import Utils from "/src/utils/utils.js"
 
 /**
  * Hamburger emits an event when clicked.
- * 
+ *
  * Structure
  * ---------
  * .. code-block:: html
- * 
- * 	<div class='hamburger'> 
+ *
+ * 	<div class='hamburger'>
  * 		<div class='bar bar1'>
  * 		<div class='bar bar2'>
  * 		<div class='bar bar3'>
@@ -22,7 +22,7 @@ class Hamburger extends MixHTMLElementWith(Observable) {
 	 */
 	static template = (() => {
 		const template = document.createElement('template');
-		
+
 		const hamburger = Utils.Create_Element_With_Class('div','hamburger');
 
 		const bar1 = Utils.Create_Element_With_Class('div','bar');
@@ -42,12 +42,12 @@ class Hamburger extends MixHTMLElementWith(Observable) {
 		super();
 		this.attachShadow({ mode: "open" });
 		Utils.Add_Stylesheet(this.shadowRoot, "style/hamburger.css");
-		Utils.Clone_Node_Into(this.shadowRoot, Hamburger.template);	
+		Utils.Clone_Node_Into(this.shadowRoot, Hamburger.template);
 	}
 
 	/**
 	 * Factory cronstructor of Round_Cross
-	 * @param {Symbol} name 
+	 * @param {Symbol} name
 	 * @returns instance of Round_Cross
 	 */
 	static Create(name) {

@@ -1,18 +1,18 @@
 import Observable from "/src/utils/Observable.js";
 import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
-import Utils from "/src/utils/utils.js" 
+import Utils from "/src/utils/utils.js"
 
 /**
  * Round_Cross emits an event when clicked.
- * 
+ *
  * Structure
  * ---------
  * .. code-block:: html
- * 
- * 	<div class='circle'> 
- * 		<div class='left'> 
+ *
+ * 	<div class='circle'>
+ * 		<div class='left'>
  * 		</div>
- * 		<div class='right'> 
+ * 		<div class='right'>
  * 		</div>
  * 	</div>
  */
@@ -44,7 +44,7 @@ class Round_Cross extends MixHTMLElementWith(Observable) {
 
 	/**
 	 * Factory cronstructor of Round_Cross
-	 * @param {Symbol} name 
+	 * @param {Symbol} name
 	 * @returns Round_Cross
 	 */
 	static Create(name) {

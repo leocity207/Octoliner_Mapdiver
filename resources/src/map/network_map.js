@@ -448,8 +448,8 @@ class Network_Map extends SVG_Map {
 	}
 
 	/**
-	 * Give 
-	 * @param {String} station_ID 
+	 * Give
+	 * @param {String} station_ID
 	 * @returns a dictionary object containing the station data and all the line data
 	 */
 	Get_Station_Data(station_ID) {

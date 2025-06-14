@@ -1,4 +1,4 @@
-Network_Map_Page 
+Network_Map_Page
 ==================
 
 .. js:autoclass:: Network_Map_Page
@@ -7,7 +7,7 @@ Network_Map_Page
 
 Public Members
 --------------
-	.. js:autofunction:: Network_Map_Page#On_Station_CLicked 
+	.. js:autofunction:: Network_Map_Page#On_Station_CLicked
 	.. js:autofunction:: Network_Map_Page#On_Line_CLicked
 	.. js:autofunction:: Network_Map_Page#On_Pop_State
 	.. js:autofunction:: Network_Map_Page#On_Selected_By_Label
@@ -20,7 +20,7 @@ Public Static Methods
 	.. js:autofunction:: Network_Map_Page.Create
 
 ====================
-	
+
 Attributes
 ----------
 	.. js:autoattribute:: Network_Map_Page#prev_event

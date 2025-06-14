@@ -74,7 +74,7 @@ Documentation Index
 -------------------
 .. toctree::
 	:maxdepth: 2
-	:caption: Backend 
+	:caption: Backend
 
 	rst/backend/oatpp
 	rst/backend/endpoint

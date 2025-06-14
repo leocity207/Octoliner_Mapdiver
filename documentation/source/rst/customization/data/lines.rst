@@ -1,4 +1,4 @@
-Lines 
+Lines
 =====
 
 This documentation describes the structure and format for defining transit lines in the system.
@@ -129,7 +129,7 @@ Field Reference
 ``svg_icon`` (required)
 +++++++++++++++++++++++
 - the icon of the line as xml element
-- should begin by a <svg> tags 
+- should begin by a <svg> tags
 
 ``timetable_pattern`` (required)
 ++++++++++++++++++++++++++++++++

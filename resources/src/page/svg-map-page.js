@@ -8,7 +8,7 @@ import Utils from "/src/utils/utils.js";
 
 /**
  * Map_App are object that define a node containing a SVG_Map for manipulation and display
- * 
+ *
  * Map_App define a custom element named "svg-map-app"
  */
 class Map_Page extends Page {
@@ -40,7 +40,7 @@ class Map_Page extends Page {
 
 		return template;
 	})();
-	
+
 	constructor() {
 		super();
 		Utils.Clone_Node_Into(this.shadowRoot, Map_Page.template_base);

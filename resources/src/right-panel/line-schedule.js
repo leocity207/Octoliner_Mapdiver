@@ -5,11 +5,11 @@ import Fold_Plus_Minus from '/src/components/fold-plus-minus.js';
 
 /**
  * The **Ligne schedule** is an object used to display schedule information about a line.
- * 
+ *
  * Structure
  * ---------
  * .. code-block:: html
- * 
+ *
  * 	<div class='schedule-item'>
  * 		<div class='schedule-header'>
  * 			* Schedule title
@@ -57,7 +57,7 @@ class Line_Schedule extends HTMLElement {
 
 		// Fold_Plus_Minus
 		const header_right = Utils.Create_Element_With_Class('div', 'header-right');
-		const fold = Fold_Plus_Minus.Create(); 
+		const fold = Fold_Plus_Minus.Create();
 		const header_minute = Utils.Create_Element_With_Class('div', 'header-minute');
 		const header_info_icon = Utils.Create_Element_With_Class('div', 'header-icon');
 		header_right.append(header_info_icon, header_minute, fold);
@@ -99,7 +99,7 @@ class Line_Schedule extends HTMLElement {
 		super();
 		this.attachShadow({ mode: 'open' });
 		Utils.Add_Stylesheet(this.shadowRoot, "style/line-schedule.css");
-		Utils.Clone_Node_Into(this.shadowRoot,Line_Schedule.template_base);	
+		Utils.Clone_Node_Into(this.shadowRoot,Line_Schedule.template_base);
 	}
 
 	/**
@@ -192,7 +192,7 @@ class Line_Schedule extends HTMLElement {
 			};
 			details.appendChild(Line_Station.Create(blank, this.stations_data));
 		}
-			
+
 		details.appendChild(Line_Station.Create(refStation_stop, this.stations_data));
 
 

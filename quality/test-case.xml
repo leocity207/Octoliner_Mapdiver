@@ -49,7 +49,7 @@
 			Verify that users can change the color via the left panel menue.
 		</Test-div>
 
-		<Test-div id="T10" name="Opening of The Right panel for station" req="">
+		<Test-div id="T10" name="Opening of The Right panel for station" req="R26">
 			<Dimension-div type="object-type">
 				<Choice-div name="station-label"/>
 				<Choice-div name="station"/>

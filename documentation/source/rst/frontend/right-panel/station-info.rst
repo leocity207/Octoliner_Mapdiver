@@ -17,6 +17,14 @@ Public Members
 	.. js:autofunction:: Station_Info#connectedCallback
 	.. js:autofunction:: Station_Info#Render
 
+=====================
+
+Private Members
+---------------
+	.. js:autofunction:: Station_Info#_Render_Title_And_Subtitle
+	.. js:autofunction:: Station_Info#_Render_Grouped_Schedules
+	.. js:autofunction:: Station_Info#_Group_Schedules_By_Direction
+
 ====================
 
 Static Attributes

@@ -66,16 +66,16 @@ class Station_Info extends HTMLElement {
 	})();
 
 	constructor() {
-		super();
+		super()
 		this.attachShadow({ mode: 'open' });
 		Utils.Clone_Node_Into(this.shadowRoot, Station_Info.template_base);
 		Utils.Add_Stylesheet(this.shadowRoot, 'style/station-info.css');
 	}
 
 	/**
-	 * Factory to create the node
-	 * @param {Object} station_data the station data
-	 * @returns instance of Station_Info
+	 * Factory to create this component instance
+	 * @param {Object} station_data - full data about the station
+	 * @returns {Station_Info}
 	 */
 	static Create(station_data) {
 		const object = document.createElement('station-info');
@@ -91,52 +91,74 @@ class Station_Info extends HTMLElement {
 	}
 
 	/**
-	 * Render the station info
+	 * Render all grouped schedules and static content
 	 */
 	Render() {
+		this._Render_Title_And_Subtitle();
+		this._Render_Grouped_Schedules();
+	}
+
+	/**
+	 * Update station name and subtitle
+	 */
+	_Render_Title_And_Subtitle() {
 		const title_node = Utils.Get_Subnode(this.shadowRoot, '.station-title');
-		title_node.textContent = this.station_data.station.label;
-
 		const subtitle_node = Utils.Get_Subnode(this.shadowRoot, '.station-subtitle');
-		subtitle_node.textContent = `Liaisons grandes lignes directes\n${this.station_data.station.label} → Toutes les directions`;
+		const station_name = this.station_data.station.label;
 
-		const schedules_node = Utils.Get_Subnode(this.shadowRoot, '.schedules')
-		Utils.Empty_Node(schedules_node)
+		title_node.textContent = station_name;
+		subtitle_node.textContent = `Liaisons grandes lignes directes\n${station_name} → Toutes les directions`;
+	}
 
-		const direction_map = new Map()
+	/**
+	 * Collect and display schedule groups by direction
+	 */
+	_Render_Grouped_Schedules() {
+		const schedules_node = Utils.Get_Subnode(this.shadowRoot, '.schedules');
+		Utils.Empty_Node(schedules_node);
 
-		// Group schedules by direction destination station
+		const direction_map = this._Group_Schedules_By_Direction();
+
+		for (const [direction_code, schedule_group] of direction_map.entries()) {
+			const direction_label = this.station_data.stations[direction_code]?.label || direction_code;
+
+			const group_header = Station_Info.direction_header_template.content.cloneNode(true);
+			group_header.querySelector('.direction-label').textContent = 'Direction: ' + direction_label;
+			schedules_node.appendChild(group_header);
+
+			schedule_group.forEach(schedule => {
+				const schedule_node = Line_Schedule.Create(schedule, this.station_data.stations, this.station_data.station.code);
+				schedules_node.appendChild(schedule_node);
+			})
+		}
+	}
+
+	/**
+	 * Group all schedules by direction code (using schedule.code)
+	 * @returns {Map<string, Object[]>}
+	 */
+	_Group_Schedules_By_Direction() {
+		const direction_map = new Map();
+
 		this.station_data.station.lines.forEach(line_ID => {
-			const line = this.station_data.lines[line_ID]
+			const line = this.station_data.lines[line_ID];
 
 			line.timetable_pattern.forEach(schedule => {
 				const last_stop = schedule.lineflowstops.at(-1)
 				if (last_stop.station_ID === this.station_data.station.code)
-					return // skip if this station is the last
+					return;
 
-				schedule.parent = line
+				schedule.parent = line;
 
-				const direction_code = this.station_data.station.direction[schedule.code]
+				const direction_code = this.station_data.station.direction[schedule.code];
 				if (!direction_map.has(direction_code))
-					direction_map.set(direction_code, [])
+					direction_map.set(direction_code, []);
 
-				direction_map.get(direction_code).push(schedule)
+				direction_map.get(direction_code).push(schedule);
 			})
 		})
 
-		// Render schedules grouped by direction
-		for (const [direction_code, schedules] of direction_map.entries()) {
-			const station_label = this.station_data.stations[direction_code]?.label || direction_code
-
-			const group_header = Station_Info.direction_header_template.content.cloneNode(true)
-			group_header.querySelector('.direction-label').textContent = "Direction: " + station_label
-			schedules_node.appendChild(group_header)
-
-			schedules.forEach(schedule => {
-				const schedule_node = Line_Schedule.Create(schedule, this.station_data.stations, this.station_data.station.code)
-				schedules_node.appendChild(schedule_node)
-			})
-		}
+		return direction_map;
 	}
 }
 

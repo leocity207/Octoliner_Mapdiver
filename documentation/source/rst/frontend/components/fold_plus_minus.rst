@@ -15,7 +15,7 @@ Public Static Methods
 Protected Members
 -----------------
 	.. js:autofunction:: Fold_Plus_Minus#Check_Symbole
-	
+
 ====================
 
 Public Members

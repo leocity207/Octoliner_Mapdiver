@@ -22,9 +22,9 @@ Public Members
 Static Attributes
 -----------------
 	.. js:autoattribute:: Line_Info#template_base
-	
+
 ====================
 
 Attributes
 ----------
-    .. js:autofunction:: Line_Info#line_data
+	.. js:autofunction:: Line_Info#line_data

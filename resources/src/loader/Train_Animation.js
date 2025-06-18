@@ -3,7 +3,7 @@ import Utils from '../utils/utils.js';
 
 /**
  * A simple Train Animation that implement a Loader
- * 
+ *
  * This class create a custome element named "train-animation"
  */
 class Train_Animation extends Loader {

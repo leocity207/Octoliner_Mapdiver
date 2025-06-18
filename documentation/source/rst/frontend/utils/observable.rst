@@ -23,7 +23,7 @@ Public Members
 Static Attributes
 -----------------
 	.. js:autoattribute:: Observable#subject
-	
+
 ====================
 
 Attributes

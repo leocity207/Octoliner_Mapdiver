@@ -32,6 +32,9 @@
 			<Requirement-div id="R25" name="display information about a line">
 				When clicking on a line it should correctly display information about the map, it's name with the icon. and the schedule associated to the line.
 			</Requirement-div>
+			<Requirement-div id="R26" name="display information about a Station">
+				When clicking on Station it should display the name of the station and all the relation at that station. it should segment all schedule into directions 
+			</Requirement-div>
 		</Folder-div>
 		<Requirement-div id="R24" name="resizing the GUI">
 			The user can resize the screen and the map should adapts its size

@@ -16,7 +16,7 @@ Public Members
 	.. js:autofunction:: SVG_Map#Zoom_Box_For_Objs
 
 ====================
-	
+
 Protected Members
 -----------------
 	.. js:autofunction:: SVG_Map#_GetObjectBounds

@@ -5,11 +5,11 @@ import Fold_Plus_Minus from '/src/components/fold-plus-minus.js';
 
 /**
  * The **Ligne schedule** is an object used to display schedule information about a line.
- * 
+ *
  * Structure
  * ---------
  * .. code-block:: html
- * 
+ *
  * 	<div class='schedule-item'>
  * 		<div class='schedule-header'>
  * 			* Schedule title
@@ -33,6 +33,11 @@ class Line_Schedule extends HTMLElement {
 	 */
 	stations_data = null;
 
+	/**
+	 * the station of reference if null the first station is the reference station
+	 */
+	reference_station = null;
+
 
 	/**
 	 * Base template strucutre
@@ -52,7 +57,7 @@ class Line_Schedule extends HTMLElement {
 
 		// Fold_Plus_Minus
 		const header_right = Utils.Create_Element_With_Class('div', 'header-right');
-		const fold = Fold_Plus_Minus.Create(); 
+		const fold = Fold_Plus_Minus.Create();
 		const header_minute = Utils.Create_Element_With_Class('div', 'header-minute');
 		const header_info_icon = Utils.Create_Element_With_Class('div', 'header-icon');
 		header_right.append(header_info_icon, header_minute, fold);
@@ -94,7 +99,7 @@ class Line_Schedule extends HTMLElement {
 		super();
 		this.attachShadow({ mode: 'open' });
 		Utils.Add_Stylesheet(this.shadowRoot, "style/line-schedule.css");
-		Utils.Clone_Node_Into(this.shadowRoot,Line_Schedule.template_base);	
+		Utils.Clone_Node_Into(this.shadowRoot,Line_Schedule.template_base);
 	}
 
 	/**
@@ -103,10 +108,11 @@ class Line_Schedule extends HTMLElement {
 	 * @param {Object} stations_data  information about all stations
 	 * @returns instance of Line_Schedule
 	 */
-	static Create(schedule_data, stations_data) {
+	static Create(schedule_data, stations_data, reference_station) {
 		const object = document.createElement('line-schedule');
 		object.schedule_data = schedule_data;
 		object.stations_data = stations_data;
+		object.reference_station = reference_station;
 		return object;
 	}
 
@@ -151,9 +157,55 @@ class Line_Schedule extends HTMLElement {
 			.then(icon => icon.text())
 			.then(svg => header_left_icon.innerHTML = svg);
 
-		this.schedule_data.lineflowstops.forEach(stop_object => {
-			stop_object.parent = this.schedule_data;
-			details.appendChild(Line_Station.Create(stop_object,this.stations_data));
+		const stops = this.schedule_data.lineflowstops;
+		let referenceIndex = stops.findIndex(stop => stop.station_ID === this.reference_station);
+
+		// Reference station not found – fallback to index 0
+		if (referenceIndex === -1)
+			referenceIndex = 0;
+
+		const reference_minute = stops[referenceIndex].arrival_minute;
+
+		const refStation_stop = {
+			...stops[referenceIndex],
+			reference_minute: reference_minute,
+			flags: [...(stops[referenceIndex].flags || [])],
+			parent: this.schedule_data
+		};
+
+		// Add the first station as Gray_Station if it's not the reference
+		if (referenceIndex > 0) {
+			const firstStop= {
+				...stops[0],
+				reference_minute: reference_minute,
+				flags: [...(stops[0].flags || [])],
+				parent: this.schedule_data
+			};
+			firstStop.flags.push("gray");
+			details.appendChild(Line_Station.Create(firstStop, this.stations_data));
+			refStation_stop.flags.push("half-grayed");
+		}
+
+		if (referenceIndex > 1) {
+			const blank = {
+				flags: ["blank"]
+			};
+			details.appendChild(Line_Station.Create(blank, this.stations_data));
+		}
+
+		details.appendChild(Line_Station.Create(refStation_stop, this.stations_data));
+
+
+		// Add visible stations from reference onward
+		stops.slice(referenceIndex + 1).forEach(originalStop => {
+			const stop_object = {
+				...originalStop,
+				reference_minute: reference_minute,
+				flags: [...(originalStop.flags || [])],
+				parent: this.schedule_data
+			};
+
+			details.appendChild(Line_Station.Create(stop_object, this.stations_data));
 		});
 	}
 }

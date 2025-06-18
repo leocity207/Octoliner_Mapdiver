@@ -1,0 +1,53 @@
+.station-header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+}
+
+.station-title {
+	font-size: 1.25em;
+	flex: 1;
+	margin-left: 0.5em;
+}
+
+.station-subtitle {
+	font-size: 0.9em;
+	color: #555;
+	white-space: pre-line;
+	margin: 0 0.5em 0.75em 0.5em;
+	line-height: 1.4;
+}
+
+.schedules {
+	margin-top: 0.5em;
+	overflow: auto;
+}
+
+/* Optional: specific style if you add schedule blocks like .station-schedule-item */
+.station-schedule-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.5em 0;
+	border-bottom: 1px solid #eee;
+	font-size: 0.95em;
+}
+
+.station-schedule-item:last-child {
+	border-bottom: none;
+}
+
+.station-info round-cross {
+	margin-right: 0.5em;
+}
+
+svg {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+path {
+	fill: white;
+}

@@ -24,7 +24,7 @@ class Toggleable {
 		this.setAttribute("states", this.Serialize(this.states));
 		if (initial_state !== null) {
 			const idx = states.indexOf(initial_state);
-			if (idx !== -1) 
+			if (idx !== -1)
 				this.current_index = idx;
 			else
 				throw Error("Desired state is not in the state list");
@@ -66,7 +66,7 @@ class Toggleable {
 	 */
 	Set_State(state) {
 		const idx = this.states.indexOf(state);
-		if (idx !== -1) 
+		if (idx !== -1)
 			this.current_index = idx;
 		else
 			throw Error("Desired state is not in the state list");

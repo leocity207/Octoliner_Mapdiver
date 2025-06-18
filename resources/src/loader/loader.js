@@ -2,9 +2,9 @@ import Displayable from "../utils/displayable.js";
 
 /**
  * Loader are displayable element that containe a simple animation used for stand by.
- * 
+ *
  * You should generaly not use this class by itself as it does only display a white page, but instead create you own Animation inheriting this class
- * 
+ *
  * This class create a custome element named "app-loader"
  */
 class Loader extends Displayable {

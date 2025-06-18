@@ -13,6 +13,3 @@ Componants describe utility componants node object that can be integrated into t
 	search_bar.rst
 	sticky_header.rst
 	switch.rst
-	
-	
-	

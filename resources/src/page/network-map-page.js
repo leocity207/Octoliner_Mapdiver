@@ -7,7 +7,7 @@ import Round_Cross from "/src/components/round-cross.js";
 
 /**
  * Network_Map_Station define a node that contain a Network_Map object
- * 
+ *
  * Map_Page define a custom element named "svg-map-app"
  */
 class Network_Map_Page extends Map_Page {
@@ -29,20 +29,20 @@ class Network_Map_Page extends Map_Page {
 
 	/**
 	 * When the user click on a staion
-	 * 
-	 * @param {Object} event 
+	 *
+	 * @param {Object} event
 	 */
 	On_Station_CLicked(event) {
 		this.map.Highlight_All_Lines_At_Station(event.detail);
-		Utils.Get_Subnode(this.shadowRoot, 'right-panel').Open_Station_Info(event.detail);
+		Utils.Get_Subnode(this.shadowRoot, 'right-panel').Open_Station_Info(this.map.Get_Station_Data(event.detail));
 		this.map.Zoom_Highlighted_Stations(event.detail);
 		this.prev_event = {type: "station", detail: event.detail};
 	}
 
 	/**
 	 * When the user click on a line
-	 * 
-	 * @param {Object} event 
+	 *
+	 * @param {Object} event
 	 */
 	On_Line_CLicked(event) {
 		this.map.Highlight_Lines([event.detail]);
@@ -53,23 +53,23 @@ class Network_Map_Page extends Map_Page {
 
 	/**
 	 * When the user go back or deselect the curent station or line
-	 * 
-	 * @param {Object} event 
+	 *
+	 * @param {Object} event
 	 */
 	On_Pop_State(event) {
 		Utils.Get_Subnode(this.shadowRoot, 'right-panel').Close();
-		if(!this.prev_event.type) 
+		if(!this.prev_event.type)
 			this.map.Initial_Zoom_Move();
 		if(this.prev_event.type === 'station')
 			this.map.Reset_Line_Highlight();
-		else if(this.prev_event.type === 'line') 
+		else if(this.prev_event.type === 'line')
 			this.map.Reset_Line_Highlight();
 		this.prev_event = {type: "back"};
 	}
 
 	/**
-	 * when the user select a label on the map 
-	 * @param {Object} label 
+	 * when the user select a label on the map
+	 * @param {Object} label
 	 */
 	On_Selected_By_Label(label) {
 		let solutionKey = Object.keys(this.network_data.stations).find(key => this.network_data.stations[key].label === label);
@@ -121,7 +121,7 @@ class Network_Map_Page extends Map_Page {
 		Round_Cross.Get_Observable("right-panel-cross").subscribe((event) => {
 			history.back();
 		});
-		
+
 		let resizeTimeout;
 		this.resize_observer = new ResizeObserver(entries => {
 			clearTimeout(resizeTimeout);
@@ -137,7 +137,7 @@ class Network_Map_Page extends Map_Page {
 
 	/**
 	 * Create a Map_App object and initialize it.
-	 * 
+	 *
 	 * @returns {Map_App} an Page Object
 	 */
 	static Create() {

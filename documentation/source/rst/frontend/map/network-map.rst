@@ -19,7 +19,7 @@ Public Members
 	.. js:autofunction:: Network_Map#Highlight_Station
 	.. js:autofunction:: Network_Map#Reset_All_Highlight_Station
 	.. js:autofunction:: Network_Map#Check_Station_Visible
-		
+
 ====================
 
 Private Members
@@ -52,7 +52,7 @@ ligne/track
 		* ``L`` designate that the node is a line.
 		* ``LIGN_ID`` is the ID of the Line. It should be replaced with the appropriate name.
 		* ``TRACK_ID`` (optional) is the ID of the track if it exist. It should be replaced with the appropriate name.
-	
+
 	You shall not forget to add the ``-`` between each part to separate them.
 
 	Exemple:
@@ -65,14 +65,14 @@ ligne Label
 		* ``LT`` designate that the node is a line label.
 		* ``LIGN_ID`` is the ID of the Line. It should be replaced with the appropriate name.
 		* ``LABEL_DIFF`` (optional) should be use to diferentiat two different ligne label for the same ligne.
-	
+
 	You shall not forget to add the ``-`` between each part to separate them.
 
 	Exemple:
 		- ``LT-LER_BRE1`` here ``LT`` designate a ligne label and ``LER_BRE1`` a ligne ID
 		- ``L-K90-1`` here ``LT`` designate a ligne label and ``K90`` a ligne ID finali the ``1`` designate that this is the label of the ligne K90 named 1.
 
-Station 
+Station
 ^^^^^^^
 	Station node should have an ID built as follow ``S-STATION_ID-STATION_DIFF`` Where:
 		* ``S`` designate that the node is a station.

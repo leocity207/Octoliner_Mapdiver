@@ -1,18 +1,18 @@
 import Loader from '../loader/loader.js';
-import Page from '../page/page.js'; 
+import Page from '../page/page.js';
 import Displayable from '../utils/displayable.js';
 import Utils from '../utils/utils.js';
 
 
 /**
  * App object that represent a working app
- * 
+ *
  * App are made of two thing A main page node object and a loader animation displayed
- * 
+ *
  * App register a "Loading" and "Done" event to display loading element
- * 
+ *
  * Every element inside the App is inside a ShadowDom
- * 
+ *
  * App define a custom element named "app-app"
 */
 class App extends Displayable
@@ -41,9 +41,9 @@ class App extends Displayable
 
 	/**
 	 * create an App object and initialize it
-	 * @param {Loader} loader 
-	 * @param {Page} main_page 
-	 * @param {Icon} icon 
+	 * @param {Loader} loader
+	 * @param {Page} main_page
+	 * @param {Icon} icon
 	 * @returns {App} a new instance App (it should be added to the dom via an App_Container object)
 	 */
 	static Create(loader, main_page, icon) {
@@ -81,7 +81,7 @@ class App extends Displayable
 	 * get the Page of the App
 	 * @return {Page} the page of the App
 	 */
-	get Page() 
+	get Page()
 	{
 		return this.main_page;
 	}

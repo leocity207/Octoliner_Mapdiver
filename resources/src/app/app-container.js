@@ -8,11 +8,11 @@ import Utils from '../utils/utils.js';
  * When multiple *App* are being used it is recommended to set the Icon inside the *App* in order to display it inside the left bare side.
  * Every element contained inside the container is inside a ShadowDom
  * This class create a custome element named "app-container"
- * 
+ *
  * Structure
  * ---------
  * .. code-block:: html
- * 
+ *
  * 	<div class='app-window'>
  * 		Main app window
  * 	</div>
@@ -60,7 +60,7 @@ class App_Container extends HTMLElement
 		super();
 		this.attachShadow({ mode: "open" });
 		Utils.Add_Stylesheet(this.shadowRoot, "style/app-container.css");
-		Utils.Clone_Node_Into(this.shadowRoot,App_Container.template_base);	
+		Utils.Clone_Node_Into(this.shadowRoot,App_Container.template_base);
 	}
 
 	/**
@@ -92,9 +92,9 @@ class App_Container extends HTMLElement
 
 	/**
 	 * Initialize the DOM of the App_Container element
-	 * 
+	 *
 	 * When the number of App in the container is superior to 1, it display a left bar to switch between App.
-	 * 
+	 *
 	 * Call this method should be done after the DOM is ready or when the list of App changed.
 	 */
 	Render() {

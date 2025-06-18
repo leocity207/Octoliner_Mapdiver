@@ -23,10 +23,10 @@ Public Members
 Static Attributes
 -----------------
 	.. js:autoattribute:: Line_Schedule#template_base
-	
+
 ====================
 
 Attributes
 ----------
-    .. js:autofunction:: Line_Schedule#schedule_data
-    .. js:autofunction:: Line_Schedule#stations_data
+	.. js:autofunction:: Line_Schedule#schedule_data
+	.. js:autofunction:: Line_Schedule#stations_data

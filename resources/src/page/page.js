@@ -3,7 +3,7 @@ import Utils from "/src/utils/utils.js";
 
 /**
  * Page are displayable element generaly found inside an App, they are gracefull container
- * 
+ *
  * This class create a custome element named "app-page"
  */
 class Page extends Displayable
@@ -16,7 +16,7 @@ class Page extends Displayable
 
 	/**
 	 * Create a Page object and initialize it.
-	 * 
+	 *
 	 * @returns {Page} an Page Object
 	 */
 	static Create() {

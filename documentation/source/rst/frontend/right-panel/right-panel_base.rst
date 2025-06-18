@@ -7,3 +7,4 @@ Right panel
 	line-schedule.rst
 	line-station.rst
 	right-panel.rst
+	station-info.rst

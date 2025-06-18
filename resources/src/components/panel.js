@@ -1,14 +1,14 @@
 import Utils from "/src/utils/utils.js";
 
 /**
- * The **Base Panel** is a user interface element that remains fixed on the base side of the screen.  
+ * The **Base Panel** is a user interface element that remains fixed on the base side of the screen.
  * It can be toggled on or off to show or hide its contents and provides various interactive options.
- * 
+ *
  * Structure
  * ---------
  * .. code-block:: html
  *
- * 	<div class='base-panel'> 
+ * 	<div class='base-panel'>
  * 	</div>
  */
 class Base_Panel extends HTMLElement {
@@ -43,8 +43,8 @@ class Base_Panel extends HTMLElement {
 		this.panel_visible = !this.panel_visible;
 		if (this.panel_visible)
 			base_panel.classList.add("open");
-		else 
-			base_panel.classList.remove("open");	
+		else
+			base_panel.classList.remove("open");
 	}
 
 	/**

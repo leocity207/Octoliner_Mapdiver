@@ -10,5 +10,5 @@ Network_Config
 	.. js:autoattribute:: STATION_PREFIX_ID
 
 	.. js:autoattribute:: STATION_LABEL_PREFIX_ID
-		
+
 	.. js:autoattribute:: COLOR_ANIMATION_TIME

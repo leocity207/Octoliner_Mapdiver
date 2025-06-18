@@ -82,7 +82,7 @@ class SVG_Map {
 
 
 	/**
-	 * 
+	 *
 	 * @param {String} client_type if you areusing mobile or desktop
 	 * @param {String} filename the filename of the svg map
 	 * @param {Object} config config of the svg map (see config)
@@ -91,7 +91,7 @@ class SVG_Map {
 
 		this.filename = filename;
 		SVG_Map._Initialize_Fabric();
-		this.config = config;	
+		this.config = config;
 		this.client_type = client_type;
 
 		// binding this to event handlers
@@ -187,13 +187,13 @@ class SVG_Map {
 			let typed_result_list = [];
 			this._Traverse_All_Canvas_Objects(result_list, 'type', obj_type, typed_result_list);
 			return typed_result_list;
-		} 
+		}
 		return result_list;
 	}
 
 	/**
 	* As we can not anmiate absolute pan x and y at the same time with given fabricjs functions. We take the animjs package todo the work.
-	* @param {Bound} zoom_box The target to zoom too an object that contain 
+	* @param {Bound} zoom_box The target to zoom too an object that contain
 	*                 center_left
 	*                 center_top
 	*                 zoom_level
@@ -249,26 +249,26 @@ class SVG_Map {
 	async Initial_Zoom_Move() {
 		const background_object = this._Find_Map_Objs_By_Id(this.config.INITIAL_CENTERING_OBJECT_ID, true, 'path')[0];
 		if (!background_object) return;
-	
+
 		if (this.config.DEBUG) console.log('initial zoom move!');
 		this.map_animation_run = true;
-		
+
 		const zoom_box = this.Zoom_Box_For_Objs(background_object);
 		const orig_zoom = this.fabric_canvas.getZoom();
 		const target_zoom = orig_zoom + (this.client_type === 'mobile' ? this.config.INITIAL_ZOOM_MOVE_STEP_MOBILE : this.config.INITIAL_ZOOM_MOVE_STEP_DESKTOP);
-	
+
 		// Viewport calculations should be done before modifying zoom
 		const viewport_width = this.fabric_canvas.width / target_zoom;
 		const viewport_height = this.fabric_canvas.height / target_zoom;
 		const target_x = zoom_box.center_left - viewport_width / 2;
 		const target_y = zoom_box.center_top - viewport_height / 2;
-	
+
 		const initial_zoom_move_obj = {
 			zoom: orig_zoom,
 			x: fabric.util.invertTransform(this.fabric_canvas.viewportTransform)[4],
 			y: fabric.util.invertTransform(this.fabric_canvas.viewportTransform)[5]
 		};
-	
+
 
 		// Wait for delay before starting animation
 		await new Promise(resolve => setTimeout(resolve, this.config.INITIAL_ZOOM_MOVE_DELAY));
@@ -288,7 +288,7 @@ class SVG_Map {
 					this.fabric_canvas.renderAll();
 				}
 		}).finished;
-	
+
 				this.map_animation_run = false;
 	}
 
@@ -331,7 +331,7 @@ class SVG_Map {
 
 	/**
 	 * Return the bounding box square of an object
-	 * @param {Object} object 
+	 * @param {Object} object
 	 * @returns {Bound}
 	 */
 	_GetObjectBounds(object) {
@@ -379,7 +379,7 @@ class SVG_Map {
 			let typed_result_list = [];
 			this._Traverse_All_Canvas_Objects(result_list, 'type', obj_type, typed_result_list, exact_Match);
 			return typed_result_list;
-		} 
+		}
 		return result_list;
 	}
 
@@ -404,7 +404,7 @@ class SVG_Map {
 		// Depending on the client type (mobile or desktop) we need to adjust the top and the viewport size
 		if(this.client_type === 'mobile') {
 			// We add the header height and the detail space to the top
-			var additional_bounding_zoom_space = extra_space ? this.config.ADDITIONAL_SINGLE_BOUND_ZOOM_SPACE_MOBILE : this.config.ADDITIONAL_BOUND_ZOOM_SPACE_MOBILE 
+			var additional_bounding_zoom_space = extra_space ? this.config.ADDITIONAL_SINGLE_BOUND_ZOOM_SPACE_MOBILE : this.config.ADDITIONAL_BOUND_ZOOM_SPACE_MOBILE
 			bounds.center_top = bounds.top + (bounds.height / 2) + (this.panel_header_height / 2);
 
 			// We substract the detail space and the header height from the viewport height
@@ -413,7 +413,7 @@ class SVG_Map {
 		}
 		else {
 			// We substract the header height and the detail space from the top
-			var additional_bounding_zoom_space = extra_space ? this.config.ADDITIONAL_SINGLE_BOUND_ZOOM_SPACE_DESKTOP : this.config.ADDITIONAL_BOUND_ZOOM_SPACE_DESKTOP 
+			var additional_bounding_zoom_space = extra_space ? this.config.ADDITIONAL_SINGLE_BOUND_ZOOM_SPACE_DESKTOP : this.config.ADDITIONAL_BOUND_ZOOM_SPACE_DESKTOP
 			bounds.center_top = bounds.top + (bounds.height / 2) - ((this.panel_header_height + this.panel_detail_space) / 2);
 
 			// We substract the detail space from the viewport width
@@ -422,11 +422,11 @@ class SVG_Map {
 		}
 
 		// Compute the zoom level
-		const zoomWidth = viewport_width / (bounds.width + additional_bounding_zoom_space); 
-		const zoomHeight = viewport_height / (bounds.height + additional_bounding_zoom_space); 
+		const zoomWidth = viewport_width / (bounds.width + additional_bounding_zoom_space);
+		const zoomHeight = viewport_height / (bounds.height + additional_bounding_zoom_space);
 		const zoomLevel = Math.min(zoomWidth, zoomHeight);
 		bounds.zoom_level = Math.min(this.config.MAX_ZOOM_IN, zoomLevel);
-	
+
 		return bounds;
 	}
 
@@ -442,7 +442,7 @@ class SVG_Map {
 
 		if (diff_x < this.config.TAP_MAX_DIFF && diff_y < this.config.TAP_MAX_DIFF)
 			return true
-		else 
+		else
 			return false
 	}
 
@@ -454,7 +454,7 @@ class SVG_Map {
 
 		this.map_animation_run = run;
 		// lock/unlock the mouse moving
-		this.svg_main_group.lockMovementX = run ? true : false; 
+		this.svg_main_group.lockMovementX = run ? true : false;
 		this.svg_main_group.lockMovementY = run ? true : false;
 	}
 
@@ -497,7 +497,7 @@ class SVG_Map {
 
 	}
 
-	
+
 	////////////////////
 	/// Private function
 	////////////////////
@@ -532,7 +532,7 @@ class SVG_Map {
 	*/
 	_Handle_User_Gesture_Zoom = (event) => {
 		// uses pinch event from hammerjs
-		if (!this.map_animation_run) { 
+		if (!this.map_animation_run) {
 			if (this.last_scale !== event.scale) {
 				this.last_scale = event.scale;
 				const current_viewport_transform = this.fabric_canvas.viewportTransform;
@@ -608,7 +608,7 @@ class SVG_Map {
 		const object_top = object.top;
 
 		// Check if the left side of the map is out of bounds
-		if (bounding_rect.left > 0) 
+		if (bounding_rect.left > 0)
 			object.set('left', this.last_bounding_data.left);
 		else
 			this.last_bounding_data.left = object_left;

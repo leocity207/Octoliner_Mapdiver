@@ -1,10 +1,14 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <filesystem>
+
+extern std::string g_argument_resource_path;
+extern std::string g_argument_doc_path;
 
 inline const char* GET_COMMIT_HASH() {return "${GIT_COMMIT_HASH}"; };
 inline const char* GET_VERSION() {return "${${project_name}_VERSION_MAJOR}.${${project_name}_VERSION_MINOR}"; };
-inline const char* RESOURCE_PATH() {return "${STATIC_CURRENT_DIR}/resources/"; };
-
+inline std::filesystem::path RESOURCE_PATH() {return g_argument_resource_path.empty() ? "${VAR_STATIC_CURRENT_DIR}/resources/" : g_argument_resource_path; };
+inline std::filesystem::path DOC_PATH() {return g_argument_doc_path.empty() ? "${VAR_STATIC_CURRENT_DIR}/documentation/build/html/" : g_argument_doc_path; };
 
 #endif

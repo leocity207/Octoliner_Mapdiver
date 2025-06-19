@@ -117,20 +117,16 @@ add_test(project-tests ${project_name}-test)
 #-------------------
 # Install
 
-# Avoid default component
 set(CMAKE_INSTALL_DEFAULT_COMPONENT_NAME "none")
 
-# Install rules
 install(TARGETS Mapdiver-exe RUNTIME DESTINATION bin COMPONENT app)
 install(DIRECTORY resources/ DESTINATION resources COMPONENT app)
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/documentation/build/ DESTINATION doc COMPONENT doc)
 
-# CPack config
 set(CPACK_COMPONENTS_ALL app doc)
 set(CPACK_COMPONENT_app_DISPLAY_NAME "Mapdiver Application")
 set(CPACK_COMPONENT_doc_DISPLAY_NAME "Mapdiver Documentation")
 
-# Crée un seul archive contenant les deux composants si besoin
 set(CPACK_COMPONENTS_GROUPING ALL_COMPONENTS_IN_ONE)
 set(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
 

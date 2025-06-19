@@ -87,6 +87,9 @@
 		<Requirement-div id="R21" name="Easy color mode">
 			The User can change the color mode displayed on the map.
 		</Requirement-div>
+		<Requirement-div id="R27" name="State Poping">
+			The user can navigate using back and forward button
+		</Requirement-div>
 	</Folder-div>
 
 	<Folder-div name="Security-And-Data-Handling-Requirements">

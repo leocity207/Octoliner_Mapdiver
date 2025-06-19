@@ -88,16 +88,29 @@
 		<Test-div id="T13" name="changing size of the windows" req="R24">
 			when resizing the windows on the right the canvas should adapt, when resizing the windows from the top the canvas should also adapt
 		</Test-div>
-	</Folder-div>
 
-	<Folder-div id="T7" name="Accessibility Requirements" req="R16 R21">
-		<Dimension-div type="screen-ratio">
-			<Choice-div name="3840x2160"/>
-			<Choice-div name="412x915"/>
-			<Choice-div name="1500x750"/>
-			<Choice-div name="1000x1000"/>
-		</Dimension-div>
-		The screen should adapt with the screen not get out of bound or display weirdly
+		<Test-div id="T7" name="Accessibility Requirements" req="R16 R21">
+			<Dimension-div type="screen-ratio">
+				<Choice-div name="3840x2160"/>
+				<Choice-div name="412x915"/>
+				<Choice-div name="1500x750"/>
+				<Choice-div name="1000x1000"/>
+			</Dimension-div>
+			The screen should adapt with the screen not get out of bound or display weirdly
+		</Test-div>
+
+		<Test-div id="T15" name="Pushing state" req="R27">
+			1. Select a station
+			2. Select a line
+			3. Press Back button - should return to station selection
+			4. Press Back again - should return to all lines view
+			5. Select a line again
+			6. Press the Round Cross (X) button - should return to all lines highlighted
+			7. Press Back - should return to the line selection
+			8. Press Back again - should return to all lines highlighted
+		</Test-div>
+
+
 	</Folder-div>
 
 	<Folder-div name="Performance-Tests">

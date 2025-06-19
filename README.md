@@ -41,6 +41,8 @@ This project relies on several external libraries:
 - **Fabric.js** – Canvas and SVG handling
 - **normalizeWheel** – Smooth scrolling experience
 - **RxJS** – Reactive event handling
+- **OATPP** – server side c++ for fast server response
+- **cxxopts** - for argument parsing in c++
 
 ### Server Compilation
 To compile the server-side application:
@@ -52,7 +54,8 @@ git submodule update
 mkdir build
 cd build
 cmake ..
-make
+cmake --build .
+cpack -G TGZ
 ```
 This process generates a local executable that can be run. it will automaticaly be bound to the ressource folder in order to serve resources
 

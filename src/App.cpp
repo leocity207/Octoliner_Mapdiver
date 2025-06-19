@@ -1,11 +1,16 @@
 #include "src/controller/StaticFileHandler.h"
 #include "src/controller/NetworkDataHandler.h"
 #include "src/AppComponent.h"
+#include "config.h"
 
-#include "oatpp/network/Server.hpp"
+#include <oatpp/network/Server.hpp>
 
 #include <iostream>
+#include <cxxopts.hpp>
+#include <iostream>
 
+std::string g_argument_resource_path = "";
+std::string g_argument_doc_path = "";
 void run() {
 
 	/* Register Components in scope of run() method */
@@ -30,6 +35,26 @@ void run() {
 
 
 int main(int argc, const char * argv[]) {
+
+	cxxopts::Options options("WebsiteR2R", "Backend server");
+
+	options.add_options()
+	("r,path-to-resource", "Path to resource folder", cxxopts::value<std::string>())
+	("d,path-to-doc",      "Path to documentation folder", cxxopts::value<std::string>())
+	("h,help",             "Print help");
+
+	auto result = options.parse(argc, argv);
+
+	if (result.count("help")) {
+		std::cout << options.help() << "\n";
+		return 0;
+	}
+
+	if (result.count("path-to-resource")) 
+		g_argument_resource_path = result["path-to-resource"].as<std::string>();
+
+	if (result.count("path-to-doc"))
+		g_argument_doc_path = result["path-to-doc"].as<std::string>();
 
 	oatpp::Environment::init();
 

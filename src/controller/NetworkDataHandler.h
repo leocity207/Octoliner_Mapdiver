@@ -2,10 +2,10 @@
 #define NETWORK_DATA_HANDLER_H
 
 
-#include "oatpp/web/server/api/ApiController.hpp"
-#include "oatpp/macro/codegen.hpp"
-#include "oatpp/macro/component.hpp"
-#include "oatpp/json/ObjectMapper.hpp"
+#include <oatpp/web/server/api/ApiController.hpp>
+#include <oatpp/macro/codegen.hpp>
+#include <oatpp/macro/component.hpp>
+#include <oatpp/json/ObjectMapper.hpp>
 
 #include "src/config.h"
 
@@ -23,7 +23,7 @@ class NetworkDataHandler : public oatpp::web::server::api::ApiController {
 		NetworkDataHandler(OATPP_COMPONENT(std::shared_ptr<oatpp::web::mime::ContentMappers>, apiContentMappers));
 
 		std::string readFile() {
-			std::ifstream file(RESOURCE_PATH() + std::string("data/ligne.json"));
+			std::ifstream file(RESOURCE_PATH().generic_string() + std::string("data/ligne.json"));
 			std::stringstream buffer;
 			buffer << file.rdbuf();
 			return buffer.str();
@@ -31,7 +31,7 @@ class NetworkDataHandler : public oatpp::web::server::api::ApiController {
 
 		ENDPOINT("GET", "dyn/network_data", get_network_data) {
 
-			const char* base_path = RESOURCE_PATH();
+			std::string base_path = RESOURCE_PATH().generic_string();
 			oatpp::json::ObjectMapper json_object_mapper;
 
 			oatpp::String line_path = oatpp::String(base_path) + "resources-config/data/line.json";

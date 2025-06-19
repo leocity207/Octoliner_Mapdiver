@@ -1,8 +1,8 @@
 #ifndef TIMETABLE_PATTERN_DTO_H
 #define TIMETABLE_PATTERN_DTO_H
 
-#include "oatpp/macro/codegen.hpp"
-#include "oatpp/Types.hpp"
+#include <oatpp/macro/codegen.hpp>
+#include <oatpp/Types.hpp>
 
 #include "line_flow_stop.h"
 #include "info_message.h"

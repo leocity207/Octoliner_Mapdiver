@@ -1,8 +1,8 @@
 #ifndef LINE_DTO_H
 #define LINE_DTO_H
 
-#include "oatpp/macro/codegen.hpp"
-#include "oatpp/Types.hpp"
+#include <oatpp/macro/codegen.hpp>
+#include <oatpp/Types.hpp>
 
 //DTO
 #include "timetable_pattern.h"

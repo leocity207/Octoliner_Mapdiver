@@ -57,14 +57,21 @@ class Network_Map_Page extends Map_Page {
 	 * @param {Object} event
 	 */
 	On_Pop_State(event) {
-		Utils.Get_Subnode(this.shadowRoot, 'right-panel').Close();
-		if(!this.prev_event.type)
-			this.map.Initial_Zoom_Move();
-		if(this.prev_event.type === 'station')
-			this.map.Reset_Line_Highlight();
-		else if(this.prev_event.type === 'line')
-			this.map.Reset_Line_Highlight();
-		this.prev_event = {type: "back"};
+		if(event.state) {
+			if(event.state.line)
+				return this.On_Line_CLicked({detail: event.state.line})
+			return this.On_Station_CLicked({detail: event.state.station})
+		}
+		else {
+			Utils.Get_Subnode(this.shadowRoot, 'right-panel').Close();
+			if(!this.prev_event.type)
+				this.map.Initial_Zoom_Move();
+			if(this.prev_event.type === 'station')
+				this.map.Reset_Line_Highlight();
+			else if(this.prev_event.type === 'line')
+				this.map.Reset_Line_Highlight();
+			this.prev_event = {type: "back"};
+		}
 	}
 
 	/**
@@ -119,7 +126,8 @@ class Network_Map_Page extends Map_Page {
 		});
 
 		Round_Cross.Get_Observable("right-panel-cross").subscribe((event) => {
-			history.back();
+			history.pushState(null, "", "/");
+			this.On_Pop_State({});
 		});
 
 		let resizeTimeout;

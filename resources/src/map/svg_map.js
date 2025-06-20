@@ -128,7 +128,7 @@ class SVG_Map {
 
 		// load map from public folder
 		return new Promise((resolve, reject) => {
-			loadSVGFromURL(this.filename, (objects, options) => {
+			loadSVGFromURL(this.filename).then(({ objects, options }) => {
 				let obj = util.groupSVGElements(objects, options);
 				obj.set('originX', 'center');
 				obj.set('originY', 'center');
@@ -149,6 +149,10 @@ class SVG_Map {
 					bottom: obj.top
 				};
 				resolve();
+			})
+			.catch(err => {
+				console.error('Failed to load SVG:', err);
+				reject(err);
 			});
 		});
 	}

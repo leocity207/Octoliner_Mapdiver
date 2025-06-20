@@ -153,7 +153,7 @@ class Line_Schedule extends HTMLElement {
 			header_info_icon.style.display = 'none';
 		header_title.textContent = this.schedule_data.label;
 		header_minute.textContent = ":" + String(this.schedule_data.departure_minute).padStart(2, '0');
-		fetch("/src/resources-config/image/service/" + this.schedule_data.service + ".svg")
+		fetch("src/../resources-config/image/service/" + this.schedule_data.service + ".svg")
 			.then(icon => icon.text())
 			.then(svg => header_left_icon.innerHTML = svg);
 

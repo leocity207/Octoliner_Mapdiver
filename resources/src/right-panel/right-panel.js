@@ -1,7 +1,7 @@
-import Base_Panel from "/src/components/panel.js";
+import Base_Panel from "../components/panel.js";
 import Line_Info from "./line_info.js"
 import Station_Info from "./station-info.js";
-import Utils from "/src/utils/utils.js";
+import Utils from "../utils/utils.js";
 
 /**
  * The **Right Panel** is a user interface element that remains fixed on the right side of the screen.

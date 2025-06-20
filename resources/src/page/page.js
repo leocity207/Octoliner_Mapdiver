@@ -1,5 +1,5 @@
-import Displayable from "/src/utils/displayable.js";
-import Utils from "/src/utils/utils.js";
+import Displayable from "../utils/displayable.js";
+import Utils from "../utils/utils.js";
 
 /**
  * Page are displayable element generaly found inside an App, they are gracefull container

@@ -1,8 +1,7 @@
 // line-info.js
 import Line_Schedule from './line-schedule.js';
 import Round_Cross from '../components/round-cross.js';
-import Utils from "/src/utils/utils.js"
-import Switch_Event from "/src/components/switch.js";
+import Utils from "../utils/utils.js"
 
 /**
  * The **Ligne info** is an object used to display line information.

@@ -1,4 +1,4 @@
-import Utils from "/src/utils/utils.js";
+import Utils from "../utils/utils.js";
 
 /**
  * The **Base Panel** is a user interface element that remains fixed on the base side of the screen.

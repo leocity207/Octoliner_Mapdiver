@@ -1,7 +1,7 @@
-import Observable from "/src/utils/observable.js";
-import Toggleable from "/src/utils/toggleable.js";
-import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
-import Utils from "/src/utils/utils.js"
+import Observable from "../utils/observable.js";
+import Toggleable from "../utils/toggleable.js";
+import MixHTMLElementWith from "../utils/MixHTMLElement.js";
+import Utils from "../utils/utils.js"
 
 /**
  * The **Switch_Event** is a UI component that can hold two states and triggers an event when toggled by the user.

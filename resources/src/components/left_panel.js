@@ -1,7 +1,7 @@
 import Base_Panel from "./panel.js";
 import Switch_Event from "./switch.js";
 import Hamburger from "./hamburger.js";
-import Utils from "/src/utils/utils.js";
+import Utils from "../utils/utils.js";
 
 
 /**

@@ -1,9 +1,8 @@
-import { Subject } from "/src/../libraries/RxJS_wrapper.js";
-import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
-import Observable  from "/src/utils/mixHTMLElement.js";
-import Utils from "/src/utils/utils.js";
-import Hamburger from "/src/components/hamburger.js"
-import Search_Bar from "/src/components/search_bar.js"
+import MixHTMLElementWith from "../utils/MixHTMLElement.js";
+import Observable  from "../utils/observable.js";
+import Utils from "../utils/utils.js";
+import Hamburger from "../components/hamburger.js"
+import Search_Bar from "../components/search_bar.js"
 
 /**
  * The **Sticky Header** is a user interface element that remains fixed at the top of the page, ensuring important navigation components are always accessible, even as the user scrolls.

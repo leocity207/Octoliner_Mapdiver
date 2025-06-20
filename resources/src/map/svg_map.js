@@ -1,6 +1,7 @@
-import { fabric } from '../../libraries/fabric_wrapper.js';
-import { anime } from '../../libraries/animejs_wrapper.js';
-import { Hammer } from '../../libraries/hammer_wrapper.js';
+import * as fabric from 'fabric';
+import { FabricObject, Canvas, loadSVGFromURL, util } from 'fabric';
+import { animate, utils } from 'animejs';
+import Hammer from 'hammerjs';
 import {normalizeWheel} from '../../libraries/normalizeWheel.js';
 import Utils from '../utils/utils.js';
 
@@ -117,7 +118,7 @@ class SVG_Map {
 	Setup = (language, id) => {
 		this.language = language
 
-		this.fabric_canvas = new fabric.Canvas(id, {
+		this.fabric_canvas = new Canvas(id, {
 			imageSmoothingEnabled: false,
 			width: window.innerWidth,
 			height: window.innerHeight,
@@ -127,8 +128,8 @@ class SVG_Map {
 
 		// load map from public folder
 		return new Promise((resolve, reject) => {
-			fabric.loadSVGFromURL(this.filename, (objects, options) => {
-				let obj = fabric.util.groupSVGElements(objects, options);
+			loadSVGFromURL(this.filename, (objects, options) => {
+				let obj = util.groupSVGElements(objects, options);
 				obj.set('originX', 'center');
 				obj.set('originY', 'center');
 				obj.set('subTargetCheck', true); // if false, no mouse event gets propagated to any child
@@ -201,7 +202,7 @@ class SVG_Map {
 	Animated_Pan_Zoom = async (zoom_box = null) => {
 
 		// if an animation is running, interrupt it
-		anime.remove(this.move_zoom_animation_obj)
+		utils.remove(this.move_zoom_animation_obj)
 		// reset animation state
 		this._Handle_Animation_State(true);
 
@@ -223,7 +224,7 @@ class SVG_Map {
 		// find the zoom difference
 		const zoom_diff_distance = zoom_box.zoom_level > orig_zoom ? zoom_box.zoom_level - orig_zoom : orig_zoom - zoom_box.zoom_level
 		const animation_time = Calc_Map_Animation_Timing(point_diff_distance, zoom_diff_distance)
-		await anime({
+		await animate({
 			targets: that.move_zoom_animation_obj,
 			zoom: zoom_box.zoom_level,
 			x: target_x,
@@ -274,7 +275,7 @@ class SVG_Map {
 		await new Promise(resolve => setTimeout(resolve, this.config.INITIAL_ZOOM_MOVE_DELAY));
 
 		// Wait for the animation to complete
-		await anime({
+		await animate({
 				targets: initial_zoom_move_obj,
 				zoom: target_zoom,
 				x: target_x,
@@ -747,17 +748,9 @@ class SVG_Map {
 	 *Staticaly initialize fabric
 	 */
 	static _Initialize_Fabric() {
-		// adjust some stuff in the library for better randering
-		fabric.Object.prototype.objectCaching = false;
-		// we need to add "class" as a attribute to the parser, else it get's lost!
-		fabric.SHARED_ATTRIBUTES.push('class')
-		// add it to the objects we need, because shared attributes above is merged with them on library initialization :-()
-		fabric.Path.ATTRIBUTE_NAMES.push('class')
-		fabric.Line.ATTRIBUTE_NAMES.push('class')
-		fabric.Text.ATTRIBUTE_NAMES.push('class')
-		fabric.Rect.ATTRIBUTE_NAMES.push('class')
-		fabric.Circle.ATTRIBUTE_NAMES.push('class')
-		fabric.Polygon.ATTRIBUTE_NAMES.push('class')
+		if (!FabricObject.customProperties?.includes('class')) {
+			FabricObject.customProperties = [...(FabricObject.customProperties || []), 'class'];
+			}
 	}
 
 

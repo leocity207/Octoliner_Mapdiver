@@ -1,6 +1,6 @@
-import Observable from "/src/utils/Observable.js";
-import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
-import Utils from "/src/utils/utils.js"
+import Observable from "../utils/Observable.js";
+import MixHTMLElementWith from "../utils/MixHTMLElement.js";
+import Utils from "../utils/utils.js"
 
 /**
  * Search bar can be used to display research help

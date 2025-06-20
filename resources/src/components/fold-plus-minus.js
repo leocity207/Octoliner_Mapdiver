@@ -1,6 +1,6 @@
-import Toggleable from "/src/utils/toggleable.js";
-import MixHTMLElementWith from "/src/utils/MixHTMLElement.js";
-import Utils from "/src/utils/utils.js"
+import Toggleable from "../utils/toggleable.js";
+import MixHTMLElementWith from "../utils/MixHTMLElement.js";
+import Utils from "../utils/utils.js"
 
 /**
  * Plus_Minus cycles between "plus" and "minus" states visually.

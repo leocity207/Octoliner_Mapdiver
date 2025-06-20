@@ -1,4 +1,4 @@
-import { Subject, filter } from "../../libraries/RxJS_wrapper.js";
+import { Subject, filter } from "rxjs";
 
 /**
  * Observable enables event-based communication using RxJS.

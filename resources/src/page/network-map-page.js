@@ -1,9 +1,9 @@
 import Network_Map from "../map/network_map.js";
 import Map_Page from "./svg-map-page.js";
-import Utils from "/src/utils/utils.js";
-import { Config, Network_Config} from "/src/../resources-config/config.js"
-import Switch_Event from "/src/components/switch.js";
-import Round_Cross from "/src/components/round-cross.js";
+import Utils from "../utils/utils.js";
+import { Config, Network_Config} from "../../resources-config/config.js"
+import Switch_Event from "../components/switch.js";
+import Round_Cross from "../components/round-cross.js";
 
 /**
  * Network_Map_Station define a node that contain a Network_Map object

@@ -50,3 +50,20 @@ src/config.h
 
 #resources
 resources/resources-config*
+
+# pnpm store and node modules
+node_modules/
+.pnpm-store/      # pnpm local store (utile si configuré ici) :contentReference[oaicite:1]{index=1}
+.pnpm/            # si vous utilisez virtual store sous le dossier .pnpm :contentReference[oaicite:2]{index=2}
+
+# Rollup output / build artifacts
+resources/bundle.js    # le bundle généré
+# ou si vous utilisez un dossier dédié comme dist/
+dist/
+build/
+
+# fichiers de log et config locaux
+npm-debug.log*
+pnpm-debug.log*
+*.env
+.DS_Store

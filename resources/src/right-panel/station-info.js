@@ -1,6 +1,6 @@
 import Line_Schedule from './line-schedule.js';
 import Round_Cross from '../components/round-cross.js';
-import Utils from '/src/utils/utils.js';
+import Utils from '../utils/utils.js';
 
 /**
  * The **Station_Info** is an object used to display station schedule information.

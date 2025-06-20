@@ -2,7 +2,7 @@ import * as fabric from 'fabric';
 import { FabricObject, Canvas, loadSVGFromURL, util } from 'fabric';
 import { animate, utils } from 'animejs';
 import Hammer from 'hammerjs';
-import {normalizeWheel} from '../../libraries/normalizeWheel.js';
+import normalizeWheel from 'normalize-wheel';
 import Utils from '../utils/utils.js';
 
 

@@ -28,6 +28,7 @@
 		"animejs": "3.2.1",
 		"fabric": "4.6.0",
 		"hammerjs": "^2.0.8",
+		"normalize-wheel": "^1.0.1",
 		"rxjs": "^7.8.2"
 	}
 }

@@ -1,7 +1,7 @@
 import { fabric } from 'fabric';
 import anime from 'animejs';
 import Hammer from 'hammerjs';
-import {normalizeWheel} from '../../libraries/normalizeWheel.js';
+import normalizeWheel from 'normalize-wheel';
 import Utils from '../utils/utils.js';
 
 

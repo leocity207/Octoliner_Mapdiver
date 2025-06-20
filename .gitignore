@@ -53,11 +53,12 @@ resources/resources-config*
 
 # pnpm store and node modules
 node_modules/
-.pnpm-store/      # pnpm local store (utile si configuré ici) :contentReference[oaicite:1]{index=1}
-.pnpm/            # si vous utilisez virtual store sous le dossier .pnpm :contentReference[oaicite:2]{index=2}
+.pnpm-store/
+.pnpm/
 
 # Rollup output / build artifacts
-resources/bundle.js    # le bundle généré
+resources/bundle.js
+resources/bundle.js.map
 # ou si vous utilisez un dossier dédié comme dist/
 dist/
 build/
@@ -67,3 +68,5 @@ npm-debug.log*
 pnpm-debug.log*
 *.env
 .DS_Store
+
+

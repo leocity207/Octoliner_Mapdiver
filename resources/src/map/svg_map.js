@@ -1,5 +1,5 @@
 import * as fabric from 'fabric';
-import { FabricObject, Canvas, loadSVGFromURL, util } from 'fabric';
+import { loadSVGFromURL, util, FabricObject, Path, Line, Text, Rect, Circle, Polygon, Canvas } from 'fabric';
 import { animate, utils } from 'animejs';
 import Hammer from 'hammerjs';
 import normalizeWheel from 'normalize-wheel';
@@ -115,46 +115,55 @@ class SVG_Map {
 	* @param {String} language language of the map
 	* @param {String} id id to create the canva to
 	*/
-	Setup = (language, id) => {
+	Setup = async (language, id) => {
 		this.language = language
 
 		this.fabric_canvas = new Canvas(id, {
 			imageSmoothingEnabled: false,
 			width: window.innerWidth,
 			height: window.innerHeight,
+ 			enableRetinaScaling: true,
+  			renderOnAddRemove: true,
 			allowTouchScrolling: true,
 			selection: false,
 		});
 
 		// load map from public folder
-		return new Promise((resolve, reject) => {
-			loadSVGFromURL(this.filename).then(({ objects, options }) => {
-				let obj = util.groupSVGElements(objects, options);
-				obj.set('originX', 'center');
-				obj.set('originY', 'center');
-				obj.set('subTargetCheck', true); // if false, no mouse event gets propagated to any child
-				obj.set('skipOffscreen', true); // skip rendering outside of canvas
-				obj.set('hasControls', false); // remove any handlers for rotation or scale
-				this.fabric_canvas.add(obj);
-				this.svg_main_group = obj;
-				let initial_zoom = this._Best_Initial_Zoom(); // calculate the zoom that fits best
-				this.fabric_canvas.setZoom(initial_zoom);
-				this.fabric_canvas.viewportCenterObject(obj); // center the svg in the viewport, take zoom into account
-				this.fabric_canvas.requestRenderAll();
-				// fill check bound data with initial values
-				this.last_bounding_data = {
-					left: obj.left,
-					top: obj.top,
-					right: obj.left,
-					bottom: obj.top
-				};
-				resolve();
-			})
-			.catch(err => {
-				console.error('Failed to load SVG:', err);
-				reject(err);
+		try {
+			const { objects, options } = await loadSVGFromURL(this.filename);
+			const obj = util.groupSVGElements(objects, options);
+			obj.forEachObject(o => {
+				o.set({
+					objectCaching: false,
+					dirty: true,
+					noScaleCache: true,
+				});
 			});
-		});
+			Object.assign(obj, {
+				originX: 'center',
+				originY: 'center',
+				subTargetCheck: true,
+				skipOffscreen: true,
+				hasControls: false,
+				objectCaching: false,
+				dirty: true,
+				noScaleCache: true,
+			});
+			this.fabric_canvas.add(obj);
+			this.svg_main_group = obj;
+
+			const initialZoom = this._Best_Initial_Zoom();
+			this.fabric_canvas.setZoom(initialZoom);
+			this.fabric_canvas.viewportCenterObject(obj);
+			this.fabric_canvas.requestRenderAll();
+
+			this.last_bounding_data = {
+				left: obj.left, top: obj.top,
+				right: obj.left, bottom: obj.top
+			};
+		} catch (err) {
+			throw Error('Failed to load SVG:', err);
+		}
 	}
 
 	/**
@@ -228,18 +237,20 @@ class SVG_Map {
 		// find the zoom difference
 		const zoom_diff_distance = zoom_box.zoom_level > orig_zoom ? zoom_box.zoom_level - orig_zoom : orig_zoom - zoom_box.zoom_level
 		const animation_time = Calc_Map_Animation_Timing(point_diff_distance, zoom_diff_distance)
-		await animate({
-			targets: that.move_zoom_animation_obj,
-			zoom: zoom_box.zoom_level,
-			x: target_x,
-			y: target_y,
-			easing: this.config.DEFAULT_ANIMATION_EASING,
+		await animate(that.move_zoom_animation_obj, {
+			zoom: { to: zoom_box.zoom_level , modifier: utils.round(3)},
+			x: { to: target_x ,modifier: utils.round(2)},
+			y: { to: target_y ,modifier: utils.round(2)},
+			ease: this.config.DEFAULT_ANIMATION_EASING,
 			duration: animation_time,
-			update: function () {
-				that.fabric_canvas.setZoom(1); // this is very important!
-				that.fabric_canvas.absolutePan({ x: that.move_zoom_animation_obj.x, y: that.move_zoom_animation_obj.y });
+			onUpdate: () => {
+				that.fabric_canvas.setZoom(1); // critical reset
+				that.fabric_canvas.absolutePan({
+				x: that.move_zoom_animation_obj.x,
+				y: that.move_zoom_animation_obj.y
+				});
 				that.fabric_canvas.setZoom(that.move_zoom_animation_obj.zoom);
-				that.fabric_canvas.renderAll();
+				//that.fabric_canvas.renderAll();
 			}
 		});
 
@@ -279,22 +290,23 @@ class SVG_Map {
 		await new Promise(resolve => setTimeout(resolve, this.config.INITIAL_ZOOM_MOVE_DELAY));
 
 		// Wait for the animation to complete
-		await animate({
-				targets: initial_zoom_move_obj,
-				zoom: target_zoom,
-				x: target_x,
-				y: target_y,
-				easing: this.config.DEFAULT_ANIMATION_EASING,
-				duration: this.client_type === 'mobile' ? this.config.INITIAL_ZOOM_MOVE_TIME_MOBILE : this.config.INITIAL_ZOOM_MOVE_TIME_DESKTOP,
-				update: () => {
-					this.fabric_canvas.setZoom(1);
-					this.fabric_canvas.absolutePan({ x: initial_zoom_move_obj.x, y: initial_zoom_move_obj.y });
-					this.fabric_canvas.setZoom(initial_zoom_move_obj.zoom);
-					this.fabric_canvas.renderAll();
-				}
-		}).finished;
+		await animate(initial_zoom_move_obj, {
+			zoom: { to: target_zoom, modifier: utils.round(4)},
+			x: { to: target_x, modifier: utils.round(2)},
+			y: { to: target_y, modifier: utils.round(2)},
+			ease: this.config.DEFAULT_ANIMATION_EASING,
+			duration: this.client_type === 'mobile'
+				? this.config.INITIAL_ZOOM_MOVE_TIME_MOBILE
+				: this.config.INITIAL_ZOOM_MOVE_TIME_DESKTOP,
+			onUpdate: () => {
+				this.fabric_canvas.setZoom(1);
+				this.fabric_canvas.absolutePan({ x: initial_zoom_move_obj.x, y: initial_zoom_move_obj.y });
+				this.fabric_canvas.setZoom(initial_zoom_move_obj.zoom);
+				this.fabric_canvas.renderAll();
+			}
+		});
 
-				this.map_animation_run = false;
+		this.map_animation_run = false;
 	}
 
 	/**
@@ -752,23 +764,42 @@ class SVG_Map {
 	 *Staticaly initialize fabric
 	 */
 	static _Initialize_Fabric() {
-		if (!FabricObject.customProperties?.includes('class')) {
-			FabricObject.customProperties = [...(FabricObject.customProperties || []), 'class'];
+		FabricObject.prototype.noScaleCache = false;
+
+		FabricObject.customProperties = FabricObject.customProperties || [];
+		if (!FabricObject.customProperties.includes('class')) {
+			FabricObject.customProperties.push('class');
+		}
+
+		[Path, Line, Text, Rect, Circle, Polygon].forEach(Klass => {
+			Klass.ATTRIBUTE_NAMES = Klass.ATTRIBUTE_NAMES || [];
+			if (!Klass.ATTRIBUTE_NAMES.includes('class')) {
+			Klass.ATTRIBUTE_NAMES.push('class');
 			}
+		});
 	}
 
 
 	/**
 	 * Change the inner map container width and height to the desired size
-	 * @param {float} map_containter_width desired width of the map canvas
+	 * @param {float} map_container_width desired width of the map canvas
 	 * @param {float} map_container_height desired height of the map canvas
 	 */
-	Zoom_Check_Map_Resize = (map_containter_width, map_container_height) => {
+	Zoom_Check_Map_Resize = (map_container_width, map_container_height) => {
 
-		this.fabric_canvas.setWidth(map_containter_width);
-		this.fabric_canvas.setHeight(map_container_height);
-		this.fabric_canvas.calcOffset();
-		this.fabric_canvas.requestRenderAll();
+	this.fabric_canvas.setDimensions({
+		width: map_container_width,
+		height: map_container_height
+	}, { // options pour CSS et gestion retina
+		cssOnly: false,
+		backstoreOnly: false
+	});
+
+	// recalcul des offsets (DOM)
+	this.fabric_canvas.calcOffset();
+
+	// relance le rendu
+	//this.fabric_canvas.requestRenderAll();
 
 	}
 }

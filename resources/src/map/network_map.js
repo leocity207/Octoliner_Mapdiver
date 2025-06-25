@@ -111,7 +111,7 @@ class Network_Map extends SVG_Map {
 			obj.set(target, color)
 		else
 			obj.animate(target, color, {
-				"duration": this.config.COLOR_ANIMATION_TIME,
+				"duration": this.network_config.COLOR_ANIMATION_TIME,
 				onChange: that.fabric_canvas.requestRenderAll.bind(that.fabric_canvas)
 			});
 	}

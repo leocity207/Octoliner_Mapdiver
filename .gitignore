@@ -67,3 +67,5 @@ npm-debug.log*
 pnpm-debug.log*
 *.env
 .DS_Store
+resources/bundle.js
+resources/bundle.js.map

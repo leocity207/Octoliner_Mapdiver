@@ -6,7 +6,8 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "pnpm rollup -c",
-		"watch": "pnpm rollup -c --watch"
+		"dev-nwatch": "pnpm rollup -c --environment NODE_ENV:dev",
+		"dev": "pnpm rollup -c --watch --environment NODE_ENV:dev"
 	},
 	"keywords": [],
 	"author": "",

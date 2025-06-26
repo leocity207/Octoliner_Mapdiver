@@ -1,5 +1,6 @@
 import SVG_Map from './svg_map.js';
 import Utils from '../utils/utils.js';
+import { Color, util } from 'fabric';
 
 
 /**
@@ -106,14 +107,35 @@ class Network_Map extends SVG_Map {
 	* @param target the target property of the object you want to change its color (can be 'strock' or 'fill')
 	*/
 	_Change_Obj_Color = (obj, color, target = 'stroke') => {
-		let that = this;
-		if(this.config.HARD_ANIMATION_TRANSITION)
-			obj.set(target, color)
-		else
-			obj.animate(target, color, {
-				"duration": this.network_config.COLOR_ANIMATION_TIME,
-				onChange: that.fabric_canvas.requestRenderAll.bind(that.fabric_canvas)
+		if (this.config.HARD_ANIMATION_TRANSITION) {
+			obj.set(target, color);
+			this.fabric_canvas.requestRenderAll();
+		} else {
+			const fromColor = new Color(obj[target] || '#000');
+			const toColor = new Color(color);
+
+			let animationProgress = { t: 0 };
+			util.animate({
+			startValue: 0,
+			endValue: 1,
+			duration: this.network_config.COLOR_ANIMATION_TIME,
+			onChange: (t) => {
+				animationProgress.t = t;
+				const currentColor = this._Interpolate_Color(fromColor, toColor, t).toRgba();
+				obj.set(target, currentColor);
+				this.fabric_canvas.requestRenderAll();
+			},
 			});
+		}
+	};
+
+	_Interpolate_Color = (from, to ,t) => {
+		const from_array = from.getSource();
+		const to_array = to.getSource();
+		let final_array = new Array(4)
+		for(let i of [0, 1, 2, 3])
+			final_array[i] = from_array[i]*(1-t) + to_array[i]*t
+		return new Color(final_array);
 	}
 
 	/**
